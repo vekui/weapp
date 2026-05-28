@@ -1,0 +1,18 @@
+# VekUI WeApp
+
+VekUI WeApp is a shadcn-style source registry for Taro React WeChat mini programs.
+
+Important local docs:
+
+- /weapp/quick-start/
+- /weapp/cli/
+- /weapp/components/
+- /weapp/theme/
+- /weapp/registry/
+- /weapp/ai-coding/
+
+Agent rules:
+
+- Do not use Radix, browser DOM APIs, ReactDOM, lucide-react, or third-party mini-program UI libraries inside VekUI components.
+- Use semantic token classes and mini-program-safe Tailwind utilities.
+- Treat packages/ui as canonical source and packages/registry as the public distribution contract.

@@ -1,0 +1,22 @@
+{
+  "name": "vekui",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "vekui": "./dist/index.js"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@vekui/registry": "workspace:*",
+    "@types/node": "24.10.2",
+    "typescript": "5.9.3",
+    "vitest": "0.34.6"
+  }
+}
