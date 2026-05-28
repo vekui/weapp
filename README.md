@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/brand/vekui-logo.png" alt="VekUI logo" width="520" />
+</p>
+
 # VekUI WeApp
 
 VekUI WeApp 是为 Taro React 微信小程序准备的源码分发型 UI 组件库。它参考 shadcn/ui 的开发体验：开发者通过 `vekui` CLI 把组件源码、样式 token 和工具函数安装到自己的小程序项目里，然后在本地拥有这些代码。
