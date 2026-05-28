@@ -1,0 +1,7 @@
+@import "@vekui/weapp/styles.css";
+
+page {
+  min-height: 100%;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

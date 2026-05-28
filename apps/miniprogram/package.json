@@ -1,0 +1,39 @@
+{
+  "name": "@vekui/miniprogram",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "dev:weapp": "taro build --type weapp --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tarojs/components": "4.2.0",
+    "@tarojs/helper": "4.2.0",
+    "@tarojs/plugin-framework-react": "4.2.0",
+    "@tarojs/plugin-platform-weapp": "4.2.0",
+    "@tarojs/react": "4.2.0",
+    "@tarojs/runtime": "4.2.0",
+    "@tarojs/shared": "4.2.0",
+    "@tarojs/taro": "4.2.0",
+    "@vekui/weapp": "workspace:*",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "7.29.7",
+    "@tailwindcss/postcss": "4.3.0",
+    "@tarojs/cli": "4.2.0",
+    "@tarojs/vite-runner": "4.2.0",
+    "@types/node": "24.10.2",
+    "@types/react": "18.3.29",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "4.7.0",
+    "autoprefixer": "10.4.23",
+    "postcss": "8.5.6",
+    "tailwindcss": "4.3.0",
+    "vite": "4.5.14",
+    "weapp-tailwindcss": "4.12.0"
+  }
+}

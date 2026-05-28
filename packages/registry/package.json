@@ -1,0 +1,23 @@
+{
+  "name": "@vekui/registry",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "zod": "4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.2",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "vitest": "0.34.6"
+  }
+}

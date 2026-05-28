@@ -1,0 +1,15 @@
+node_modules
+dist
+out
+.next
+.turbo
+coverage
+*.tsbuildinfo
+.DS_Store
+apps/miniprogram/dist
+apps/miniprogram/.swc
+apps/docs/public/r/*.json
+!apps/docs/public/r/.gitkeep
+!.npmrc
+!pnpm-lock.yaml
+!apps/miniprogram/project.config.json
