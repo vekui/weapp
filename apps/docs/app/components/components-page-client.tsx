@@ -1,5 +1,6 @@
 "use client"
 
+import { Check, Copy } from "lucide-react"
 import { useMemo, useState } from "react"
 import {
   componentCatalog,
@@ -221,11 +222,16 @@ function SourceCodeBlock({ code, filename }: { code: string; filename: string })
   const [collapsed, setCollapsed] = useState(false)
   const lines = code.split("\n")
 
-  async function copyCode() {
-    try {
-      await navigator.clipboard.writeText(code)
-      setCopyLabel("Copied")
-    } catch {
+  function copyCode() {
+    setCopyLabel("Copied")
+
+    const copyPromise = navigator.clipboard?.writeText(code)
+
+    if (copyPromise) {
+      copyPromise.catch(() => {
+        setCopyLabel("Copy failed")
+      })
+    } else {
       setCopyLabel("Copy failed")
     }
 
@@ -235,16 +241,32 @@ function SourceCodeBlock({ code, filename }: { code: string; filename: string })
   return (
     <div className="vekui-source-card" data-collapsed={collapsed ? "true" : "false"}>
       <div className="vekui-source-card__header">
-        <div>
+        <div className="vekui-source-card__meta">
           <span>TS</span>
           <code>{filename}</code>
         </div>
-        <div>
-          <button onClick={() => setCollapsed((value) => !value)} type="button">
+        <div className="vekui-source-card__actions">
+          <button
+            className="vekui-source-card__text-button"
+            onClick={() => setCollapsed((value) => !value)}
+            type="button"
+          >
             {collapsed ? "Expand" : "Collapse"}
           </button>
-          <button onClick={copyCode} type="button">
-            {copyLabel}
+          <button
+            aria-label={copyLabel === "Copy" ? "Copy source code" : copyLabel}
+            className="vekui-source-card__icon-button"
+            data-state={copyLabel === "Copied" ? "success" : "idle"}
+            onClick={copyCode}
+            title={copyLabel === "Copy" ? "Copy source code" : copyLabel}
+            type="button"
+          >
+            {copyLabel === "Copied" ? (
+              <Check aria-hidden="true" className="vekui-source-card__copy-icon" size={16} strokeWidth={1.75} />
+            ) : (
+              <Copy aria-hidden="true" className="vekui-source-card__copy-icon" size={16} strokeWidth={1.75} />
+            )}
+            <span className="vekui-sr-only">{copyLabel}</span>
           </button>
         </div>
       </div>

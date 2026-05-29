@@ -54,3 +54,9 @@ src/
 ## AI Coding
 
 如果你用 Codex、Claude Code 或其他 Agent 扩展组件，请先把 `AGENTS.md` 放进上下文。核心原则是：先更新 registry 和文档，再实现组件和测试，最后运行完整验证。
+
+## 版本更新
+
+- 影响 CLI、registry、`packages/ui`、`apps/miniprogram`、文档站或开发规则的改动，都要同步更新根目录 `CHANGELOG.md` 的 `Unreleased`。
+- 正式发布时，把 `Unreleased` 下沉到对应版本号并记录发布日期。
+- 版本记录采用 Keep a Changelog 分类，优先使用 `Added`、`Changed`、`Fixed`、`Deprecated`、`Removed`、`Security`。

@@ -9,6 +9,7 @@ Important local docs:
 - /weapp/components/
 - /weapp/theme/
 - /weapp/registry/
+- /weapp/changelog/
 - /weapp/ai-coding/
 
 Agent rules:

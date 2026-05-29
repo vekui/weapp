@@ -33,6 +33,10 @@ pnpm build:miniprogram
 pnpm build:docs
 ```
 
+## 版本更新
+
+版本变更记录在 [CHANGELOG.md](CHANGELOG.md)。未发布改动先进入 `Unreleased`，正式发布时再按 SemVer 下沉到对应版本。
+
 ## 设计边界
 
 - 不在 `packages/ui` 中引入 `@radix-ui/*`、浏览器 DOM API 或第三方小程序 UI 库。

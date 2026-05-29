@@ -5,6 +5,7 @@ export default {
   components: "组件",
   theme: "主题",
   registry: "Registry",
+  changelog: "Changelog",
   contributing: "贡献指南",
   "ai-coding": "AI Coding"
 }
