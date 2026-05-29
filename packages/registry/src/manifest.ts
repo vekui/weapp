@@ -20,7 +20,7 @@ const sharedDependencies = {
   "tailwind-merge": "3.6.0"
 }
 
-const migratedComponentNames = [
+const registryComponentNames = [
   "action-sheet",
   "accordion",
   "activity-indicator",
@@ -59,6 +59,7 @@ const migratedComponentNames = [
   "input-number",
   "input-otp",
   "item",
+  "kbd",
   "label",
   "list",
   "load-more",
@@ -134,6 +135,7 @@ const dependencyOverrides: Record<string, string[]> = {
   icon: ["utils"],
   image: ["icon", "primitives", "state"],
   "input-number": ["icon", "primitives", "state"],
+  kbd: ["primitives"],
   "load-more": ["spinner", "primitives", "state"],
   "float-layout": ["layer", "state", "primitives"],
   modal: ["layer", "state", "primitives"],
@@ -173,7 +175,7 @@ function toTitle(name: string) {
     .join(" ")
 }
 
-function componentItem(name: (typeof migratedComponentNames)[number]): RegistryItem {
+function componentItem(name: (typeof registryComponentNames)[number]): RegistryItem {
   const title = toTitle(name)
 
   return {
@@ -311,7 +313,7 @@ export const registryItems: RegistryItem[] = [
       }
     ]
   },
-  ...migratedComponentNames.map(componentItem)
+  ...registryComponentNames.map(componentItem)
 ]
 
-export const publicComponentNames = [...migratedComponentNames]
+export const publicComponentNames = [...registryComponentNames]

@@ -196,6 +196,16 @@ const availableBySlug: Record<
     state: "data-state",
     taroNote: "面向点击/触摸切换，不依赖 hover-only 或 Web menu-bar 行为。"
   },
+  kbd: {
+    command: "pnpm dlx vekui add kbd --cwd .",
+    dependency: "primitives",
+    description: "用于展示键盘快捷键和输入提示的内联 token 组件。",
+    exportName: "Kbd",
+    registryPath: "/weapp/r/kbd.json",
+    source: "packages/ui/src/components/kbd.tsx",
+    state: "data-disabled",
+    taroNote: "通过 Taro Text 渲染，不依赖 Web kbd 标签或 DOM API。"
+  },
   textarea: {
     command: "pnpm dlx vekui add textarea --cwd .",
     dependency: "variants",
