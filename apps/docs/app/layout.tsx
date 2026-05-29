@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Navbar
               logo={
                 <span className="vekui-nav-logo">
-                  <img src="/weapp/vekui-logo.png" alt="" />
+                  <img src="/weapp/vekui-mark.png" alt="" />
                   <b>VekUI WeApp</b>
                 </span>
               }

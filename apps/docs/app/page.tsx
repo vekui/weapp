@@ -1,92 +1,131 @@
-export default function HomePage() {
-  const installCommands = `pnpm dlx vekui init --cwd . --yes
+const installCommands = `pnpm dlx vekui init --cwd . --yes
 pnpm dlx vekui add button input --cwd .`
 
-  const foundations = [
-    {
-      label: "Registry-first",
-      title: "像 shadcn 一样分发源码",
-      body: "组件、样式 token、工具函数通过 registry 安装到业务项目，开发者拥有代码。"
-    },
-    {
-      label: "Taro-safe",
-      title: "为微信小程序约束重写",
-      body: "不使用 Radix、DOM API 或浏览器 portal，组件基于 @tarojs/components。"
-    },
-    {
-      label: "Agent-ready",
-      title: "给 AI Coding 明确边界",
-      body: "AGENTS.md、UI rules、测试门禁和 registry manifest 共同约束生成质量。"
-    }
-  ]
+const qualityGates = ["typecheck", "test", "check:ui", "build:miniprogram", "build:docs"]
 
-  const workflow = [
-    "pnpm dlx vekui init --cwd . --yes",
-    "pnpm dlx vekui add button input --cwd .",
-    "pnpm dlx vekui doctor --cwd .",
-    "pnpm build:miniprogram"
-  ]
+const foundations = [
+  {
+    label: "01",
+    title: "Registry-first",
+    body: "组件、样式 token、工具函数和规则通过 registry 复制到业务项目，开发者拿到的是源码。"
+  },
+  {
+    label: "02",
+    title: "Taro-safe",
+    body: "组件基于 @tarojs/components，不依赖 Radix、ReactDOM、浏览器 DOM API 或 portal。"
+  },
+  {
+    label: "03",
+    title: "Agent-ready",
+    body: "AGENTS.md、UI rules、doctor 检查和测试门禁，让 AI Coding 有明确边界。"
+  }
+]
 
-  const roadmap = [
-    {
-      phase: "01",
-      title: "组件质量",
-      body: "每个组件补齐 API、状态属性、token class、交互边界和小程序兼容性测试。"
-    },
-    {
-      phase: "02",
-      title: "文档体验",
-      body: "组件页给出真实 Taro 用法、源码落点、主题变量和常见问题，不做空泛展示。"
-    },
-    {
-      phase: "03",
-      title: "CLI / Registry",
-      body: "完善依赖解析、覆盖确认、dry-run、doctor 规则和 GitHub Pages registry 输出。"
-    },
-    {
-      phase: "04",
-      title: "Playground 验证",
-      body: "用微信开发者工具持续验证 demo、样式输出和运行时约束，避免只在 Web 里看起来能跑。"
-    }
-  ]
+const workflow = [
+  {
+    label: "Init",
+    title: "生成项目约定",
+    command: "pnpm dlx vekui init --cwd . --yes"
+  },
+  {
+    label: "Add",
+    title: "复制组件源码",
+    command: "pnpm dlx vekui add button input --cwd ."
+  },
+  {
+    label: "Doctor",
+    title: "检查 Taro / CSS / 禁用依赖",
+    command: "pnpm dlx vekui doctor --cwd ."
+  },
+  {
+    label: "Verify",
+    title: "进入微信小程序构建链路",
+    command: "pnpm build:miniprogram"
+  }
+]
 
+const roadmap = [
+  "把 12 个 v0 组件的文档补成 API、状态、源码路径、Taro 注意事项四段式。",
+  "把 CLI 的 dry-run、覆盖确认、registryDependencies 解析做成可预期体验。",
+  "把 playground 变成真实组件验收台，而不是截图式 demo。",
+  "把 GitHub Pages 上的 registry、文档和 AI 入口保持同步发布。"
+]
+
+export default function HomePage() {
   return (
     <main className="vekui-home">
-      <section className="vekui-hero">
-        <div className="vekui-hero__inner">
-          <div className="vekui-hero__copy">
-            <p className="vekui-eyebrow">AI Coding UI Component Library for WeApp</p>
-            <h1>VekUI WeApp</h1>
-            <p className="vekui-hero__lead">
-              面向 Taro React 微信小程序的源码分发组件库。用 shadcn/ui 的开发体验，
-              但遵守小程序运行时、样式和交互约束。
+      <section className="vekui-home-hero">
+        <div className="vekui-shell vekui-home-hero__grid">
+          <div className="vekui-home-hero__copy">
+            <img className="vekui-home-hero__wordmark" src="/weapp/vekui-wordmark.png" alt="VekUI" />
+            <p className="vekui-kicker">Taro React / WeChat Mini Program / Source Registry</p>
+            <h1>
+              <span>shadcn 风格</span>
+              <span>源码分发</span>
+              <span>Taro 小程序可用</span>
+            </h1>
+            <p className="vekui-home-hero__lead">
+              VekUI WeApp 参考 shadcn/ui 的开发体验，但默认遵守 Taro React
+              和微信小程序运行时约束。开发者通过 CLI 获取组件源码、样式 token 和项目规则。
             </p>
-            <div className="vekui-hero__actions">
-              <a href="/weapp/quick-start/">快速开始</a>
-              <a href="/weapp/registry/" data-variant="secondary">
-                查看 Registry
+            <div className="vekui-actions" aria-label="主要入口">
+              <a className="vekui-button vekui-button--primary" href="/weapp/quick-start/">
+                快速开始
+              </a>
+              <a className="vekui-button" href="/weapp/components/">
+                查看组件
               </a>
             </div>
           </div>
-          <div className="vekui-command-panel" aria-label="Install commands">
-            <div className="vekui-command-panel__bar">
-              <span />
-              <span />
-              <span />
-              <strong>terminal</strong>
+
+          <aside className="vekui-install-panel" aria-label="安装命令">
+            <div className="vekui-install-panel__header">
+              <span>install</span>
+              <strong>vekui</strong>
             </div>
             <pre>
               <code>{installCommands}</code>
             </pre>
-            <p>安装源码，而不是接入黑盒组件包。</p>
+            <div className="vekui-install-panel__footer">
+              <span>output</span>
+              <strong>组件源码落到你的项目里</strong>
+            </div>
+          </aside>
+        </div>
+
+        <div className="vekui-shell vekui-hero-proof">
+          <div>
+            <span>v0 scope</span>
+            <strong>12 个基础组件</strong>
+          </div>
+          <div>
+            <span>distribution</span>
+            <strong>GitHub Pages registry</strong>
+          </div>
+          <div>
+            <span>runtime</span>
+            <strong>Taro React + Vite</strong>
+          </div>
+          <div>
+            <span>rule</span>
+            <strong>No Radix / No DOM API</strong>
           </div>
         </div>
       </section>
 
-      <section className="vekui-section vekui-section--intro">
-        <p className="vekui-section__kicker">What it ships</p>
-        <h2>一个给开发者和 Agent 都能稳定使用的主仓库。</h2>
-        <div className="vekui-foundations">
+      <section className="vekui-section vekui-section--white">
+        <div className="vekui-shell vekui-section__split">
+          <div>
+            <p className="vekui-kicker">Repository contract</p>
+            <h2>不是 npm 黑盒组件包，是可审计、可改造、可让 Agent 消费的源码系统。</h2>
+          </div>
+          <p>
+            主仓库同时承载组件源码、CLI、registry builder、Taro playground、文档站和 AI
+            编码规则。每个功能都必须能从 registry 到小程序构建链路被验证。
+          </p>
+        </div>
+
+        <div className="vekui-shell vekui-foundation-grid">
           {foundations.map((item) => (
             <article key={item.label}>
               <span>{item.label}</span>
@@ -97,54 +136,73 @@ pnpm dlx vekui add button input --cwd .`
         </div>
       </section>
 
-      <section className="vekui-section vekui-workflow">
-        <div>
-          <p className="vekui-section__kicker">Developer path</p>
-          <h2>从 registry 到微信开发者工具，有一条完整验证链路。</h2>
-          <p>
-            v0 已包含 CLI、registry builder、12 个基础组件、Taro playground、GitHub
-            Pages 文档和 CI 门禁。后续每个组件都沿着这条链路扩展。
-          </p>
-        </div>
-        <ol>
-          {workflow.map((step, index) => (
-            <li key={step}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <code>{step}</code>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="vekui-section vekui-roadmap">
-        <div className="vekui-roadmap__header">
-          <p className="vekui-section__kicker">Development plan</p>
-          <h2>后续开发按四条主线推进，先把基础体验做扎实。</h2>
-        </div>
-        <div className="vekui-roadmap__grid">
-          {roadmap.map((item) => (
-            <article key={item.phase}>
-              <span>{item.phase}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
+      <section className="vekui-section">
+        <div className="vekui-shell vekui-system-grid">
+          <div className="vekui-system-grid__intro">
+            <p className="vekui-kicker">Developer path</p>
+            <h2>开发链路应该像命令行一样清楚。</h2>
+            <p>
+              首页只保留开发者真正需要的路径：初始化、添加组件、检查项目、进入小程序构建。
+              其它细节放到对应文档页里继续展开。
+            </p>
+          </div>
+          <ol className="vekui-workflow-list">
+            {workflow.map((step, index) => (
+              <li key={step.label}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <strong>{step.title}</strong>
+                  <code>{step.command}</code>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section className="vekui-section vekui-links">
-        <a href="/weapp/cli/">
-          <span>CLI</span>
-          <strong>init / add / list / doctor</strong>
-        </a>
-        <a href="/weapp/components/">
-          <span>Components</span>
-          <strong>12 个 Taro-safe v0 组件</strong>
-        </a>
-        <a href="/weapp/ai-coding/">
-          <span>AI Coding</span>
-          <strong>让 Agent 按 UI 边界工作</strong>
-        </a>
+      <section className="vekui-section vekui-section--ink">
+        <div className="vekui-shell vekui-quality-grid">
+          <div>
+            <p className="vekui-kicker">Quality gates</p>
+            <h2>每次合并都跑完整门禁，不靠感觉判断能不能用。</h2>
+          </div>
+          <div className="vekui-gate-list" aria-label="验证命令">
+            {qualityGates.map((gate) => (
+              <code key={gate}>pnpm {gate}</code>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="vekui-section vekui-section--white">
+        <div className="vekui-shell vekui-roadmap">
+          <div>
+            <p className="vekui-kicker">Development plan</p>
+            <h2>下一阶段只做会提高开发者信任感的事情。</h2>
+          </div>
+          <ul>
+            {roadmap.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="vekui-section vekui-section--links">
+        <div className="vekui-shell vekui-link-grid">
+          <a href="/weapp/quick-start/">
+            <span>Quick Start</span>
+            <strong>从空 Taro 项目接入 VekUI</strong>
+          </a>
+          <a href="/weapp/cli/">
+            <span>CLI</span>
+            <strong>init / add / list / doctor</strong>
+          </a>
+          <a href="/weapp/registry/">
+            <span>Registry</span>
+            <strong>/r/index.json 与组件条目</strong>
+          </a>
+        </div>
       </section>
     </main>
   )
