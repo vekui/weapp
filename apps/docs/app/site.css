@@ -614,6 +614,132 @@
   padding: 14px 16px;
 }
 
+.vekui-component-grid,
+.vekui-command-grid,
+.vekui-token-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 44px;
+}
+
+.vekui-component-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vekui-command-grid,
+.vekui-token-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vekui-component-grid article,
+.vekui-command-grid article,
+.vekui-token-grid article {
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  min-width: 0;
+}
+
+.vekui-component-grid article {
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  padding: 22px;
+}
+
+.vekui-component-grid span,
+.vekui-command-grid span {
+  color: var(--vk-accent-ink);
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.vekui-component-grid h3,
+.vekui-command-grid h3,
+.vekui-token-grid h3 {
+  font-size: 24px;
+  font-weight: 760;
+  line-height: 1.16;
+  margin-top: 18px;
+}
+
+.vekui-component-grid p,
+.vekui-command-grid p {
+  font-size: 15px;
+  margin: 18px 0 0;
+}
+
+.vekui-component-grid dl {
+  border-top: 1px solid var(--vk-border);
+  display: grid;
+  gap: 12px;
+  margin: auto 0 0;
+  padding-top: 18px;
+}
+
+.vekui-component-grid dl div {
+  align-items: baseline;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.vekui-component-grid dt {
+  color: var(--vk-muted);
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.vekui-component-grid dd {
+  color: var(--vk-ink);
+  font-size: 13px;
+  font-weight: 720;
+  margin: 0;
+  text-align: right;
+}
+
+.vekui-command-grid article,
+.vekui-token-grid article {
+  padding: 24px;
+}
+
+.vekui-command-grid pre {
+  background: var(--vk-surface-muted);
+  border: 1px solid var(--vk-border);
+  border-radius: 7px;
+  margin: 22px 0 0;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.vekui-command-grid code {
+  color: var(--vk-ink);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.vekui-token-grid article div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.vekui-token-grid code {
+  background: var(--vk-surface-muted);
+  border: 1px solid var(--vk-border);
+  border-radius: 999px;
+  color: var(--vk-ink);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  padding: 8px 11px;
+}
+
 .vekui-next-grid pre {
   padding: 24px;
 }
@@ -624,9 +750,303 @@
   margin: 18px 0 0;
 }
 
+.vekui-components-page {
+  background: var(--vk-surface);
+}
+
+.vekui-components-layout {
+  align-items: start;
+  display: grid;
+  gap: 116px;
+  grid-template-columns: 224px minmax(0, 720px);
+  padding: 48px 0 92px;
+}
+
+.vekui-components-sidebar {
+  max-height: calc(100svh - 104px);
+  overflow-y: auto;
+  position: sticky;
+  top: 84px;
+}
+
+.vekui-components-sidebar nav {
+  display: grid;
+  gap: 26px;
+}
+
+.vekui-components-sidebar p {
+  color: var(--vk-muted);
+  font-size: 12px;
+  font-weight: 760;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.vekui-components-sidebar a {
+  border-radius: 6px;
+  color: var(--vk-text);
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 7px 8px;
+  text-decoration: none;
+}
+
+.vekui-components-sidebar a:hover,
+.vekui-components-sidebar a:focus-visible {
+  background: var(--vk-surface-muted);
+  color: var(--vk-ink);
+}
+
+.vekui-components-content {
+  min-width: 0;
+}
+
+.vekui-components-header,
+.vekui-components-section,
+.vekui-components-install,
+.vekui-component-reference {
+  scroll-margin-top: 92px;
+}
+
+.vekui-components-header h1 {
+  font-size: 48px;
+  font-weight: 760;
+  line-height: 1.08;
+}
+
+.vekui-components-header p {
+  font-size: 18px;
+  margin: 18px 0 0;
+  max-width: 640px;
+}
+
+.vekui-components-mobile-nav {
+  display: none;
+}
+
+.vekui-components-install {
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr;
+  margin-top: 40px;
+  padding: 22px;
+}
+
+.vekui-components-install h2,
+.vekui-components-section h2 {
+  font-size: 24px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+.vekui-components-install p,
+.vekui-components-section p {
+  font-size: 15px;
+  margin: 10px 0 0;
+}
+
+.vekui-components-install pre,
+.vekui-component-reference pre {
+  background: var(--vk-surface-muted);
+  border: 1px solid var(--vk-border);
+  border-radius: 7px;
+  margin: 0;
+  overflow-x: auto;
+  padding: 15px 16px;
+}
+
+.vekui-components-install code,
+.vekui-component-reference code {
+  color: var(--vk-ink);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: normal;
+  white-space: pre-wrap;
+}
+
+.vekui-components-section {
+  border-top: 1px solid var(--vk-border);
+  margin-top: 44px;
+  padding-top: 34px;
+}
+
+.vekui-components-index {
+  display: grid;
+  gap: 12px 44px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
+.vekui-components-index a {
+  color: var(--vk-ink);
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.vekui-components-index a:hover,
+.vekui-components-index a:focus-visible {
+  color: var(--vk-accent-ink);
+  text-decoration: underline;
+}
+
+.vekui-components-group-heading {
+  margin-bottom: 22px;
+}
+
+.vekui-component-reference-list {
+  display: grid;
+  gap: 12px;
+}
+
+.vekui-component-reference {
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  padding: 22px;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.vekui-component-reference:target {
+  background: rgba(21, 164, 111, 0.045);
+  border-color: rgba(21, 164, 111, 0.42);
+}
+
+.vekui-component-reference__header {
+  align-items: start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.vekui-component-reference__header span {
+  color: var(--vk-muted);
+  display: block;
+  font-size: 12px;
+  font-weight: 760;
+  line-height: 1.3;
+}
+
+.vekui-component-reference h3 {
+  font-size: 22px;
+  font-weight: 760;
+  line-height: 1.18;
+  margin-top: 6px;
+}
+
+.vekui-component-reference__header a {
+  border: 1px solid var(--vk-border);
+  border-radius: 999px;
+  color: var(--vk-text);
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 8px 10px;
+  text-decoration: none;
+}
+
+.vekui-component-reference__header a:hover,
+.vekui-component-reference__header a:focus-visible {
+  border-color: var(--vk-border-strong);
+  color: var(--vk-ink);
+}
+
+.vekui-component-reference p {
+  font-size: 15px;
+  margin: 16px 0;
+}
+
+.vekui-component-reference dl {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 16px 0 0;
+}
+
+.vekui-component-reference dl div {
+  border-top: 1px solid var(--vk-border);
+  padding-top: 14px;
+}
+
+.vekui-component-reference dt {
+  color: var(--vk-muted);
+  font-size: 12px;
+  font-weight: 760;
+  line-height: 1.3;
+}
+
+.vekui-component-reference dd {
+  color: var(--vk-ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
+.vekui-components-contract {
+  border-top: 1px solid var(--vk-border);
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.vekui-components-contract li {
+  border-bottom: 1px solid var(--vk-border);
+  color: var(--vk-text);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 14px 0;
+}
+
+.vekui-components-pager {
+  border-top: 1px solid var(--vk-border);
+  margin-top: 44px;
+  padding-top: 24px;
+}
+
+.vekui-components-pager a {
+  align-items: center;
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  color: var(--vk-ink);
+  display: flex;
+  justify-content: space-between;
+  min-height: 74px;
+  padding: 16px 18px;
+  text-decoration: none;
+}
+
+.vekui-components-pager a:hover,
+.vekui-components-pager a:focus-visible {
+  background: var(--vk-surface-muted);
+}
+
+.vekui-components-pager span {
+  color: var(--vk-muted);
+  display: block;
+  font-size: 12px;
+  font-weight: 760;
+  margin-bottom: 6px;
+}
+
+.vekui-components-pager strong {
+  display: block;
+  font-size: 18px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vekui-button,
-  .vekui-link-grid a {
+  .vekui-link-grid a,
+  .vekui-component-reference {
     transition: none;
   }
 }
@@ -640,8 +1060,39 @@
   .vekui-doc-hero__grid,
   .vekui-output-grid,
   .vekui-next-grid,
-  .vekui-requirements {
+  .vekui-requirements,
+  .vekui-components-layout,
+  .vekui-components-install {
     grid-template-columns: 1fr;
+  }
+
+  .vekui-components-layout {
+    gap: 0;
+  }
+
+  .vekui-components-sidebar {
+    display: none;
+  }
+
+  .vekui-components-mobile-nav {
+    display: flex;
+    gap: 8px;
+    margin-top: 28px;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .vekui-components-mobile-nav a {
+    background: var(--vk-surface-muted);
+    border: 1px solid var(--vk-border);
+    border-radius: 999px;
+    color: var(--vk-ink);
+    flex: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 11px;
+    text-decoration: none;
   }
 
   .vekui-home-hero__grid,
@@ -651,7 +1102,10 @@
 
   .vekui-hero-proof,
   .vekui-foundation-grid,
-  .vekui-link-grid {
+  .vekui-link-grid,
+  .vekui-component-grid,
+  .vekui-command-grid,
+  .vekui-token-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -666,6 +1120,15 @@
   .vekui-doc-page h1,
   .vekui-doc-page h2 {
     font-size: 38px;
+  }
+
+  .vekui-components-header h1 {
+    font-size: 42px;
+  }
+
+  .vekui-components-install h2,
+  .vekui-components-section h2 {
+    font-size: 24px;
   }
 }
 
@@ -709,7 +1172,10 @@
 
   .vekui-hero-proof,
   .vekui-foundation-grid,
-  .vekui-link-grid {
+  .vekui-link-grid,
+  .vekui-component-grid,
+  .vekui-command-grid,
+  .vekui-token-grid {
     grid-template-columns: 1fr;
   }
 
@@ -743,6 +1209,53 @@
 
   .vekui-doc-hero__grid {
     padding: 56px 0;
+  }
+
+  .vekui-components-layout {
+    padding: 38px 0 72px;
+  }
+
+  .vekui-components-header h1 {
+    font-size: 36px;
+  }
+
+  .vekui-components-install h2,
+  .vekui-components-section h2 {
+    font-size: 22px;
+  }
+
+  .vekui-components-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vekui-components-install,
+  .vekui-component-reference {
+    padding: 18px;
+  }
+
+  .vekui-components-install pre,
+  .vekui-component-reference pre {
+    padding: 14px;
+  }
+
+  .vekui-components-install code,
+  .vekui-component-reference code {
+    font-size: 12px;
+  }
+
+  .vekui-component-reference__header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .vekui-component-reference__header a {
+    width: fit-content;
+  }
+
+  .vekui-component-reference dl {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
   }
 
   .vekui-step-list li {
