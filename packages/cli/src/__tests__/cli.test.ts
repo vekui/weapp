@@ -82,6 +82,22 @@ async function resolvesLocalImport(sourceFile: string, specifier: string) {
   return false
 }
 
+async function collectDanglingLocalImports(cwd: string) {
+  const sourceFiles = await collectSourceFiles(path.join(cwd, "src"))
+  const danglingImports: string[] = []
+
+  for (const file of sourceFiles) {
+    const source = await readFile(file, "utf8")
+    for (const specifier of getLocalImportSpecifiers(source)) {
+      if (!(await resolvesLocalImport(file, specifier))) {
+        danglingImports.push(`${path.relative(cwd, file)} -> ${specifier}`)
+      }
+    }
+  }
+
+  return danglingImports
+}
+
 describe("vekui CLI", () => {
   it("initializes config, utility, styles, and dependencies", async () => {
     const cwd = await fixture()
@@ -130,21 +146,26 @@ describe("vekui CLI", () => {
     const code = await runCli(["add", ...names, "--cwd", cwd, "--yes"], {
       stdout: () => undefined
     })
-    const sourceFiles = await collectSourceFiles(path.join(cwd, "src"))
-    const danglingImports: string[] = []
-
-    for (const file of sourceFiles) {
-      const source = await readFile(file, "utf8")
-      for (const specifier of getLocalImportSpecifiers(source)) {
-        if (!(await resolvesLocalImport(file, specifier))) {
-          danglingImports.push(`${path.relative(cwd, file)} -> ${specifier}`)
-        }
-      }
-    }
+    const danglingImports = await collectDanglingLocalImports(cwd)
 
     expect(code).toBe(0)
     expect(danglingImports).toEqual([])
   })
+
+  it.each(["curtain", "dialog", "sheet", "toast", "rate"])(
+    "adds %s by itself without dangling local imports",
+    async (component) => {
+      const cwd = await fixture()
+
+      await runCli(["init", "--cwd", cwd, "--yes"], { stdout: () => undefined })
+      const code = await runCli(["add", component, "--cwd", cwd, "--yes"], {
+        stdout: () => undefined
+      })
+
+      expect(code).toBe(0)
+      expect(await collectDanglingLocalImports(cwd)).toEqual([])
+    }
+  )
 
   it("lists registry items", async () => {
     const output: string[] = []
