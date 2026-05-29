@@ -6,7 +6,10 @@ import "./site.css"
 
 export const metadata = {
   title: "VekUI WeApp",
-  description: "Taro React 微信小程序源码分发组件库"
+  description: "Taro React 微信小程序源码分发组件库",
+  icons: {
+    icon: "/weapp/vekui-mark.png"
+  }
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
