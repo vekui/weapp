@@ -26,6 +26,9 @@ describe("registry builder", () => {
       "spinner"
     )
     expect(resolveRegistryDependencies(["drawer"]).map((item) => item.name)).toContain("sheet")
+    expect(resolveRegistryDependencies(["pagination"]).map((item) => item.name)).toContain(
+      "button"
+    )
   })
 
   it("writes shadcn-compatible item json", async () => {

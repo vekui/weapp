@@ -136,6 +136,7 @@ const dependencyOverrides: Record<string, string[]> = {
   "load-more": ["spinner", "primitives", "state"],
   "float-layout": ["layer", "state", "primitives"],
   modal: ["layer", "state", "primitives"],
+  pagination: ["button", "primitives", "state"],
   rate: ["icon", "primitives", "state"],
   sheet: ["layer", "state", "primitives"],
   "swipe-action": ["button", "primitives", "state"],

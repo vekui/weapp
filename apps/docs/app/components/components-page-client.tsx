@@ -22,8 +22,68 @@ type ActiveTarget =
 
 type ComponentSources = Record<string, string>
 type InstallMode = "command" | "manual"
+type SourceTokenKind =
+  | "comment"
+  | "function"
+  | "jsx-attribute"
+  | "jsx-tag"
+  | "keyword"
+  | "number"
+  | "operator"
+  | "property"
+  | "string"
+  | "type"
+
+type SourceToken = {
+  kind?: SourceTokenKind
+  text: string
+}
 
 const pageUrl = "https://vekui.github.io/weapp/components/"
+const sourceKeywords = new Set([
+  "as",
+  "async",
+  "await",
+  "break",
+  "case",
+  "class",
+  "const",
+  "default",
+  "else",
+  "export",
+  "extends",
+  "false",
+  "from",
+  "function",
+  "if",
+  "import",
+  "interface",
+  "let",
+  "new",
+  "null",
+  "readonly",
+  "return",
+  "switch",
+  "true",
+  "type",
+  "undefined",
+  "var"
+])
+const sourceTypes = new Set([
+  "Array",
+  "ComponentProps",
+  "Omit",
+  "Promise",
+  "React",
+  "ReactNode",
+  "Record",
+  "boolean",
+  "number",
+  "string",
+  "void"
+])
+const sourceTokenPattern =
+  /\/\/.*$|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|<\/?[A-Z][A-Za-z0-9_.:-]*(?=[\s>/])|\b[A-Za-z_$][\w$]*\b|\b\d+(?:\.\d+)?\b|[{}()[\].,;:?<>/=+\-*|&!]+/g
 
 function isSectionActive(active: ActiveTarget, section: SectionItem) {
   return active.type === "section" && active.id === section.id
@@ -35,6 +95,88 @@ function isComponentActive(active: ActiveTarget, component: ComponentCatalogItem
 
 function statusLabel(component: ComponentCatalogItem) {
   return component.status === "available" ? "v0" : "planned"
+}
+
+function classifySourceToken(line: string, text: string, index: number): SourceTokenKind | undefined {
+  if (text.startsWith("//")) {
+    return "comment"
+  }
+
+  if (/^["'`]/.test(text)) {
+    return "string"
+  }
+
+  if (/^\d/.test(text)) {
+    return "number"
+  }
+
+  if (text.startsWith("<") && /[A-Za-z]/.test(text.replace("/", "")[1] ?? "")) {
+    return "jsx-tag"
+  }
+
+  if (/^[{}()[\].,;:?<>/=+\-*|&!]+$/.test(text)) {
+    return "operator"
+  }
+
+  if (sourceKeywords.has(text)) {
+    return "keyword"
+  }
+
+  if (sourceTypes.has(text)) {
+    return "type"
+  }
+
+  const next = line.slice(index + text.length)
+
+  if (/^\s*=/.test(next)) {
+    return "jsx-attribute"
+  }
+
+  if (/^\??\s*:/.test(next)) {
+    return "property"
+  }
+
+  if (/^\s*\(/.test(next)) {
+    return "function"
+  }
+
+  if (/^[A-Z][A-Za-z0-9_]*$/.test(text)) {
+    return "type"
+  }
+
+  return undefined
+}
+
+function tokenizeTsxLine(line: string): SourceToken[] {
+  if (!line) {
+    return [{ text: " " }]
+  }
+
+  const tokens: SourceToken[] = []
+  let lastIndex = 0
+
+  sourceTokenPattern.lastIndex = 0
+
+  for (const match of line.matchAll(sourceTokenPattern)) {
+    const text = match[0]
+    const index = match.index
+
+    if (index > lastIndex) {
+      tokens.push({ text: line.slice(lastIndex, index) })
+    }
+
+    tokens.push({
+      kind: classifySourceToken(line, text, index),
+      text
+    })
+    lastIndex = index + text.length
+  }
+
+  if (lastIndex < line.length) {
+    tokens.push({ text: line.slice(lastIndex) })
+  }
+
+  return tokens
 }
 
 function PanelShell({
@@ -111,7 +253,20 @@ function SourceCodeBlock({ code, filename }: { code: string; filename: string })
           {lines.map((line, index) => (
             <span className="vekui-source-line" key={`${index}-${line}`}>
               <span aria-hidden="true">{index + 1}</span>
-              <span>{line || " "}</span>
+              <span>
+                {tokenizeTsxLine(line).map((token, tokenIndex) =>
+                  token.kind ? (
+                    <span
+                      className={`vekui-source-token vekui-source-token--${token.kind}`}
+                      key={`${tokenIndex}-${token.text}`}
+                    >
+                      {token.text}
+                    </span>
+                  ) : (
+                    <span key={`${tokenIndex}-${token.text}`}>{token.text}</span>
+                  )
+                )}
+              </span>
             </span>
           ))}
         </code>

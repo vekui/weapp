@@ -36,6 +36,9 @@
   --vk-accent: #15a46f;
   --vk-accent-ink: #0b6b49;
   --vk-code: #101a27;
+  --vk-code-border: rgba(15, 23, 42, 0.1);
+  --vk-code-surface: #f8fafc;
+  --vk-code-surface-muted: #f1f5f9;
   --vk-code-text: #eef6ff;
   background: var(--vk-bg);
   color: var(--vk-text);
@@ -57,6 +60,9 @@
   --vk-accent: #30d990;
   --vk-accent-ink: #6ee7b7;
   --vk-code: #050b14;
+  --vk-code-border: rgba(226, 232, 240, 0.16);
+  --vk-code-surface: #0f172a;
+  --vk-code-surface-muted: #111c2f;
   --vk-code-text: #eef6ff;
 }
 
@@ -1001,8 +1007,8 @@
 }
 
 .vekui-components-command {
-  background: var(--vk-surface-muted);
-  border: 1px solid var(--vk-border);
+  background: var(--vk-code-surface);
+  border: 1px solid var(--vk-code-border);
   border-radius: 8px;
   margin: 28px 0 0;
   overflow-x: auto;
@@ -1124,8 +1130,8 @@
 }
 
 .vekui-source-card {
-  background: var(--vk-surface-muted);
-  border: 1px solid var(--vk-border);
+  background: var(--vk-code-surface);
+  border: 1px solid var(--vk-code-border);
   border-radius: 12px;
   margin-top: 22px;
   overflow: hidden;
@@ -1133,7 +1139,8 @@
 
 .vekui-source-card__header {
   align-items: center;
-  border-bottom: 1px solid var(--vk-border);
+  background: var(--vk-code-surface-muted);
+  border-bottom: 1px solid var(--vk-code-border);
   display: flex;
   gap: 18px;
   justify-content: space-between;
@@ -1194,6 +1201,7 @@
 }
 
 .vekui-source-card__body {
+  background: var(--vk-code-surface);
   margin: 0;
   max-height: 620px;
   overflow: auto;
@@ -1221,6 +1229,75 @@
 .vekui-source-line > span:last-child {
   color: var(--vk-ink);
   white-space: pre;
+}
+
+.vekui-source-token--comment {
+  color: #64748b;
+}
+
+.vekui-source-token--function {
+  color: #0f766e;
+}
+
+.vekui-source-token--jsx-attribute,
+.vekui-source-token--property {
+  color: #b91c1c;
+}
+
+.vekui-source-token--jsx-tag,
+.vekui-source-token--type {
+  color: #2563eb;
+}
+
+.vekui-source-token--keyword {
+  color: #7c3aed;
+  font-weight: 650;
+}
+
+.vekui-source-token--number {
+  color: #b45309;
+}
+
+.vekui-source-token--operator {
+  color: #475569;
+}
+
+.vekui-source-token--string {
+  color: #047857;
+}
+
+.dark .vekui-source-token--comment {
+  color: #94a3b8;
+}
+
+.dark .vekui-source-token--function {
+  color: #5eead4;
+}
+
+.dark .vekui-source-token--jsx-attribute,
+.dark .vekui-source-token--property {
+  color: #fca5a5;
+}
+
+.dark .vekui-source-token--jsx-tag,
+.dark .vekui-source-token--type {
+  color: #93c5fd;
+}
+
+.dark .vekui-source-token--keyword {
+  color: #c4b5fd;
+}
+
+.dark .vekui-source-token--number {
+  color: #fbbf24;
+}
+
+.dark .vekui-source-token--operator {
+  color: #cbd5e1;
+}
+
+.dark .vekui-source-token--string {
+  color: #86efac;
 }
 
 .vekui-components-info-grid {

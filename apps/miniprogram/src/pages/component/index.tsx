@@ -120,10 +120,10 @@ export default function ComponentPage() {
   const name = String(router.params.name ?? "button")
 
   return (
-    <View className="vekui-theme min-h-screen bg-background p-4 text-foreground">
-      <View className="mb-4 gap-2">
+    <View className="vekui-theme flex min-h-screen flex-col bg-background p-4 text-foreground">
+      <View className="mb-4 flex flex-col items-start gap-2">
         <Badge variant="secondary">{name}</Badge>
-        <Text className="text-xl font-semibold text-foreground">Component Demo</Text>
+        <Text className="block text-xl font-semibold text-foreground">Component Demo</Text>
       </View>
       <Demo name={name} />
     </View>

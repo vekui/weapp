@@ -1,5 +1,6 @@
 import { cn } from "../lib/cn"
-import { Box, Pressable, Text, type BoxProps } from "../primitives"
+import { Box, Text, type BoxProps } from "../primitives"
+import { Button } from "./button"
 
 export type PaginationState = "first" | "middle" | "last" | "single"
 
@@ -25,13 +26,25 @@ export function Pagination({ className, page = 1, pageCount = 1, onPageChange, .
       data-state={state}
       {...props}
     >
-      <Pressable className="flex min-h-[72rpx] min-w-[88rpx] items-center justify-center rounded-md border border-border bg-background" disabled={state === "first" || state === "single"} onClick={() => onPageChange?.(page - 1)}>
-        <Text className="text-sm text-foreground">Prev</Text>
-      </Pressable>
+      <Button
+        className="min-w-[88rpx]"
+        disabled={state === "first" || state === "single"}
+        onClick={() => onPageChange?.(page - 1)}
+        size="sm"
+        variant="outline"
+      >
+        Prev
+      </Button>
       <Text className="text-sm text-muted-foreground">{page} / {pageCount}</Text>
-      <Pressable className="flex min-h-[72rpx] min-w-[88rpx] items-center justify-center rounded-md border border-border bg-background" disabled={state === "last" || state === "single"} onClick={() => onPageChange?.(page + 1)}>
-        <Text className="text-sm text-foreground">Next</Text>
-      </Pressable>
+      <Button
+        className="min-w-[88rpx]"
+        disabled={state === "last" || state === "single"}
+        onClick={() => onPageChange?.(page + 1)}
+        size="sm"
+        variant="outline"
+      >
+        Next
+      </Button>
     </Box>
   )
 }

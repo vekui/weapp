@@ -8,6 +8,7 @@ coverage
 .DS_Store
 apps/miniprogram/dist
 apps/miniprogram/.swc
+apps/miniprogram/project.private.config.json
 apps/docs/public/r/*.json
 !apps/docs/public/r/.gitkeep
 !.npmrc

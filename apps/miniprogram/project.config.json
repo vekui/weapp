@@ -1,5 +1,5 @@
 {
-  "appid": "touristappid",
+  "appid": "wx861b2e63cf28634e",
   "projectname": "vekui-weapp",
   "miniprogramRoot": "dist/",
   "setting": {
@@ -20,7 +20,12 @@
     "useCompilerPlugins": false,
     "condition": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
