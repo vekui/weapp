@@ -21,6 +21,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 
 - 修复 Switch 和 Checkbox 在传入外部 `onClick` 时丢失内部 checked 状态更新的问题。
 - 修复 Curtain registry item 漏装 Layer primitive，以及 primitives barrel 引用未随 item 分发的 Layer 文件的问题。
+- 增强 `vekui doctor`，现在会报告组件、工具函数和样式目录中的断裂本地 import。
 
 ## [0.0.0] - 2026-05-29
 

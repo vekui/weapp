@@ -190,4 +190,38 @@ describe("vekui CLI", () => {
     expect(code).toBe(1)
     expect(errors.join("\n")).toContain("Forbidden token")
   })
+
+  it("doctor catches dangling local imports", async () => {
+    const cwd = await fixture()
+    const errors: string[] = []
+
+    await runCli(["init", "--cwd", cwd, "--yes"], { stdout: () => undefined })
+    await mkdir(path.join(cwd, "src/components/ui"), { recursive: true })
+    await writeFile(
+      path.join(cwd, "src/components/ui/bad.tsx"),
+      'import { Missing } from "./missing"\n\nexport { Missing }\n'
+    )
+
+    const code = await runCli(["doctor", "--cwd", cwd], { stderr: (line) => errors.push(line) })
+
+    expect(code).toBe(1)
+    expect(errors.join("\n")).toContain(
+      "Dangling local import ./missing in src/components/ui/bad.tsx"
+    )
+  })
+
+  it("doctor catches dangling local css imports", async () => {
+    const cwd = await fixture()
+    const errors: string[] = []
+
+    await runCli(["init", "--cwd", cwd, "--yes"], { stdout: () => undefined })
+    await writeFile(path.join(cwd, "src/styles/bad.css"), '@import url("./missing.css");\n')
+
+    const code = await runCli(["doctor", "--cwd", cwd], { stderr: (line) => errors.push(line) })
+
+    expect(code).toBe(1)
+    expect(errors.join("\n")).toContain(
+      "Dangling local import ./missing.css in src/styles/bad.css"
+    )
+  })
 })
