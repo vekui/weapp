@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises"
+import { mkdir, mkdtemp, readdir, readFile, stat, writeFile } from "node:fs/promises"
 import os from "node:os"
 import path from "node:path"
 import { describe, expect, it } from "vitest"
@@ -26,6 +26,60 @@ async function fixture() {
     )}\n`
   )
   return cwd
+}
+
+async function exists(filePath: string) {
+  try {
+    await stat(filePath)
+    return true
+  } catch {
+    return false
+  }
+}
+
+async function collectSourceFiles(dir: string): Promise<string[]> {
+  const entries = await readdir(dir, { withFileTypes: true })
+  const files = await Promise.all(
+    entries.map(async (entry) => {
+      const entryPath = path.join(dir, entry.name)
+      if (entry.isDirectory()) {
+        return collectSourceFiles(entryPath)
+      }
+      if (/\.(ts|tsx|css)$/.test(entry.name)) {
+        return [entryPath]
+      }
+      return []
+    })
+  )
+
+  return files.flat()
+}
+
+function getLocalImportSpecifiers(source: string) {
+  return [
+    ...source.matchAll(/\bfrom\s+["']([^"']+)["']/g),
+    ...source.matchAll(/\bimport\s+["']([^"']+)["']/g)
+  ].flatMap((match) => (match[1]?.startsWith(".") ? [match[1]] : []))
+}
+
+async function resolvesLocalImport(sourceFile: string, specifier: string) {
+  const normalized = path.join(path.dirname(sourceFile), specifier)
+  const candidates = [
+    normalized,
+    `${normalized}.ts`,
+    `${normalized}.tsx`,
+    `${normalized}.css`,
+    path.join(normalized, "index.ts"),
+    path.join(normalized, "index.tsx")
+  ]
+
+  for (const candidate of candidates) {
+    if (await exists(candidate)) {
+      return true
+    }
+  }
+
+  return false
 }
 
 describe("vekui CLI", () => {
@@ -63,6 +117,33 @@ describe("vekui CLI", () => {
     expect(await readFile(path.join(cwd, "src/components/ui/primitives/input-base.tsx"), "utf8")).toContain(
       "InputBase"
     )
+  })
+
+  it("adds every registry item without dangling local imports", async () => {
+    const cwd = await fixture()
+    const output: string[] = []
+
+    await runCli(["init", "--cwd", cwd, "--yes"], { stdout: () => undefined })
+    await runCli(["list"], { stdout: (line) => output.push(line) })
+
+    const names = output.map((line) => line.replace(/^- /, ""))
+    const code = await runCli(["add", ...names, "--cwd", cwd, "--yes"], {
+      stdout: () => undefined
+    })
+    const sourceFiles = await collectSourceFiles(path.join(cwd, "src"))
+    const danglingImports: string[] = []
+
+    for (const file of sourceFiles) {
+      const source = await readFile(file, "utf8")
+      for (const specifier of getLocalImportSpecifiers(source)) {
+        if (!(await resolvesLocalImport(file, specifier))) {
+          danglingImports.push(`${path.relative(cwd, file)} -> ${specifier}`)
+        }
+      }
+    }
+
+    expect(code).toBe(0)
+    expect(danglingImports).toEqual([])
   })
 
   it("lists registry items", async () => {
