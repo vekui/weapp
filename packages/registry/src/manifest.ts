@@ -128,6 +128,7 @@ const dependencyOverrides: Record<string, string[]> = {
   "activity-indicator": ["spinner", "primitives", "state"],
   button: ["utils"],
   checkbox: ["icon", "primitives", "state"],
+  curtain: ["layer", "state", "primitives"],
   dialog: ["button", "layer", "state", "primitives"],
   drawer: ["sheet"],
   icon: ["utils"],
