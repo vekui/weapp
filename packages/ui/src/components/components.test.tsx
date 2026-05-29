@@ -97,6 +97,19 @@ describe("v0 component contracts", () => {
     expect(allByType(tree.root, "View")[0]?.props["data-state"]).toBe("checked")
   })
 
+  it("Checkbox composes user click handlers with checked state changes", () => {
+    const onClick = vi.fn()
+    const onCheckedChange = vi.fn()
+    const event = { type: "tap" }
+    const tree = create(<Checkbox onClick={onClick} onCheckedChange={onCheckedChange} />)
+    const checkbox = allByType(tree.root, "View")[0]
+
+    act(() => checkbox?.props.onClick(event))
+
+    expect(onClick).toHaveBeenCalledWith(event)
+    expect(onCheckedChange).toHaveBeenCalledWith(true)
+  })
+
   it("RadioGroup reflects selected option state", () => {
     const onValueChange = vi.fn()
     const tree = create(
@@ -123,6 +136,19 @@ describe("v0 component contracts", () => {
     expect(switchRoot?.props["data-state"]).toBe("checked")
     expect(classNameOf(thumb!)).toContain("transition-[margin]")
     expect(classNameOf(thumb!)).not.toContain("translate-")
+  })
+
+  it("Switch composes user click handlers with checked state changes", () => {
+    const onClick = vi.fn()
+    const onCheckedChange = vi.fn()
+    const event = { type: "tap" }
+    const tree = create(<Switch onClick={onClick} onCheckedChange={onCheckedChange} />)
+    const switchRoot = allByType(tree.root, "View")[0]
+
+    act(() => switchRoot?.props.onClick(event))
+
+    expect(onClick).toHaveBeenCalledWith(event)
+    expect(onCheckedChange).toHaveBeenCalledWith(true)
   })
 
   it("Tabs exposes active state and renders selected content", () => {

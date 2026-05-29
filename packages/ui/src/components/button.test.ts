@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest"
 
+import { controlButtonVariants } from "../index"
+import sharedVariantsSource from "../lib/variants.ts?raw"
 import { Button } from "./button"
 import { buttonVariants } from "./button-variants"
 
@@ -31,6 +33,14 @@ describe("buttonVariants", () => {
     expect(icon).toContain("size-[88rpx]")
     expect(iconLg).toContain("size-[104rpx]")
     expect(base).not.toContain("min-h-[88rpx]")
+  })
+})
+
+describe("shared variant helpers", () => {
+  it("names generic control button styles separately from Button component variants", () => {
+    expect(sharedVariantsSource).toContain("export const controlButtonVariants")
+    expect(sharedVariantsSource).not.toContain("export const buttonVariants")
+    expect(controlButtonVariants({ size: "md" })).toContain("min-h-[88rpx]")
   })
 })
 

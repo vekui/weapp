@@ -107,7 +107,7 @@ const availableBySlug: Record<
   },
   button: {
     command: "pnpm dlx vekui add button --cwd .",
-    dependency: "variants",
+    dependency: "utils, button-variants",
     description: "Taro Button wrapper，提供 token variants、size 和 loading 状态。",
     exportName: "Button",
     registryPath: "/weapp/r/button.json",

@@ -6,7 +6,7 @@ export const controlBase =
 export const focusRing =
   "data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive"
 
-export const buttonVariants = cva(
+export const controlButtonVariants = cva(
   "inline-flex min-h-[88rpx] items-center justify-center rounded-md px-4 py-2 text-base font-medium transition-colors data-[disabled=true]:opacity-50 data-[loading=true]:opacity-70",
   {
     variants: {

@@ -1,4 +1,5 @@
 import * as React from "react"
+import { create } from "react-test-renderer"
 import { describe, expect, it } from "vitest"
 
 import aspectRatioSource from "./aspect-ratio.tsx?raw"
@@ -44,6 +45,14 @@ function getProps(element: React.ReactNode) {
 
 function getClassName(element: React.ReactNode) {
   return String(getProps(element).className ?? "")
+}
+
+function getRenderedProps(element: React.ReactElement, type: string) {
+  const node = create(element).root.findAll((candidate) => candidate.type === type)[0]
+  if (!node) {
+    throw new Error(`Missing rendered node: ${type}`)
+  }
+  return node.props as Record<string, unknown>
 }
 
 function expectMiniProgramSafeSource(source: string) {
@@ -115,7 +124,7 @@ describe("next production wave components", () => {
     expect(sliderSource).not.toContain('activeColor="var(')
     expect(sliderSource).not.toContain('backgroundColor="var(')
     expect(getRateItemState(3, 4)).toBe("selected")
-    expect(getProps(Rate({ value: 3 }))["data-value"]).toBe(3)
+    expect(getRenderedProps(React.createElement(Rate, { value: 3 }), "View")["data-value"]).toBe(3)
     expect(sliderSource).toContain("onValueChange")
     expect(getSegmentedControlState("a", "a")).toBe("active")
     expect(segmentedControlSource).toContain("createStrictContext")

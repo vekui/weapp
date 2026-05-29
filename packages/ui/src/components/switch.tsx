@@ -1,4 +1,5 @@
 import { cn } from "../lib/cn"
+import { composeEventHandlers } from "../lib/compose-event-handlers"
 import { useControllableState } from "../lib/use-controllable-state"
 import { Pressable, Box, type PressableProps } from "../primitives"
 
@@ -13,6 +14,7 @@ export function Switch({
   checked,
   defaultChecked = false,
   onCheckedChange,
+  onClick,
   ...props
 }: SwitchProps) {
   const [currentChecked, setChecked] = useControllableState({
@@ -29,10 +31,7 @@ export function Switch({
         className
       )}
       data-state={currentChecked ? "checked" : "unchecked"}
-      onClick={(event) => {
-        props.onClick?.(event)
-        setChecked(!currentChecked)
-      }}
+      onClick={composeEventHandlers(onClick, () => setChecked(!currentChecked))}
       {...props}
     >
       <Box

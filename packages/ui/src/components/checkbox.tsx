@@ -1,4 +1,5 @@
 import { cn } from "../lib/cn"
+import { composeEventHandlers } from "../lib/compose-event-handlers"
 import { useControllableState } from "../lib/use-controllable-state"
 import { Box, Pressable, Text, type PressableProps } from "../primitives"
 import { Icon } from "./icon"
@@ -19,6 +20,7 @@ export function Checkbox({
   invalid,
   label,
   onCheckedChange,
+  onClick,
   ...props
 }: CheckboxProps) {
   const [currentChecked, setChecked] = useControllableState({
@@ -41,10 +43,7 @@ export function Checkbox({
       data-invalid={invalid ? "true" : undefined}
       data-state={currentChecked ? "checked" : "unchecked"}
       disabled={disabled}
-      onClick={(event) => {
-        props.onClick?.(event)
-        setChecked(!currentChecked)
-      }}
+      onClick={composeEventHandlers(onClick, () => setChecked(!currentChecked))}
       {...props}
     >
       {label ? (

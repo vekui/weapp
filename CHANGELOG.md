@@ -10,10 +10,16 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 
 - 新增项目级 changelog，用于集中跟踪后续版本更新。
 - 在 README、开发者指南、文档站和 LLM 入口中补充 changelog 入口。
+- 为 Rate 增加 `defaultValue` 非受控用法，并保留 `value`/`onValueChange` 受控模式。
 
 ### Changed
 
 - 打磨组件文档页的按钮、安装步骤和源码代码块视觉层级，使字重、边框和交互状态更接近 shadcn 风格。
+- 将通用控制按钮变体明确命名为 `controlButtonVariants`，避免和 Button 组件专属 `buttonVariants` 混淆。
+
+### Fixed
+
+- 修复 Switch 和 Checkbox 在传入外部 `onClick` 时丢失内部 checked 状态更新的问题。
 
 ## [0.0.0] - 2026-05-29
 
