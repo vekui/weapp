@@ -193,8 +193,11 @@ function getLocalImportSpecifiers(source: string) {
   return [
     ...source.matchAll(/\bfrom\s+["']([^"']+)["']/g),
     ...source.matchAll(/\bimport\s+["']([^"']+)["']/g),
-    ...source.matchAll(/@import\s+url\(\s*["']([^"']+)["']\s*\)/g)
-  ].flatMap((match) => (match[1]?.startsWith(".") ? [match[1]] : []))
+    ...source.matchAll(/@import\s+url\(\s*(?:"([^"]+)"|'([^']+)'|([^)'"\s]+))\s*\)/g)
+  ].flatMap((match) => {
+    const specifier = match.slice(1).find(Boolean)
+    return specifier?.startsWith(".") ? [specifier] : []
+  })
 }
 
 async function resolvesLocalImport(sourceFile: string, specifier: string) {
