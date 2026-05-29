@@ -25,7 +25,7 @@ async function collectFiles(dir) {
       if (entry.isDirectory()) {
         return collectFiles(entryPath)
       }
-      if (/\.(ts|tsx|css)$/.test(entry.name)) {
+      if (/\.(ts|tsx|css)$/.test(entry.name) && !entry.name.includes(".test.")) {
         return [entryPath]
       }
       return []

@@ -19,26 +19,51 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   --radius-md: var(--radius);
+  --radius-lg: var(--radius);
 }
 
 :root,
-.vekui-theme {
+.vekui-theme,
+.theme-default {
   --background: 0 0% 100%;
   --foreground: 222 47% 11%;
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
-  --primary: 222 47% 11%;
-  --primary-foreground: 210 40% 98%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 0 0% 100%;
   --secondary: 210 40% 96%;
   --secondary-foreground: 222 47% 11%;
   --muted: 210 40% 96%;
   --muted-foreground: 215 16% 47%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222 47% 11%;
+  --accent: 174 62% 47%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 0 0% 100%;
   --border: 214 32% 91%;
   --input: 214 32% 91%;
-  --ring: 222 84% 5%;
-  --radius: 12rpx;
+  --ring: 221 83% 53%;
+  --radius: 16rpx;
+}
+
+.theme-learning {
+  --background: 204 33% 97%;
+  --foreground: 218 39% 11%;
+  --primary: 214 84% 56%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 158 64% 45%;
+  --accent-foreground: 0 0% 100%;
+}
+
+.theme-warm {
+  --background: 36 60% 97%;
+  --foreground: 24 36% 14%;
+  --primary: 18 88% 56%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 190 72% 42%;
+  --accent-foreground: 0 0% 100%;
+}
+
+/* WeChat native button injects a pseudo border that conflicts with token borders. */
+.ui-button::after {
+  border: 0;
 }

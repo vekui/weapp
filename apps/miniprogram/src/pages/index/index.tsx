@@ -1,52 +1,63 @@
 import Taro from "@tarojs/taro"
-import { Text, View } from "@tarojs/components"
-import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@vekui/weapp"
+import { Box, Icon, Image, Pressable, Text } from "@vekui/weapp"
 
-const components = [
-  ["button", "Button", "按钮、加载态、openType"],
-  ["card", "Card", "内容容器"],
-  ["badge", "Badge", "状态标签"],
-  ["field", "Field", "表单字段"],
-  ["input", "Input", "单行输入"],
-  ["textarea", "Textarea", "多行输入"],
-  ["checkbox", "Checkbox", "复选项"],
-  ["radio-group", "RadioGroup", "单选组"],
-  ["switch", "Switch", "开关"],
-  ["tabs", "Tabs", "标签页"],
-  ["dialog", "Dialog", "无 portal 弹层"],
-  ["toast", "Toast", "轻提示"]
-] as const
+import { demoCategories, getCategoryComponents } from "../../demo/catalog"
+
+const vekuiLogo = "/assets/brand/vekui-logo-horizontal-transparent.png"
 
 export default function IndexPage() {
   return (
-    <View className="vekui-theme min-h-screen bg-background p-4 text-foreground">
-      <View className="mb-5 gap-2">
-        <Badge variant="secondary">v0 registry-first</Badge>
-        <Text className="text-2xl font-semibold text-foreground">VekUI WeApp</Text>
-        <Text className="text-sm text-muted-foreground">
-          Taro React 微信小程序组件 playground
-        </Text>
-      </View>
+    <Box className="theme-learning min-h-screen bg-background pb-8">
+      <Box
+        className="flex flex-col items-center px-6 pb-[88rpx] pt-[44rpx]"
+        data-slot="brand-hero"
+      >
+        <Image
+          className="h-[140rpx] w-[380rpx] bg-transparent"
+          data-slot="brand-logo"
+          mode="aspectFit"
+          rounded={false}
+          src={vekuiLogo}
+        />
+      </Box>
 
-      <View className="gap-3">
-        {components.map(([slug, title, description]) => (
-          <Card key={slug}>
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => Taro.navigateTo({ url: `/pages/component/index?name=${slug}` })}
-              >
-                查看组件
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </View>
-    </View>
+      <Box className="-mt-[36rpx] flex flex-col gap-4 px-5">
+        {demoCategories.map((category) => {
+          const componentCount = getCategoryComponents(category.id).length
+
+          return (
+            <Pressable
+              key={category.id}
+              className="flex min-h-[148rpx] w-full flex-row items-center overflow-hidden rounded-lg border border-border bg-card px-5 py-4 text-card-foreground shadow-sm"
+              data-state="category-card"
+              hoverClass="bg-secondary"
+              onClick={() => Taro.navigateTo({ url: `/pages/panel/index?id=${category.id}` })}
+            >
+              <Box className="flex w-full flex-row items-center gap-4">
+                <Box className="flex h-[80rpx] w-[80rpx] shrink-0 items-center justify-center rounded-full border border-border bg-background">
+                  <Icon name={category.icon} size="sm" tone="primary" />
+                </Box>
+                <Box className="min-w-0 flex-1 pr-2">
+                  <Box className="flex flex-row items-center gap-2">
+                    <Text className="block text-left text-base font-semibold leading-[42rpx] text-foreground">
+                      {category.title}
+                    </Text>
+                    <Text className="rounded-full bg-secondary px-2 text-xs leading-[32rpx] text-muted-foreground">
+                      {componentCount}
+                    </Text>
+                  </Box>
+                  <Text className="mt-1 block text-left text-xs leading-[32rpx] text-muted-foreground">
+                    {category.description}
+                  </Text>
+                </Box>
+                <Box className="flex h-[68rpx] w-[68rpx] shrink-0 items-center justify-center rounded-full bg-primary">
+                  <Icon name="chevron-left" className="rotate-180" size="sm" tone="primary-foreground" />
+                </Box>
+              </Box>
+            </Pressable>
+          )
+        })}
+      </Box>
+    </Box>
   )
 }

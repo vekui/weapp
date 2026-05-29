@@ -14,10 +14,21 @@ const repoRoot = path.resolve(fileURLToPath(new URL("../../..", import.meta.url)
 
 function transformContent(filePath: string, content: string) {
   if (filePath.startsWith("components/ui/")) {
-    return content
+    const transformed = content
       .replaceAll("../lib/cn", "../../lib/cn")
       .replaceAll("../lib/variants", "../../lib/variants")
-      .replaceAll("../primitives/layer", "./layer")
+      .replaceAll("../lib/use-controllable-state", "../../lib/use-controllable-state")
+      .replaceAll("../lib/create-strict-context", "../../lib/create-strict-context")
+      .replaceAll("../lib/compose-event-handlers", "../../lib/compose-event-handlers")
+      .replaceAll("../primitives/layer", "./primitives/layer")
+      .replaceAll("../primitives/input-base", "./primitives/input-base")
+      .replaceAll("../primitives", "./primitives")
+
+    if (filePath.startsWith("components/ui/primitives/")) {
+      return content.replaceAll("../lib/cn", "../../../lib/cn")
+    }
+
+    return transformed
   }
 
   return content

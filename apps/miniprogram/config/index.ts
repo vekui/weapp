@@ -30,6 +30,15 @@ export default defineConfig(async (merge) => {
     },
     sourceRoot: "src",
     outputRoot: "dist",
+    copy: {
+      patterns: [
+        {
+          from: path.resolve(__dirname, "../src/assets"),
+          to: path.resolve(__dirname, "../dist/assets")
+        }
+      ],
+      options: {}
+    },
     framework: "react",
     compiler: {
       type: "vite",

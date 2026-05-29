@@ -17,7 +17,15 @@ describe("registry builder", () => {
   it("resolves registry dependencies before requested items", () => {
     const names = resolveRegistryDependencies(["dialog"]).map((item) => item.name)
 
-    expect(names).toEqual(["styles", "utils", "variants", "button", "layer", "dialog"])
+    expect(names).toEqual(["styles", "utils", "button", "primitives", "layer", "state", "dialog"])
+  })
+
+  it("resolves sibling component dependencies for source installs", () => {
+    expect(resolveRegistryDependencies(["checkbox"]).map((item) => item.name)).toContain("icon")
+    expect(resolveRegistryDependencies(["activity-indicator"]).map((item) => item.name)).toContain(
+      "spinner"
+    )
+    expect(resolveRegistryDependencies(["drawer"]).map((item) => item.name)).toContain("sheet")
   })
 
   it("writes shadcn-compatible item json", async () => {
@@ -28,6 +36,9 @@ describe("registry builder", () => {
 
     expect(item.type).toBe("registry:ui")
     expect(item.files[0].path).toBe("components/ui/button.tsx")
-    expect(item.files[0].content).toContain("../../lib/variants")
+    expect(item.files[0].content).toContain("./button-variants")
+    expect(item.files.map((file: { path: string }) => file.path)).toContain(
+      "components/ui/button-variants.ts"
+    )
   })
 })

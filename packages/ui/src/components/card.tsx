@@ -1,34 +1,33 @@
 import * as React from "react"
-import { Text, View } from "@tarojs/components"
+
 import { cn } from "../lib/cn"
+import { Box, Text, type BoxProps, type TextProps } from "../primitives"
 
-export type CardProps = React.ComponentProps<typeof View>
-
-export function Card({ className, ...props }: CardProps) {
+export function Card({ className, ...props }: BoxProps) {
   return (
-    <View
-      className={cn("rounded-md border border-border bg-card p-4 text-card-foreground", className)}
+    <Box
+      className={cn("rounded-lg border border-border bg-card text-card-foreground", className)}
       {...props}
     />
   )
 }
 
-export function CardHeader({ className, ...props }: CardProps) {
-  return <View className={cn("mb-3 gap-1", className)} {...props} />
+export function CardHeader({ className, ...props }: BoxProps) {
+  return <Box className={cn("flex flex-col gap-1.5 p-4", className)} {...props} />
 }
 
-export function CardTitle({ className, ...props }: React.ComponentProps<typeof Text>) {
-  return <Text className={cn("text-lg font-semibold text-card-foreground", className)} {...props} />
+export function CardTitle({ className, ...props }: TextProps) {
+  return <Text className={cn("text-lg font-semibold text-foreground", className)} {...props} />
 }
 
-export function CardDescription({ className, ...props }: React.ComponentProps<typeof Text>) {
+export function CardDescription({ className, ...props }: TextProps) {
   return <Text className={cn("text-sm text-muted-foreground", className)} {...props} />
 }
 
-export function CardContent({ className, ...props }: CardProps) {
-  return <View className={cn("gap-3", className)} {...props} />
+export function CardContent({ className, ...props }: BoxProps) {
+  return <Box className={cn("p-4 pt-0", className)} {...props} />
 }
 
-export function CardFooter({ className, ...props }: CardProps) {
-  return <View className={cn("mt-4 flex-row items-center gap-2", className)} {...props} />
+export function CardFooter({ className, ...props }: BoxProps) {
+  return <Box className={cn("flex flex-row items-center gap-3 p-4 pt-0", className)} {...props} />
 }

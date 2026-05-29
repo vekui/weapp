@@ -63,7 +63,11 @@ function isDryRun(flags: Map<string, string | boolean>) {
 
 function targetPath(cwd: string, registryPath: string, config = defaultConfig) {
   if (registryPath.startsWith("components/ui/")) {
-    return path.join(cwd, config.aliases.components, path.basename(registryPath))
+    return path.join(
+      cwd,
+      config.aliases.components,
+      registryPath.replace("components/ui/", "")
+    )
   }
 
   if (registryPath.startsWith("lib/")) {

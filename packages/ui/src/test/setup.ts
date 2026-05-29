@@ -11,7 +11,16 @@ function createTaroComponent(name: string) {
 
 vi.mock("@tarojs/components", () => ({
   Button: createTaroComponent("Button"),
+  Form: createTaroComponent("Form"),
+  Image: createTaroComponent("Image"),
   Input: createTaroComponent("Input"),
+  Picker: createTaroComponent("Picker"),
+  PickerView: createTaroComponent("PickerView"),
+  PickerViewColumn: createTaroComponent("PickerViewColumn"),
+  ScrollView: createTaroComponent("ScrollView"),
+  Slider: createTaroComponent("Slider"),
+  Swiper: createTaroComponent("Swiper"),
+  SwiperItem: createTaroComponent("SwiperItem"),
   Text: createTaroComponent("Text"),
   Textarea: createTaroComponent("Textarea"),
   View: createTaroComponent("View")

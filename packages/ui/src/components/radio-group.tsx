@@ -1,74 +1,112 @@
-import * as React from "react"
-import { Text, View } from "@tarojs/components"
 import { cn } from "../lib/cn"
+import { createStrictContext } from "../lib/create-strict-context"
+import { useControllableState } from "../lib/use-controllable-state"
+import { Box, Pressable, Text, type BoxProps, type PressableProps } from "../primitives"
 
-export type RadioOption = {
-  disabled?: boolean
-  label: React.ReactNode
-  value: string
+export type RadioState = "checked" | "unchecked"
+
+export function getRadioState(value: string, currentValue: string | undefined): RadioState {
+  return value === currentValue ? "checked" : "unchecked"
 }
 
-export interface RadioGroupProps extends Omit<React.ComponentProps<typeof View>, "onChange"> {
+type RadioGroupContextValue = {
+  value?: string
+  setValue: (value: string) => void
+}
+
+const [RadioGroupProvider, useRadioGroupContext] =
+  createStrictContext<RadioGroupContextValue>("RadioGroup")
+
+export type RadioGroupRootProps = BoxProps & {
+  value?: string
   defaultValue?: string
   disabled?: boolean
   invalid?: boolean
   onValueChange?: (value: string) => void
-  options: RadioOption[]
-  value?: string
 }
 
-export function RadioGroup({
-  className,
-  defaultValue,
-  disabled = false,
-  invalid = false,
-  onValueChange,
-  options,
+function RadioGroupRoot({
   value,
+  defaultValue,
+  disabled,
+  invalid,
+  onValueChange,
+  className,
   ...props
-}: RadioGroupProps) {
-  const [internalValue, setInternalValue] = React.useState(defaultValue)
-  const selectedValue = value ?? internalValue
+}: RadioGroupRootProps) {
+  const [currentValue, setValue] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? "",
+    onChange: onValueChange
+  })
 
-  function select(nextValue: string, optionDisabled?: boolean) {
-    if (disabled || optionDisabled) {
-      return
-    }
-    setInternalValue(nextValue)
-    onValueChange?.(nextValue)
+  return (
+    <RadioGroupProvider value={{ value: currentValue, setValue }}>
+      <Box
+        className={cn("flex flex-col gap-2", className)}
+        data-disabled={disabled ? "true" : undefined}
+        data-invalid={invalid ? "true" : undefined}
+        {...props}
+      />
+    </RadioGroupProvider>
+  )
+}
+
+export type RadioGroupItemProps = PressableProps & {
+  disabled?: boolean
+  value: string
+}
+
+function RadioGroupItem({ className, disabled, value, onClick, ...props }: RadioGroupItemProps) {
+  const context = useRadioGroupContext()
+  const state = getRadioState(value, context.value)
+
+  return (
+    <Pressable
+      className={cn(
+        "flex min-h-[88rpx] flex-row items-center gap-2 rounded-md border border-border px-3",
+        state === "checked" && "border-primary bg-secondary",
+        className
+      )}
+      data-disabled={disabled ? "true" : undefined}
+      data-state={state}
+      disabled={disabled}
+      onClick={(event) => {
+        onClick?.(event)
+        context.setValue(value)
+      }}
+      {...props}
+    />
+  )
+}
+
+export type RadioGroupOption = {
+  disabled?: boolean
+  label: string
+  value: string
+}
+
+export type RadioGroupProps = RadioGroupRootProps & {
+  options?: RadioGroupOption[]
+}
+
+function RadioGroupCompat({ options, ...props }: RadioGroupProps) {
+  if (!options) {
+    return <RadioGroupRoot {...props} />
   }
 
   return (
-    <View
-      className={cn("gap-2", className)}
-      data-disabled={disabled ? "true" : undefined}
-      data-invalid={invalid ? "true" : undefined}
-      {...props}
-    >
-      {options.map((option) => {
-        const checked = option.value === selectedValue
-        return (
-          <View
-            className="flex-row items-center gap-2 py-2"
-            data-disabled={option.disabled || disabled ? "true" : undefined}
-            data-state={checked ? "checked" : "unchecked"}
-            key={option.value}
-            onClick={() => select(option.value, option.disabled)}
-          >
-            <View
-              className={cn(
-                "h-[40rpx] w-[40rpx] rounded-full border border-input p-[8rpx]",
-                checked ? "border-primary" : "border-input",
-                invalid ? "border-destructive" : ""
-              )}
-              data-state={checked ? "checked" : "unchecked"}
-            >
-              {checked ? <View className="h-full w-full rounded-full bg-primary" /> : null}
-            </View>
-            <Text className="text-base text-foreground">{option.label}</Text>
-          </View>
-        )
-      })}
-    </View>
+    <RadioGroupRoot {...props}>
+      {options.map((option) => (
+        <RadioGroupItem disabled={option.disabled || props.disabled} key={option.value} value={option.value}>
+          <Text className="text-base text-foreground">{option.label}</Text>
+        </RadioGroupItem>
+      ))}
+    </RadioGroupRoot>
   )
 }
+
+export const RadioGroup = Object.assign(RadioGroupCompat, {
+  Root: RadioGroupRoot,
+  Item: RadioGroupItem
+})

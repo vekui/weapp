@@ -1,16 +1,18 @@
-import * as React from "react"
-import { Input as TaroInput } from "@tarojs/components"
 import { cn } from "../lib/cn"
-import { controlBase, focusRing } from "../lib/variants"
+import { InputBase, type InputBaseProps } from "../primitives"
 
-export interface InputProps extends React.ComponentProps<typeof TaroInput> {
+export type InputProps = InputBaseProps & {
   invalid?: boolean
 }
 
-export function Input({ className, disabled, invalid = false, ...props }: InputProps) {
+export function Input({ className, disabled, invalid, ...props }: InputProps) {
   return (
-    <TaroInput
-      className={cn(controlBase, focusRing, className)}
+    <InputBase
+      className={cn(
+        "min-h-[88rpx] rounded-md border border-input bg-background px-3 text-base text-foreground",
+        invalid && "border-destructive",
+        className
+      )}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
       disabled={disabled}

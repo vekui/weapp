@@ -1,9 +1,12 @@
+import { demoAppPages, demoSubpackages } from "./demo/catalog"
+
 export default defineAppConfig({
-  pages: ["pages/index/index", "pages/component/index"],
+  pages: demoAppPages,
+  subpackages: demoSubpackages,
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#ffffff",
-    navigationBarTitleText: "VekUI WeApp",
+    navigationBarTitleText: "VekUI",
     navigationBarTextStyle: "black"
   }
 })

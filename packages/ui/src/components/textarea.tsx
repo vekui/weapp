@@ -1,16 +1,18 @@
-import * as React from "react"
-import { Textarea as TaroTextarea } from "@tarojs/components"
 import { cn } from "../lib/cn"
-import { controlBase, focusRing } from "../lib/variants"
+import { TextareaBase, type TextareaBaseProps } from "../primitives"
 
-export interface TextareaProps extends React.ComponentProps<typeof TaroTextarea> {
+export type TextareaProps = TextareaBaseProps & {
   invalid?: boolean
 }
 
-export function Textarea({ className, disabled, invalid = false, ...props }: TextareaProps) {
+export function Textarea({ className, disabled, invalid, ...props }: TextareaProps) {
   return (
-    <TaroTextarea
-      className={cn(controlBase, focusRing, "min-h-[176rpx]", className)}
+    <TextareaBase
+      className={cn(
+        "box-border min-h-[176rpx] w-full rounded-md border border-input bg-background px-3 py-2 text-base leading-[40rpx] text-foreground",
+        invalid && "border-destructive",
+        className
+      )}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
       disabled={disabled}

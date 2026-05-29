@@ -218,6 +218,87 @@ const availableBySlug: Record<
   }
 }
 
+const migratedComponentSlugs = new Set(
+  [
+    "action-sheet",
+    "accordion",
+    "activity-indicator",
+    "article",
+    "alert",
+    "aspect-ratio",
+    "avatar",
+    "badge",
+    "breadcrumb",
+    "button",
+    "button-group",
+    "calendar",
+    "card",
+    "carousel",
+    "checkbox",
+    "collapsible",
+    "countdown",
+    "curtain",
+    "data-list",
+    "dialog",
+    "divider",
+    "drawer",
+    "empty",
+    "fab",
+    "field",
+    "flex",
+    "float-layout",
+    "form",
+    "grid",
+    "icon",
+    "image",
+    "image-picker",
+    "indexes",
+    "input",
+    "input-group",
+    "input-number",
+    "input-otp",
+    "item",
+    "label",
+    "list",
+    "load-more",
+    "loading",
+    "message",
+    "modal",
+    "nav-bar",
+    "notice-bar",
+    "pagination",
+    "picker",
+    "picker-view",
+    "progress",
+    "popover",
+    "radio-group",
+    "range",
+    "rate",
+    "safe-area",
+    "scroll-area",
+    "search-bar",
+    "separator",
+    "segmented-control",
+    "sheet",
+    "skeleton",
+    "slider",
+    "spinner",
+    "steps",
+    "swipe-action",
+    "switch",
+    "tab-bar",
+    "table",
+    "tabs",
+    "tag",
+    "textarea",
+    "toast",
+    "toggle",
+    "toggle-group",
+    "timeline",
+    "typography"
+  ]
+)
+
 const shadcnComponentOrder = [
   ["Accordion", "accordion"],
   ["Alert", "alert"],
@@ -288,6 +369,22 @@ export const componentCatalog: ComponentCatalogItem[] = shadcnComponentOrder.map
       name: available.name ?? name,
       slug,
       status: "available"
+    }
+  }
+
+  if (migratedComponentSlugs.has(slug)) {
+    return {
+      command: `pnpm dlx vekui add ${slug} --cwd .`,
+      dependency: "primitives, state",
+      description: `${name} 已从旧小程序 demo 迁移为 Taro-safe 源码组件。`,
+      exportName: name.replaceAll(" ", ""),
+      name,
+      registryPath: `/weapp/r/${slug}.json`,
+      source: `packages/ui/src/components/${slug}.tsx`,
+      state: "data-state",
+      status: "available",
+      slug,
+      taroNote: "使用 @tarojs/components、语义 token 和小程序安全 Tailwind utilities。"
     }
   }
 

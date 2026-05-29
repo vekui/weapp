@@ -1,58 +1,69 @@
-import * as React from "react"
-import { Text, View } from "@tarojs/components"
 import { cn } from "../lib/cn"
+import { useControllableState } from "../lib/use-controllable-state"
+import { Box, Pressable, Text, type PressableProps } from "../primitives"
+import { Icon } from "./icon"
 
-export interface CheckboxProps extends Omit<React.ComponentProps<typeof View>, "onChange"> {
+export type CheckboxProps = PressableProps & {
   checked?: boolean
   defaultChecked?: boolean
-  disabled?: boolean
   invalid?: boolean
   label?: React.ReactNode
   onCheckedChange?: (checked: boolean) => void
 }
 
 export function Checkbox({
-  checked,
   className,
+  checked,
   defaultChecked = false,
-  disabled = false,
-  invalid = false,
+  disabled,
+  invalid,
   label,
   onCheckedChange,
   ...props
 }: CheckboxProps) {
-  const [internalChecked, setInternalChecked] = React.useState(defaultChecked)
-  const isChecked = checked ?? internalChecked
-
-  function toggle() {
-    if (disabled) {
-      return
-    }
-    const nextChecked = !isChecked
-    setInternalChecked(nextChecked)
-    onCheckedChange?.(nextChecked)
-  }
+  const [currentChecked, setChecked] = useControllableState({
+    value: checked,
+    defaultValue: defaultChecked,
+    onChange: onCheckedChange
+  })
 
   return (
-    <View
-      className={cn("flex-row items-center gap-2 py-2", className)}
+    <Pressable
+      className={cn(
+        label
+          ? "flex min-h-[88rpx] flex-row items-center gap-2 py-2"
+          : "flex size-[48rpx] items-center justify-center rounded border border-input",
+        !label && currentChecked && "border-primary bg-primary",
+        invalid && "border-destructive",
+        className
+      )}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
-      data-state={isChecked ? "checked" : "unchecked"}
-      onClick={toggle}
+      data-state={currentChecked ? "checked" : "unchecked"}
+      disabled={disabled}
+      onClick={(event) => {
+        props.onClick?.(event)
+        setChecked(!currentChecked)
+      }}
       {...props}
     >
-      <View
-        className={cn(
-          "h-[40rpx] w-[40rpx] rounded-md border border-input",
-          isChecked ? "bg-primary" : "bg-background",
-          invalid ? "border-destructive" : ""
-        )}
-        data-state={isChecked ? "checked" : "unchecked"}
-      >
-        {isChecked ? <Text className="text-primary-foreground">on</Text> : null}
-      </View>
-      {label ? <Text className="text-base text-foreground">{label}</Text> : null}
-    </View>
+      {label ? (
+        <>
+          <Box
+            className={cn(
+              "flex size-[48rpx] items-center justify-center rounded border border-input",
+              currentChecked && "border-primary bg-primary",
+              invalid && "border-destructive"
+            )}
+            data-state={currentChecked ? "checked" : "unchecked"}
+          >
+            {currentChecked ? <Icon name="check" size="sm" tone="primary-foreground" /> : null}
+          </Box>
+          <Text className="text-base text-foreground">{label}</Text>
+        </>
+      ) : currentChecked ? (
+        <Icon name="check" size="sm" tone="primary-foreground" />
+      ) : null}
+    </Pressable>
   )
 }

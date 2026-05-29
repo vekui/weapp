@@ -82,7 +82,7 @@ describe("v0 component contracts", () => {
     expect(input.props["data-invalid"]).toBe("true")
     expect(textarea.props["data-invalid"]).toBe("true")
     expect(classNameOf(input)).toContain("bg-background")
-    expect(classNameOf(textarea)).toContain("border-input")
+    expect(classNameOf(textarea)).toContain("border-destructive")
     expect(labels.map(classNameOf).join(" ")).toContain("text-foreground")
   })
 

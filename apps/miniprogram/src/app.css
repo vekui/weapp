@@ -1,4 +1,8 @@
 @import "@vekui/weapp/styles.css";
+@import "weapp-tailwindcss/index.css";
+
+@source "./**/*.{ts,tsx}";
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
 
 page {
   min-height: 100%;

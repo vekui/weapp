@@ -20,6 +20,177 @@ const sharedDependencies = {
   "tailwind-merge": "3.6.0"
 }
 
+const migratedComponentNames = [
+  "action-sheet",
+  "accordion",
+  "activity-indicator",
+  "article",
+  "alert",
+  "aspect-ratio",
+  "avatar",
+  "badge",
+  "breadcrumb",
+  "button",
+  "button-group",
+  "calendar",
+  "card",
+  "carousel",
+  "checkbox",
+  "collapsible",
+  "countdown",
+  "curtain",
+  "data-list",
+  "dialog",
+  "divider",
+  "drawer",
+  "empty",
+  "fab",
+  "field",
+  "flex",
+  "float-layout",
+  "form",
+  "grid",
+  "icon",
+  "image",
+  "image-picker",
+  "indexes",
+  "input",
+  "input-group",
+  "input-number",
+  "input-otp",
+  "item",
+  "label",
+  "list",
+  "load-more",
+  "loading",
+  "message",
+  "modal",
+  "nav-bar",
+  "notice-bar",
+  "pagination",
+  "picker",
+  "picker-view",
+  "progress",
+  "popover",
+  "radio-group",
+  "range",
+  "rate",
+  "safe-area",
+  "scroll-area",
+  "search-bar",
+  "separator",
+  "segmented-control",
+  "sheet",
+  "skeleton",
+  "slider",
+  "spinner",
+  "steps",
+  "swipe-action",
+  "switch",
+  "tab-bar",
+  "table",
+  "tabs",
+  "tag",
+  "textarea",
+  "toast",
+  "toggle",
+  "toggle-group",
+  "timeline",
+  "typography"
+] as const
+
+const titleOverrides: Record<string, string> = {
+  "action-sheet": "Action Sheet",
+  "activity-indicator": "Activity Indicator",
+  "aspect-ratio": "Aspect Ratio",
+  "button-group": "Button Group",
+  "data-list": "Data List",
+  "float-layout": "Float Layout",
+  "image-picker": "Image Picker",
+  "input-group": "Input Group",
+  "input-number": "Input Number",
+  "input-otp": "Input OTP",
+  "load-more": "Load More",
+  "nav-bar": "NavBar",
+  "notice-bar": "NoticeBar",
+  "picker-view": "Picker View",
+  "radio-group": "Radio Group",
+  "safe-area": "Safe Area",
+  "scroll-area": "Scroll Area",
+  "segmented-control": "Segmented Control",
+  "swipe-action": "Swipe Action",
+  "tab-bar": "TabBar",
+  "toggle-group": "Toggle Group"
+}
+
+const dependencyOverrides: Record<string, string[]> = {
+  "action-sheet": ["layer", "state"],
+  "activity-indicator": ["spinner", "primitives", "state"],
+  button: ["utils"],
+  checkbox: ["icon", "primitives", "state"],
+  dialog: ["button", "layer", "state", "primitives"],
+  drawer: ["sheet"],
+  icon: ["utils"],
+  image: ["icon", "primitives", "state"],
+  "input-number": ["icon", "primitives", "state"],
+  "load-more": ["spinner", "primitives", "state"],
+  "float-layout": ["layer", "state", "primitives"],
+  modal: ["layer", "state", "primitives"],
+  rate: ["icon", "primitives", "state"],
+  sheet: ["layer", "state", "primitives"],
+  "swipe-action": ["button", "primitives", "state"],
+  "tab-bar": ["icon", "primitives", "state"],
+  toast: ["primitives"]
+}
+
+const extraComponentFiles: Record<string, RegistryFile[]> = {
+  button: [
+    {
+      path: "components/ui/button-variants.ts",
+      source: "packages/ui/src/components/button-variants.ts",
+      type: "registry:component"
+    }
+  ],
+  tabs: [
+    {
+      path: "components/ui/tabs-state.ts",
+      source: "packages/ui/src/components/tabs-state.ts",
+      type: "registry:component"
+    }
+  ]
+}
+
+function toTitle(name: string) {
+  if (titleOverrides[name]) {
+    return titleOverrides[name]
+  }
+
+  return name
+    .split("-")
+    .map((part) => `${part[0]?.toUpperCase() ?? ""}${part.slice(1)}`)
+    .join(" ")
+}
+
+function componentItem(name: (typeof migratedComponentNames)[number]): RegistryItem {
+  const title = toTitle(name)
+
+  return {
+    name,
+    title,
+    description: `${title} component adapted for Taro React WeChat mini programs.`,
+    type: "registry:ui",
+    registryDependencies: dependencyOverrides[name] ?? ["primitives", "state"],
+    files: [
+      {
+        path: `components/ui/${name}.tsx`,
+        source: `packages/ui/src/components/${name}.tsx`,
+        type: "registry:component"
+      },
+      ...(extraComponentFiles[name] ?? [])
+    ]
+  }
+}
+
 export const registryItems: RegistryItem[] = [
   {
     name: "styles",
@@ -50,6 +221,30 @@ export const registryItems: RegistryItem[] = [
     ]
   },
   {
+    name: "state",
+    title: "State helpers",
+    description: "Controllable state and strict context helpers for VekUI components.",
+    type: "registry:lib",
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "lib/use-controllable-state.ts",
+        source: "packages/ui/src/lib/use-controllable-state.ts",
+        type: "registry:lib"
+      },
+      {
+        path: "lib/create-strict-context.tsx",
+        source: "packages/ui/src/lib/create-strict-context.tsx",
+        type: "registry:lib"
+      },
+      {
+        path: "lib/compose-event-handlers.ts",
+        source: "packages/ui/src/lib/compose-event-handlers.ts",
+        type: "registry:lib"
+      }
+    ]
+  },
+  {
     name: "variants",
     title: "shared variants",
     description: "Shared component variant helpers.",
@@ -67,200 +262,54 @@ export const registryItems: RegistryItem[] = [
     ]
   },
   {
-    name: "layer",
-    title: "Layer primitive",
-    description: "App-tree layer primitive for Dialog and Toast-like overlays.",
+    name: "primitives",
+    title: "VekUI primitives",
+    description: "Taro primitive wrappers shared by VekUI source components.",
     type: "registry:ui",
     registryDependencies: ["utils"],
     files: [
       {
-        path: "components/ui/layer.tsx",
+        path: "components/ui/primitives/box.tsx",
+        source: "packages/ui/src/primitives/box.tsx",
+        type: "registry:component"
+      },
+      {
+        path: "components/ui/primitives/input-base.tsx",
+        source: "packages/ui/src/primitives/input-base.tsx",
+        type: "registry:component"
+      },
+      {
+        path: "components/ui/primitives/pressable.tsx",
+        source: "packages/ui/src/primitives/pressable.tsx",
+        type: "registry:component"
+      },
+      {
+        path: "components/ui/primitives/text.tsx",
+        source: "packages/ui/src/primitives/text.tsx",
+        type: "registry:component"
+      },
+      {
+        path: "components/ui/primitives/index.ts",
+        source: "packages/ui/src/primitives/index.ts",
+        type: "registry:component"
+      }
+    ]
+  },
+  {
+    name: "layer",
+    title: "Layer primitive",
+    description: "App-tree layer primitive for Dialog and Toast-like overlays.",
+    type: "registry:ui",
+    registryDependencies: ["primitives"],
+    files: [
+      {
+        path: "components/ui/primitives/layer.tsx",
         source: "packages/ui/src/primitives/layer.tsx",
         type: "registry:component"
       }
     ]
   },
-  {
-    name: "button",
-    title: "Button",
-    description: "Native Taro Button wrapper with token variants and loading state.",
-    type: "registry:ui",
-    registryDependencies: ["variants"],
-    files: [
-      {
-        path: "components/ui/button.tsx",
-        source: "packages/ui/src/components/button.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "card",
-    title: "Card",
-    description: "Tokenized card composition primitives.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/card.tsx",
-        source: "packages/ui/src/components/card.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "badge",
-    title: "Badge",
-    description: "Small status label with semantic variants.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/badge.tsx",
-        source: "packages/ui/src/components/badge.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "field",
-    title: "Field",
-    description: "Form field grouping, labels, descriptions, and error text.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/field.tsx",
-        source: "packages/ui/src/components/field.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "input",
-    title: "Input",
-    description: "Mini-program input wrapper with disabled and invalid states.",
-    type: "registry:ui",
-    registryDependencies: ["variants"],
-    files: [
-      {
-        path: "components/ui/input.tsx",
-        source: "packages/ui/src/components/input.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "textarea",
-    title: "Textarea",
-    description: "Mini-program multiline input wrapper.",
-    type: "registry:ui",
-    registryDependencies: ["variants"],
-    files: [
-      {
-        path: "components/ui/textarea.tsx",
-        source: "packages/ui/src/components/textarea.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "checkbox",
-    title: "Checkbox",
-    description: "Touch-first checkbox with controlled and uncontrolled state.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/checkbox.tsx",
-        source: "packages/ui/src/components/checkbox.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "radio-group",
-    title: "RadioGroup",
-    description: "Touch-first radio option group.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/radio-group.tsx",
-        source: "packages/ui/src/components/radio-group.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "switch",
-    title: "Switch",
-    description: "Mini-program-safe switch with margin-based thumb movement.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/switch.tsx",
-        source: "packages/ui/src/components/switch.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "tabs",
-    title: "Tabs",
-    description: "Touch tab switcher with active state attributes.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/tabs.tsx",
-        source: "packages/ui/src/components/tabs.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "dialog",
-    title: "Dialog",
-    description: "No-portal dialog rendered through the Layer primitive.",
-    type: "registry:ui",
-    registryDependencies: ["button", "layer"],
-    files: [
-      {
-        path: "components/ui/dialog.tsx",
-        source: "packages/ui/src/components/dialog.tsx",
-        type: "registry:component"
-      }
-    ]
-  },
-  {
-    name: "toast",
-    title: "Toast",
-    description: "App-tree toast and viewport components.",
-    type: "registry:ui",
-    registryDependencies: ["utils"],
-    files: [
-      {
-        path: "components/ui/toast.tsx",
-        source: "packages/ui/src/components/toast.tsx",
-        type: "registry:component"
-      }
-    ]
-  }
+  ...migratedComponentNames.map(componentItem)
 ]
 
-export const publicComponentNames = [
-  "button",
-  "card",
-  "badge",
-  "field",
-  "input",
-  "textarea",
-  "checkbox",
-  "radio-group",
-  "switch",
-  "tabs",
-  "dialog",
-  "toast"
-]
+export const publicComponentNames = [...migratedComponentNames]

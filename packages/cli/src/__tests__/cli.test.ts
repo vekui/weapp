@@ -52,12 +52,17 @@ describe("vekui CLI", () => {
 
     expect(code).toBe(0)
     expect(await readFile(path.join(cwd, "src/components/ui/button.tsx"), "utf8")).toContain(
-      "../../lib/variants"
+      "./button-variants"
     )
     expect(await readFile(path.join(cwd, "src/components/ui/input.tsx"), "utf8")).toContain(
-      "../../lib/variants"
+      "./primitives"
     )
-    expect(await readFile(path.join(cwd, "src/lib/variants.ts"), "utf8")).toContain("buttonVariants")
+    expect(await readFile(path.join(cwd, "src/components/ui/button-variants.ts"), "utf8")).toContain(
+      "buttonVariants"
+    )
+    expect(await readFile(path.join(cwd, "src/components/ui/primitives/input-base.tsx"), "utf8")).toContain(
+      "InputBase"
+    )
   })
 
   it("lists registry items", async () => {

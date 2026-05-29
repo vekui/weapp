@@ -1,54 +1,46 @@
-import * as React from "react"
-import { View } from "@tarojs/components"
 import { cn } from "../lib/cn"
+import { useControllableState } from "../lib/use-controllable-state"
+import { Pressable, Box, type PressableProps } from "../primitives"
 
-export interface SwitchProps extends Omit<React.ComponentProps<typeof View>, "onChange"> {
+export type SwitchProps = PressableProps & {
   checked?: boolean
   defaultChecked?: boolean
-  disabled?: boolean
   onCheckedChange?: (checked: boolean) => void
 }
 
 export function Switch({
-  checked,
   className,
+  checked,
   defaultChecked = false,
-  disabled = false,
   onCheckedChange,
   ...props
 }: SwitchProps) {
-  const [internalChecked, setInternalChecked] = React.useState(defaultChecked)
-  const isChecked = checked ?? internalChecked
-
-  function toggle() {
-    if (disabled) {
-      return
-    }
-    const nextChecked = !isChecked
-    setInternalChecked(nextChecked)
-    onCheckedChange?.(nextChecked)
-  }
+  const [currentChecked, setChecked] = useControllableState({
+    value: checked,
+    defaultValue: defaultChecked,
+    onChange: onCheckedChange
+  })
 
   return (
-    <View
+    <Pressable
       className={cn(
-        "h-[56rpx] w-[104rpx] rounded-full p-[4rpx]",
-        isChecked ? "bg-primary" : "bg-muted",
-        disabled ? "opacity-50" : "",
+        "flex h-[56rpx] w-[96rpx] flex-row items-center rounded-full p-[4rpx]",
+        currentChecked ? "bg-primary" : "bg-muted",
         className
       )}
-      data-disabled={disabled ? "true" : undefined}
-      data-state={isChecked ? "checked" : "unchecked"}
-      onClick={toggle}
+      data-state={currentChecked ? "checked" : "unchecked"}
+      onClick={(event) => {
+        props.onClick?.(event)
+        setChecked(!currentChecked)
+      }}
       {...props}
     >
-      <View
+      <Box
         className={cn(
-          "h-[48rpx] w-[48rpx] rounded-full bg-background transition-[margin]",
-          isChecked ? "ml-[48rpx]" : "ml-0"
+          "size-[48rpx] rounded-full bg-background transition-[margin]",
+          currentChecked && "ml-[40rpx]"
         )}
-        data-state={isChecked ? "checked" : "unchecked"}
       />
-    </View>
+    </Pressable>
   )
 }

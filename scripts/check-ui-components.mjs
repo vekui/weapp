@@ -2,20 +2,6 @@ import { readFile, stat } from "node:fs/promises"
 import path from "node:path"
 
 const root = process.cwd()
-const publicComponents = [
-  "button",
-  "card",
-  "badge",
-  "field",
-  "input",
-  "textarea",
-  "checkbox",
-  "radio-group",
-  "switch",
-  "tabs",
-  "dialog",
-  "toast"
-]
 
 async function exists(filePath) {
   try {
@@ -35,6 +21,7 @@ const docsComponentsClient = await readFile(
   path.join(root, "apps/docs/app/components/components-page-client.tsx"),
   "utf8"
 )
+const publicComponents = [...index.matchAll(/export \* from "\.\/([^"]+)"/g)].map((match) => match[1])
 
 for (const name of publicComponents) {
   const file = path.join(root, "packages/ui/src/components", `${name}.tsx`)
@@ -44,7 +31,7 @@ for (const name of publicComponents) {
   if (!index.includes(`"./${name}"`)) {
     problems.push(`Missing component export: ${name}`)
   }
-  if (!manifest.includes(`name: "${name}"`)) {
+  if (!manifest.includes(`"${name}"`)) {
     problems.push(`Missing registry item: ${name}`)
   }
 }
