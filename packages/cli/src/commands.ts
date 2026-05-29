@@ -189,6 +189,41 @@ async function collectSourceFiles(dir: string): Promise<string[]> {
   return files.flat()
 }
 
+function getLocalImportSpecifiers(source: string) {
+  return [
+    ...source.matchAll(/\bfrom\s+["']([^"']+)["']/g),
+    ...source.matchAll(/\bimport\s+["']([^"']+)["']/g),
+    ...source.matchAll(/@import\s+url\(\s*(?:"([^"]+)"|'([^']+)'|([^)'"\s]+))\s*\)/g)
+  ].flatMap((match) => {
+    const specifier = match.slice(1).find(Boolean)
+    return specifier?.startsWith(".") ? [specifier] : []
+  })
+}
+
+async function resolvesLocalImport(sourceFile: string, specifier: string) {
+  const normalized = path.join(path.dirname(sourceFile), specifier)
+  const candidates = [
+    normalized,
+    `${normalized}.ts`,
+    `${normalized}.tsx`,
+    `${normalized}.js`,
+    `${normalized}.jsx`,
+    `${normalized}.css`,
+    path.join(normalized, "index.ts"),
+    path.join(normalized, "index.tsx"),
+    path.join(normalized, "index.js"),
+    path.join(normalized, "index.jsx")
+  ]
+
+  for (const candidate of candidates) {
+    if (await exists(candidate)) {
+      return true
+    }
+  }
+
+  return false
+}
+
 export async function doctorCommand(argv: string[]): Promise<CommandResult> {
   const { flags } = parseFlags(argv)
   const cwd = getCwd(flags)
@@ -223,12 +258,24 @@ export async function doctorCommand(argv: string[]): Promise<CommandResult> {
     "HTMLElement",
     "translate-"
   ]
-  const sourceFiles = await collectSourceFiles(path.join(cwd, config.aliases.components))
+  const sourceRoots = [
+    config.aliases.components,
+    config.aliases.lib,
+    config.aliases.styles
+  ].map((root) => path.join(cwd, root))
+  const sourceFiles = (await Promise.all(sourceRoots.map((root) => collectSourceFiles(root)))).flat()
+
   for (const file of sourceFiles) {
     const content = await readFile(file, "utf8")
     for (const token of forbidden) {
       if (content.includes(token)) {
         problems.push(`Forbidden token ${token} in ${path.relative(cwd, file)}`)
+      }
+    }
+
+    for (const specifier of getLocalImportSpecifiers(content)) {
+      if (!(await resolvesLocalImport(file, specifier))) {
+        problems.push(`Dangling local import ${specifier} in ${path.relative(cwd, file)}`)
       }
     }
   }
