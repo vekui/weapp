@@ -3,7 +3,6 @@
   display: inline-flex;
   gap: 10px;
 }
-
 .vekui-nav-logo img {
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 7px;
@@ -895,20 +894,31 @@
 }
 
 .vekui-components-content {
-  max-width: 760px;
+  max-width: 860px;
   min-width: 0;
 }
 
 .vekui-components-toolbar {
   align-items: center;
+  border-bottom: 1px solid var(--vk-border);
   display: flex;
   gap: 18px;
   justify-content: space-between;
-  margin-bottom: 34px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
 }
 
 .vekui-components-toolbar .vekui-kicker {
   margin: 0;
+}
+
+.vekui-components-toolbar strong {
+  color: var(--vk-ink);
+  display: block;
+  font-size: 15px;
+  font-weight: 620;
+  line-height: 1.4;
+  margin-top: 4px;
 }
 
 .vekui-components-actions {
@@ -918,9 +928,10 @@
 }
 
 .vekui-components-actions button,
-.vekui-components-actions a {
+.vekui-components-actions a,
+.vekui-components-status-tabs button {
   align-items: center;
-  background: transparent;
+  background: var(--vk-surface);
   border: 1px solid var(--vk-border);
   border-radius: 8px;
   color: var(--vk-ink);
@@ -928,7 +939,7 @@
   display: grid;
   font-size: 13px;
   font-weight: 500;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 12px;
   place-items: center;
   text-decoration: none;
@@ -948,6 +959,73 @@
 .vekui-components-actions a:hover {
   border-color: var(--vk-border);
   background: var(--vk-surface-muted);
+}
+
+.vekui-components-controls {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 0 30px;
+}
+
+.vekui-components-search {
+  align-items: center;
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  color: var(--vk-muted);
+  display: flex;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.vekui-components-search:focus-within {
+  border-color: color-mix(in srgb, var(--vk-accent) 54%, var(--vk-border));
+  box-shadow: 0 0 0 3px var(--vk-ring);
+}
+
+.vekui-components-search input {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--vk-ink);
+  font: inherit;
+  min-width: 0;
+  outline: 0;
+  width: 100%;
+}
+
+.vekui-components-search input::placeholder {
+  color: var(--vk-muted);
+}
+
+.vekui-components-status-tabs {
+  align-items: center;
+  background: var(--vk-surface-muted);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+}
+
+.vekui-components-status-tabs button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--vk-muted);
+  cursor: pointer;
+  font-weight: 620;
+  padding: 0 12px;
+}
+
+.vekui-components-status-tabs button[data-state="active"] {
+  background: var(--vk-surface);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  color: var(--vk-ink);
 }
 
 .vekui-components-mobile-switcher {
@@ -1583,7 +1661,9 @@
   .vekui-components-index__item,
   .vekui-source-card__body,
   .vekui-source-card__header button,
-  .vekui-install-tabs button {
+  .vekui-install-tabs button,
+  .vekui-components-status-tabs button,
+  .vekui-components-search {
     animation: none;
     transition: none;
   }
@@ -1667,6 +1747,15 @@
 
   .vekui-components-panel__heading h1 {
     font-size: 32px;
+  }
+
+  .vekui-components-controls {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .vekui-components-status-tabs {
+    width: max-content;
   }
 }
 
@@ -1760,6 +1849,23 @@
     margin-bottom: 24px;
   }
 
+  .vekui-components-actions {
+    width: 100%;
+  }
+
+  .vekui-components-actions button {
+    flex: 1;
+  }
+
+  .vekui-components-status-tabs {
+    width: 100%;
+  }
+
+  .vekui-components-status-tabs button {
+    flex: 1;
+    min-width: 0;
+  }
+
   .vekui-components-index {
     gap: 8px;
     grid-template-columns: 1fr;
@@ -1817,5 +1923,455 @@
     gap: 16px;
     grid-template-columns: 1fr;
     padding: 28px 0;
+  }
+}
+
+/* Final refresh overrides. Keep this block last so it wins over the theme defaults above. */
+.vekui-home,
+.vekui-doc-page {
+  --vk-bg: #f7f9fc;
+  --vk-surface: #ffffff;
+  --vk-surface-muted: #eef3f8;
+  --vk-surface-strong: #e7eef6;
+  --vk-ink: #07111f;
+  --vk-text: #334155;
+  --vk-muted: #65758b;
+  --vk-border: rgba(15, 23, 42, 0.12);
+  --vk-border-strong: rgba(15, 23, 42, 0.2);
+  --vk-accent: #2563eb;
+  --vk-accent-ink: #126155;
+  --vk-accent-soft: rgba(37, 99, 235, 0.08);
+  --vk-code: #07111f;
+  --vk-code-border: rgba(15, 23, 42, 0.11);
+  --vk-code-surface: #f3f7fb;
+  --vk-code-surface-muted: #e8eef6;
+  --vk-code-text: #eef6ff;
+  --vk-ring: rgba(37, 99, 235, 0.26);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(247, 249, 252, 0.92) 28rem),
+    var(--vk-bg);
+  color: var(--vk-text);
+  overflow-x: clip;
+}
+
+.dark .vekui-home,
+.dark .vekui-doc-page {
+  --vk-bg: #080d16;
+  --vk-surface: #0f1724;
+  --vk-surface-muted: #152033;
+  --vk-surface-strong: #1b2a40;
+  --vk-ink: #f8fafc;
+  --vk-text: #cbd5e1;
+  --vk-muted: #9aa8ba;
+  --vk-border: rgba(226, 232, 240, 0.14);
+  --vk-border-strong: rgba(226, 232, 240, 0.24);
+  --vk-accent: #60a5fa;
+  --vk-accent-ink: #6ee7b7;
+  --vk-accent-soft: rgba(96, 165, 250, 0.12);
+  --vk-code: #050a12;
+  --vk-code-border: rgba(226, 232, 240, 0.16);
+  --vk-code-surface: #111c2d;
+  --vk-code-surface-muted: #17243a;
+  --vk-code-text: #eff6ff;
+  --vk-ring: rgba(96, 165, 250, 0.34);
+}
+
+.vekui-shell {
+  max-width: 1180px;
+  width: min(calc(100% - 48px), 1180px);
+}
+
+.vekui-kicker {
+  color: var(--vk-muted);
+  font-size: 12px;
+  font-weight: 680;
+  letter-spacing: 0;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.vekui-home h1,
+.vekui-home h2,
+.vekui-doc-page h1,
+.vekui-doc-page h2,
+.vekui-doc-page h3 {
+  color: var(--vk-ink);
+  text-wrap: balance;
+}
+
+.vekui-home-hero {
+  background:
+    linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, var(--vk-surface), var(--vk-bg));
+  background-size: 88px 88px, auto;
+  border-bottom: 1px solid var(--vk-border);
+}
+
+.vekui-home-hero__grid {
+  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 460px);
+  padding: 74px 0 44px;
+}
+
+.vekui-home-hero__wordmark {
+  margin-bottom: 24px;
+  max-width: 320px;
+  width: 46%;
+}
+
+.vekui-home-hero h1 {
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: 0.98;
+  max-width: 720px;
+}
+
+.vekui-home-hero__lead {
+  color: var(--vk-text);
+  font-size: 19px;
+  line-height: 1.72;
+  margin-top: 26px;
+  max-width: 720px;
+}
+
+.vekui-actions {
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.vekui-button {
+  border-radius: 8px;
+  font-weight: 620;
+  min-height: 44px;
+  padding: 0 17px;
+}
+
+.vekui-install-panel,
+.vekui-doc-command {
+  border-radius: 10px;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.15);
+}
+
+.vekui-hero-proof {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.vekui-hero-proof div {
+  min-height: 118px;
+  padding: 24px 22px 22px 0;
+}
+
+.vekui-hero-proof strong {
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+.vekui-section,
+.vekui-doc-section {
+  padding: 76px 0;
+}
+
+.vekui-section__split,
+.vekui-system-grid,
+.vekui-quality-grid,
+.vekui-roadmap,
+.vekui-output-grid,
+.vekui-next-grid,
+.vekui-requirements {
+  gap: 64px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.64fr);
+}
+
+.vekui-section__split h2,
+.vekui-system-grid h2,
+.vekui-quality-grid h2,
+.vekui-roadmap h2,
+.vekui-section--links .vekui-doc-heading h2,
+.vekui-doc-page h1,
+.vekui-doc-page h2 {
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.08;
+}
+
+.vekui-foundation-grid article {
+  min-height: 230px;
+  padding: 26px 32px 28px 0;
+}
+
+.vekui-foundation-grid h3 {
+  font-size: 24px;
+  margin-top: 42px;
+}
+
+.vekui-section--links {
+  background: var(--vk-surface);
+  padding: 76px 0 88px;
+}
+
+.vekui-section--links .vekui-doc-heading {
+  margin-bottom: 28px;
+}
+
+.vekui-link-grid {
+  border: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.vekui-link-grid a,
+.vekui-link-grid a:last-child {
+  background: var(--vk-bg);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  min-height: 132px;
+  padding: 20px;
+}
+
+.vekui-link-grid strong {
+  font-size: 18px;
+  line-height: 1.32;
+  margin-top: 22px;
+}
+
+.vekui-doc-hero {
+  background:
+    linear-gradient(90deg, rgba(37, 99, 235, 0.045) 1px, transparent 1px),
+    var(--vk-surface);
+  background-size: 88px 88px;
+}
+
+.vekui-doc-hero__grid {
+  gap: 64px;
+  grid-template-columns: minmax(0, 0.98fr) minmax(340px, 0.62fr);
+  padding: 66px 0;
+}
+
+.vekui-doc-hero p {
+  color: var(--vk-text);
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-command-grid article,
+.vekui-token-grid article,
+.vekui-components-command-list code,
+.vekui-components-mini-list button {
+  background: var(--vk-surface);
+  border-color: var(--vk-border);
+  border-radius: 8px;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.03);
+}
+
+.vekui-command-grid,
+.vekui-token-grid,
+.vekui-component-grid {
+  gap: 12px;
+}
+
+.vekui-command-grid article,
+.vekui-token-grid article {
+  min-height: 196px;
+}
+
+.vekui-command-grid pre,
+.vekui-step-list pre {
+  background: var(--vk-code-surface);
+  border-color: var(--vk-code-border);
+}
+
+.vekui-components-layout {
+  gap: 56px;
+  grid-template-columns: 256px minmax(0, 1fr);
+  max-width: 1240px;
+  padding: 44px 0 84px;
+}
+
+.vekui-components-sidebar {
+  background: color-mix(in srgb, var(--vk-surface) 86%, transparent);
+  border: 1px solid var(--vk-border);
+  border-radius: 10px;
+  max-height: calc(100svh - 108px);
+  padding: 14px;
+  top: 80px;
+}
+
+.vekui-components-nav-group + .vekui-components-nav-group {
+  border-top: 1px solid var(--vk-border);
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.vekui-components-nav-item {
+  border-radius: 7px;
+  min-height: 34px;
+  padding: 6px 8px;
+}
+
+.vekui-components-nav-item:hover,
+.vekui-components-nav-item[data-state="active"] {
+  background: var(--vk-surface-muted);
+}
+
+.vekui-components-nav-item[data-state="active"] {
+  box-shadow: inset 2px 0 0 var(--vk-accent);
+}
+
+.vekui-components-content {
+  max-width: 860px;
+}
+
+.vekui-components-toolbar {
+  border-bottom: 1px solid var(--vk-border);
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+}
+
+.vekui-components-toolbar strong {
+  color: var(--vk-ink);
+  display: block;
+  font-size: 15px;
+  font-weight: 620;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.vekui-components-actions button,
+.vekui-components-actions a,
+.vekui-components-status-tabs button {
+  min-height: 44px;
+}
+
+.vekui-components-index {
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vekui-components-index__item {
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  min-height: 46px;
+  padding: 10px 12px;
+}
+
+.vekui-components-index__item:hover,
+.vekui-components-index__item[data-state="active"] {
+  border-color: var(--vk-border-strong);
+}
+
+.vekui-components-index__item[data-state="active"] {
+  background: var(--vk-accent-soft);
+}
+
+.vekui-components-panel__heading h1 {
+  font-size: clamp(32px, 3vw, 44px);
+}
+
+@media (max-width: 1180px) {
+  .vekui-link-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .vekui-home-hero__grid,
+  .vekui-section__split,
+  .vekui-system-grid,
+  .vekui-quality-grid,
+  .vekui-roadmap,
+  .vekui-doc-hero__grid,
+  .vekui-output-grid,
+  .vekui-next-grid,
+  .vekui-requirements,
+  .vekui-components-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .vekui-hero-proof,
+  .vekui-link-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vekui-components-layout {
+    gap: 0;
+  }
+
+  .vekui-components-content {
+    max-width: none;
+  }
+
+  .vekui-components-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .vekui-components-status-tabs {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .vekui-shell {
+    width: min(calc(100% - 32px), 1180px);
+  }
+
+  .vekui-home-hero__grid {
+    gap: 34px;
+    padding: 44px 0 34px;
+  }
+
+  .vekui-home-hero__wordmark {
+    max-width: 230px;
+    width: 70%;
+  }
+
+  .vekui-home-hero h1 {
+    font-size: 38px;
+  }
+
+  .vekui-section,
+  .vekui-doc-section,
+  .vekui-section--links {
+    padding: 56px 0;
+  }
+
+  .vekui-doc-hero__grid {
+    gap: 30px;
+    padding: 48px 0;
+  }
+
+  .vekui-hero-proof,
+  .vekui-link-grid,
+  .vekui-components-index {
+    grid-template-columns: 1fr;
+  }
+
+  .vekui-link-grid a {
+    min-height: 108px;
+  }
+
+  .vekui-components-toolbar {
+    align-items: stretch;
+  }
+
+  .vekui-components-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .vekui-components-actions button {
+    flex: 1;
+  }
+
+  .vekui-components-status-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .vekui-components-status-tabs button {
+    padding: 0 8px;
   }
 }
