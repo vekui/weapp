@@ -12,6 +12,7 @@ import {
   Badge,
   Box,
   Button,
+  ButtonGroup,
   Calendar,
   Card,
   CardContent,
@@ -20,10 +21,12 @@ import {
   CardTitle,
   Carousel,
   Checkbox,
+  Collapsible,
   Countdown,
   Curtain,
   CurtainTitle,
   Divider,
+  Dialog,
   Drawer,
   Empty,
   Fab,
@@ -40,7 +43,9 @@ import {
   ImagePicker,
   Indexes,
   Input,
+  InputGroup,
   InputNumber,
+  InputOTP,
   List,
   ListItem,
   LoadMore,
@@ -224,6 +229,22 @@ function ButtonDemo() {
   )
 }
 
+function ButtonGroupDemo() {
+  return (
+    <DemoPanel title="示例">
+      <ButtonGroup>
+        <Button variant="outline">上一步</Button>
+        <Button variant="outline">下一步</Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button variant="secondary">日</Button>
+        <Button variant="secondary">周</Button>
+        <Button variant="secondary">月</Button>
+      </ButtonGroup>
+    </DemoPanel>
+  )
+}
+
 function ViewDemo({ slug }: { slug: string }) {
   const [curtainOpen, setCurtainOpen] = React.useState(false)
 
@@ -321,6 +342,15 @@ function ViewDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "image") {
+    return (
+      <DemoPanel title="示例">
+        <Image className="h-[220rpx]" src="/assets/brand/vekui-logo-horizontal-transparent.png" mode="aspectFit" />
+        <Image fallbackClassName="h-[220rpx]" src="" />
+      </DemoPanel>
+    )
+  }
+
   if (slug === "swiper") {
     return (
       <DemoPanel title="示例">
@@ -385,6 +415,66 @@ function ActionDemo({ slug }: { slug: string }) {
       <DemoPanel title="示例">
         <ActivityIndicator text="加载中" />
         <Loading />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "alert") {
+    return (
+      <>
+        <DemoPanel title="基础用法">
+          <Alert.Root>
+            <Alert.Title>提示标题</Alert.Title>
+            <Alert.Description>用于展示页面内需要用户关注的信息。</Alert.Description>
+          </Alert.Root>
+        </DemoPanel>
+        <DemoPanel title="危险状态">
+          <Alert.Root variant="destructive">
+            <Alert.Title>操作失败</Alert.Title>
+            <Alert.Description>请检查输入内容后重试。</Alert.Description>
+          </Alert.Root>
+        </DemoPanel>
+      </>
+    )
+  }
+
+  if (slug === "dialog") {
+    return (
+      <DemoPanel title="示例">
+        <Button onClick={() => setModalOpen(true)}>打开对话框</Button>
+        <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
+          <Dialog.Content>
+            <Dialog.Title>对话框标题</Dialog.Title>
+            <Dialog.Description>对话框渲染在小程序组件树内，不依赖 portal。</Dialog.Description>
+            <Box className="mt-5 flex flex-row justify-end">
+              <Dialog.Close className="rounded-md bg-secondary px-4">
+                <Text className="text-sm text-secondary-foreground">关闭</Text>
+              </Dialog.Close>
+            </Box>
+          </Dialog.Content>
+        </Dialog.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "fab") {
+    return (
+      <DemoPanel title="示例">
+        <Text className="text-sm leading-[40rpx] text-muted-foreground">
+          浮动按钮固定在页面右下角，适合主要快捷操作。
+        </Text>
+        <Fab>
+          <Icon name="plus" tone="primary-foreground" />
+        </Fab>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "loading") {
+    return (
+      <DemoPanel title="示例">
+        <Loading label="加载中" />
+        <Loading className="justify-start rounded-md border border-border bg-card" label="正在同步数据" />
       </DemoPanel>
     )
   }
@@ -476,11 +566,53 @@ function FormDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "field") {
+    return (
+      <>
+        <DemoPanel title="基础用法">
+          <Field.Root>
+            <Field.Label>用户名</Field.Label>
+            <Input placeholder="请输入用户名" />
+            <Field.Description>用户名会显示在个人资料中。</Field.Description>
+          </Field.Root>
+        </DemoPanel>
+        <DemoPanel title="错误状态">
+          <Field.Root invalid>
+            <Field.Label>邮箱</Field.Label>
+            <Input invalid placeholder="name@example.com" />
+            <Field.Error>请输入有效邮箱地址。</Field.Error>
+          </Field.Root>
+        </DemoPanel>
+      </>
+    )
+  }
+
   if (slug === "input") {
     return (
       <DemoPanel title="示例">
         <Input placeholder="请输入内容" />
         <Input invalid placeholder="错误状态" />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "input-group") {
+    return (
+      <DemoPanel title="示例">
+        <InputGroup.Root>
+          <InputGroup.Addon>https://</InputGroup.Addon>
+          <InputGroup.Control>
+            <InputGroup.Input placeholder="vekui.dev" />
+          </InputGroup.Control>
+        </InputGroup.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "input-otp") {
+    return (
+      <DemoPanel title="示例">
+        <InputOTP value="2026" length={6} />
       </DemoPanel>
     )
   }
@@ -665,6 +797,22 @@ function LayoutDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "collapsible") {
+    return (
+      <DemoPanel title="示例">
+        <Collapsible.Root defaultOpen>
+          <Collapsible.Trigger className="border border-border px-3">
+            <Text className="text-sm font-medium text-foreground">展开说明</Text>
+            <Icon name="chevron-left" className="-rotate-90" size="sm" tone="muted" />
+          </Collapsible.Trigger>
+          <Collapsible.Content className="rounded-md bg-muted p-3">
+            折叠内容会在小程序组件树内直接显示或隐藏。
+          </Collapsible.Content>
+        </Collapsible.Root>
+      </DemoPanel>
+    )
+  }
+
   return (
     <DemoPanel title="示例">
       <Accordion.Root defaultValue="a" collapsible>
@@ -772,6 +920,7 @@ function BasicDemo({ slug }: { slug: string }) {
   if (slug === "color") return <ColorDemo />
   if (slug === "icon") return <IconDemo />
   if (slug === "typo") return <TypographyDemo />
+  if (slug === "button-group") return <ButtonGroupDemo />
   return <ButtonDemo />
 }
 
