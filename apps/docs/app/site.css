@@ -2953,3 +2953,72 @@
     padding: 0 8px;
   }
 }
+
+/* Edge spacing audit: keep minimal layouts away from divider lines and page edges. */
+.vekui-home-hero,
+.vekui-doc-hero {
+  background-image: none;
+}
+
+.vekui-hero-proof,
+.vekui-foundation-grid,
+.vekui-link-grid,
+.vekui-command-grid,
+.vekui-token-grid,
+.vekui-requirements ul,
+.vekui-file-list,
+.vekui-components-index,
+.vekui-components-info-grid,
+.vekui-components-prose-grid {
+  column-gap: clamp(32px, 5vw, 80px);
+  row-gap: clamp(16px, 3vw, 34px);
+}
+
+.vekui-hero-proof,
+.vekui-link-grid {
+  border-top: 0;
+}
+
+.vekui-hero-proof div,
+.vekui-link-grid a {
+  border-right: 0;
+  min-width: 0;
+  padding-inline: 0;
+}
+
+.vekui-hero-proof strong,
+.vekui-foundation-grid h3,
+.vekui-link-grid strong,
+.vekui-command-grid h3,
+.vekui-token-grid h3,
+.vekui-components-index__item span {
+  overflow-wrap: anywhere;
+}
+
+.vekui-foundation-grid article,
+.vekui-command-grid article,
+.vekui-token-grid article,
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-components-index__item {
+  padding-inline: 0;
+}
+
+.vekui-components-layout {
+  column-gap: clamp(56px, 7vw, 96px);
+}
+
+@media (max-width: 980px) {
+  .vekui-hero-proof,
+  .vekui-foundation-grid,
+  .vekui-link-grid,
+  .vekui-command-grid,
+  .vekui-token-grid,
+  .vekui-requirements ul,
+  .vekui-file-list,
+  .vekui-components-index,
+  .vekui-components-info-grid,
+  .vekui-components-prose-grid {
+    column-gap: 32px;
+  }
+}
