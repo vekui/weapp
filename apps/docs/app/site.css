@@ -3022,3 +3022,118 @@
     column-gap: 32px;
   }
 }
+
+/* Responsive readability audit: prevent squeezed text, clipped code, and tiny touch targets. */
+header a[href="/weapp/"],
+header a[href="https://github.com/vekui/weapp"],
+header .nextra-hamburger {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.vekui-actions {
+  align-items: center;
+  gap: 14px 22px;
+}
+
+.vekui-button,
+.vekui-button--primary {
+  min-height: 44px;
+}
+
+.vekui-home-hero h1 {
+  line-height: 1.04;
+}
+
+.vekui-doc-page h1,
+.vekui-doc-page h2,
+.vekui-doc-page h3,
+.vekui-section__split h2,
+.vekui-docs-map__intro h2 {
+  overflow-wrap: anywhere;
+}
+
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-step-list li,
+.vekui-step-list pre,
+.vekui-doc-command pre,
+.vekui-command-grid pre,
+.vekui-next-grid pre,
+.vekui-components-command,
+.vekui-components-command-list code,
+.vekui-components-source code {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-step-list code,
+.vekui-doc-command code,
+.vekui-command-grid code,
+.vekui-next-grid code,
+.vekui-components-command code,
+.vekui-components-command-list code,
+.vekui-components-source code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.vekui-file-list code,
+.vekui-components-command-list code,
+.vekui-components-source code {
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  white-space: normal;
+}
+
+@media (max-width: 1100px) and (min-width: 981px) {
+  .vekui-hero-proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .vekui-shell {
+    width: min(calc(100% - 40px), 1180px);
+  }
+
+  .vekui-home-hero h1 {
+    font-size: clamp(34px, 10vw, 38px);
+    line-height: 1.12;
+  }
+
+  .vekui-doc-page h1,
+  .vekui-doc-page h2,
+  .vekui-section__split h2,
+  .vekui-docs-map__intro h2 {
+    line-height: 1.16;
+  }
+
+  .vekui-actions {
+    gap: 12px 18px;
+  }
+
+  .vekui-doc-command pre,
+  .vekui-command-grid pre,
+  .vekui-step-list pre,
+  .vekui-next-grid pre,
+  .vekui-components-command {
+    overflow-x: hidden;
+    white-space: pre-wrap;
+  }
+
+  .vekui-components-status-tabs {
+    column-gap: clamp(10px, 4vw, 16px);
+  }
+
+  .vekui-components-status-tabs button {
+    min-width: 0;
+    padding-inline: 4px;
+  }
+}
