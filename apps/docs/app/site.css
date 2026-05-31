@@ -2447,6 +2447,374 @@
   font-size: clamp(32px, 3vw, 44px);
 }
 
+/* Minimal documentation pass: text-first rhythm, no card-heavy chrome. */
+.vekui-home,
+.vekui-doc-page {
+  --vk-bg: #ffffff;
+  --vk-surface: #ffffff;
+  --vk-surface-muted: #f6f7f9;
+  --vk-border: rgba(15, 23, 42, 0.1);
+  --vk-border-strong: rgba(15, 23, 42, 0.18);
+  background: var(--vk-surface);
+}
+
+.vekui-home-hero,
+.vekui-doc-hero {
+  background: var(--vk-surface);
+  background-image: none;
+}
+
+.vekui-home-hero__grid {
+  padding: 64px 0 28px;
+}
+
+.vekui-doc-hero__grid {
+  padding: 56px 0;
+}
+
+.vekui-section,
+.vekui-doc-section {
+  padding: 56px 0;
+}
+
+.vekui-button,
+.vekui-button--primary {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  color: var(--vk-ink);
+  min-height: 36px;
+  padding: 0;
+}
+
+.vekui-button:hover,
+.vekui-button--primary:hover {
+  background: transparent;
+  color: var(--vk-muted);
+}
+
+.dark .vekui-button--primary {
+  color: var(--vk-ink);
+}
+
+.vekui-install-panel,
+.vekui-doc-command {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vekui-hero-proof {
+  border-top: 0;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.vekui-hero-proof div {
+  border-right: 0;
+  min-height: auto;
+  padding: 0;
+}
+
+.vekui-foundation-grid {
+  border-top: 0;
+  gap: 48px;
+}
+
+.vekui-foundation-grid article {
+  border-bottom: 0;
+  min-height: auto;
+  padding: 0;
+}
+
+.vekui-link-list a,
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-command-grid article,
+.vekui-token-grid article,
+.vekui-component-grid article,
+.vekui-components-command-list code,
+.vekui-components-mini-list button {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--vk-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vekui-link-list {
+  gap: 28px 54px;
+}
+
+.vekui-link-list a {
+  border-top: 0;
+  min-height: 118px;
+  padding: 0;
+}
+
+.vekui-link-list a:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.vekui-link-list a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.vekui-link-list small {
+  background: transparent;
+  border-radius: 0;
+  height: auto;
+  width: auto;
+}
+
+.vekui-requirements li,
+.vekui-file-list code {
+  border-top: 0;
+  min-height: auto;
+  padding: 6px 0;
+}
+
+.vekui-gate-list {
+  gap: 12px 36px;
+}
+
+.vekui-gate-list code {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  min-height: auto;
+  padding: 0;
+}
+
+.vekui-roadmap ul {
+  gap: 20px 56px;
+}
+
+.vekui-roadmap li {
+  background: transparent;
+  border-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: auto;
+  padding: 0;
+}
+
+.vekui-command-grid article,
+.vekui-token-grid article,
+.vekui-component-grid article {
+  border-top: 0;
+  min-height: auto;
+  padding: 0;
+}
+
+.vekui-command-grid pre,
+.vekui-step-list pre,
+.vekui-components-command,
+.vekui-source-card {
+  border-radius: 0;
+}
+
+.vekui-token-grid code,
+.vekui-components-component-meta span,
+.vekui-components-component-meta code {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--vk-border);
+  border-radius: 0;
+  padding: 4px 0;
+}
+
+.vekui-components-page {
+  background: var(--vk-surface);
+}
+
+.vekui-components-layout {
+  gap: 72px;
+  grid-template-columns: 226px minmax(0, 1fr);
+}
+
+.vekui-components-sidebar {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  max-height: calc(100svh - 100px);
+  padding: 0;
+}
+
+.vekui-components-nav-group + .vekui-components-nav-group {
+  border-top: 1px solid var(--vk-border);
+  margin-top: 22px;
+  padding-top: 22px;
+}
+
+.vekui-components-nav-group[aria-label="Components"] p {
+  background: var(--vk-surface);
+}
+
+.vekui-components-nav-item {
+  border-radius: 0;
+  min-height: 31px;
+  padding: 5px 0;
+}
+
+.vekui-components-nav-item:hover,
+.vekui-components-nav-item[data-state="active"] {
+  background: transparent;
+  color: var(--vk-ink);
+}
+
+.vekui-components-nav-item:hover span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.vekui-components-nav-item[data-state="active"] {
+  box-shadow: inset 2px 0 0 var(--vk-ink);
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.vekui-components-toolbar {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+}
+
+.vekui-components-actions button,
+.vekui-components-actions a,
+.vekui-components-status-tabs button {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  min-height: 36px;
+  padding: 0;
+}
+
+.vekui-components-actions button {
+  border-bottom: 0;
+}
+
+.vekui-components-actions a {
+  min-width: 32px;
+}
+
+.vekui-components-actions button:hover,
+.vekui-components-actions a:hover {
+  background: transparent;
+  color: var(--vk-muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.vekui-components-controls {
+  gap: 28px;
+  margin-bottom: 34px;
+}
+
+.vekui-components-search {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--vk-border);
+  border-radius: 0;
+  min-height: 44px;
+  padding: 0;
+}
+
+.vekui-components-search:focus-within {
+  border-color: var(--vk-ink);
+  box-shadow: none;
+}
+
+.vekui-components-status-tabs {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  gap: 20px;
+  padding: 0;
+}
+
+.vekui-components-status-tabs button {
+  border-bottom: 1px solid transparent;
+  color: var(--vk-muted);
+  min-height: 44px;
+}
+
+.vekui-components-status-tabs button[data-state="active"] {
+  background: transparent;
+  border-bottom-color: var(--vk-ink);
+  box-shadow: none;
+  color: var(--vk-ink);
+}
+
+.vekui-components-mobile-switcher {
+  gap: 20px;
+}
+
+.vekui-components-mobile-switcher button {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--vk-muted);
+  min-height: 44px;
+  padding: 0;
+}
+
+.vekui-components-mobile-switcher button[data-state="active"] {
+  background: transparent;
+  border-bottom: 1px solid var(--vk-ink);
+  color: var(--vk-ink);
+}
+
+.vekui-components-panel {
+  min-height: auto;
+}
+
+.vekui-components-index {
+  gap: 9px 64px;
+}
+
+.vekui-components-index__item {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  min-height: 30px;
+  padding: 2px 0;
+}
+
+.vekui-components-index__item:hover,
+.vekui-components-index__item[data-state="active"] {
+  background: transparent;
+  border-color: var(--vk-border);
+  color: var(--vk-ink);
+}
+
+.vekui-components-index__item:hover span,
+.vekui-components-index__item[data-state="active"] span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.vekui-components-index__item[data-state="active"] {
+  color: var(--vk-accent-ink);
+}
+
+.vekui-components-command-list,
+.vekui-components-mini-list {
+  gap: 0;
+}
+
+.vekui-components-command-list code,
+.vekui-components-mini-list button {
+  min-height: auto;
+  padding: 13px 0;
+}
+
+.vekui-components-mini-list button:hover {
+  border-color: var(--vk-border);
+  color: var(--vk-muted);
+}
+
 @media (max-width: 1180px) {
   .vekui-link-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2561,12 +2929,17 @@
   }
 
   .vekui-components-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
   }
 
   .vekui-components-actions button {
-    flex: 1;
+    flex: 0 auto;
+    min-height: 44px;
+  }
+
+  .vekui-components-index__item {
+    min-height: 44px;
   }
 
   .vekui-components-status-tabs {
