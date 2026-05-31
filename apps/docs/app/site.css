@@ -3137,3 +3137,62 @@ header .nextra-hamburger {
     padding-inline: 4px;
   }
 }
+
+/* Visual consistency audit: one minimal radius system, no mixed elevation. */
+.vekui-home,
+.vekui-doc-page {
+  --vk-radius-control: 6px;
+  --vk-radius-content: 0;
+  --vk-radius-pill: 999px;
+}
+
+.vekui-nav-logo img {
+  border-radius: var(--vk-radius-control);
+}
+
+.vekui-install-panel,
+.vekui-doc-command,
+.vekui-next-grid pre,
+.vekui-step-list pre,
+.vekui-command-grid pre,
+.vekui-components-command,
+.vekui-source-card,
+.vekui-requirements li,
+.vekui-file-list code,
+.vekui-command-grid article,
+.vekui-token-grid article,
+.vekui-component-grid article,
+.vekui-components-command-list code,
+.vekui-components-mini-list button,
+.vekui-components-source code {
+  border-radius: var(--vk-radius-content);
+  box-shadow: none;
+}
+
+.vekui-button,
+.vekui-components-actions button,
+.vekui-components-actions a,
+.vekui-components-status-tabs button,
+.vekui-components-mobile-switcher button,
+.vekui-components-nav-item,
+.vekui-components-index__item {
+  border-radius: var(--vk-radius-content);
+}
+
+.vekui-components-actions a,
+.vekui-components-mobile-switcher button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.vekui-components-nav-item[data-state="active"] {
+  border-left: 2px solid var(--vk-ink);
+  box-shadow: none;
+  padding-left: 8px;
+}
+
+.vekui-components-nav-item small,
+.vekui-components-component-meta span,
+.vekui-components-component-meta code {
+  border-radius: var(--vk-radius-pill);
+}
