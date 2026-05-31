@@ -57,41 +57,49 @@ const pageLinks = [
   {
     label: "Quick Start",
     title: "从空 Taro 项目接入 VekUI",
+    body: "最短路径完成 init、add 和 doctor。",
     href: "/weapp/quick-start/"
   },
   {
     label: "Components",
     title: "浏览可安装组件和 roadmap",
+    body: `查看 ${componentStats.registryUiComponents} 个已发布组件和 planned 条目。`,
     href: "/weapp/components/"
   },
   {
     label: "CLI",
     title: "init / add / list / doctor",
+    body: "理解命令输入、输出和项目检查边界。",
     href: "/weapp/cli/"
   },
   {
     label: "Registry",
     title: "/r/index.json 与组件条目",
+    body: "确认 CLI 消费的 public contract。",
     href: "/weapp/registry/"
   },
   {
     label: "Theme",
     title: "语义 token 与 Tailwind 入口",
+    body: "保持小程序安全的样式和主题约束。",
     href: "/weapp/theme/"
   },
   {
     label: "AI Coding",
     title: "Agent 规则和实现边界",
+    body: "同步可执行规则，减少实现偏差。",
     href: "/weapp/ai-coding/"
   },
   {
     label: "Contributing",
     title: "组件贡献闭环",
+    body: "从 API、测试、文档到 registry 的验收路径。",
     href: "/weapp/contributing/"
   },
   {
     label: "Changelog",
     title: "发布记录和 v0 基线",
+    body: "追踪已发布能力和版本变化。",
     href: "/weapp/changelog/"
   }
 ]
@@ -238,17 +246,24 @@ export default function HomePage() {
       </section>
 
       <section className="vekui-section vekui-section--links">
-        <div className="vekui-shell vekui-doc-heading">
-          <p className="vekui-kicker">Docs map</p>
-          <h2>所有 GitHub Pages 页面都指向同一条源码分发链路。</h2>
-        </div>
-        <div className="vekui-shell vekui-link-grid">
-          {pageLinks.map((link) => (
-            <a href={link.href} key={link.href}>
-              <span>{link.label}</span>
-              <strong>{link.title}</strong>
-            </a>
-          ))}
+        <div className="vekui-shell vekui-docs-map">
+          <div className="vekui-docs-map__intro">
+            <p className="vekui-kicker">Docs map</p>
+            <h2>按任务进入文档。</h2>
+            <p>
+              安装组件、理解 registry、配置主题、同步 AI 规则和小程序验证，都保持在同一条源码分发链路里。
+            </p>
+          </div>
+          <div className="vekui-link-list" aria-label="文档页面入口">
+            {pageLinks.map((link) => (
+              <a href={link.href} key={link.href}>
+                <span>{link.label}</span>
+                <strong>{link.title}</strong>
+                <p>{link.body}</p>
+                <small aria-hidden="true">→</small>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
     </main>
