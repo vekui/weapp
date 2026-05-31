@@ -1,3 +1,5 @@
+import { publicComponentNames, registryItems } from "../../../../packages/registry/src/manifest"
+
 export type ComponentStatus = "available" | "planned"
 export type SectionId =
   | "introduction"
@@ -228,87 +230,6 @@ const availableBySlug: Record<
   }
 }
 
-const migratedComponentSlugs = new Set(
-  [
-    "action-sheet",
-    "accordion",
-    "activity-indicator",
-    "article",
-    "alert",
-    "aspect-ratio",
-    "avatar",
-    "badge",
-    "breadcrumb",
-    "button",
-    "button-group",
-    "calendar",
-    "card",
-    "carousel",
-    "checkbox",
-    "collapsible",
-    "countdown",
-    "curtain",
-    "data-list",
-    "dialog",
-    "divider",
-    "drawer",
-    "empty",
-    "fab",
-    "field",
-    "flex",
-    "float-layout",
-    "form",
-    "grid",
-    "icon",
-    "image",
-    "image-picker",
-    "indexes",
-    "input",
-    "input-group",
-    "input-number",
-    "input-otp",
-    "item",
-    "label",
-    "list",
-    "load-more",
-    "loading",
-    "message",
-    "modal",
-    "nav-bar",
-    "notice-bar",
-    "pagination",
-    "picker",
-    "picker-view",
-    "progress",
-    "popover",
-    "radio-group",
-    "range",
-    "rate",
-    "safe-area",
-    "scroll-area",
-    "search-bar",
-    "separator",
-    "segmented-control",
-    "sheet",
-    "skeleton",
-    "slider",
-    "spinner",
-    "steps",
-    "swipe-action",
-    "switch",
-    "tab-bar",
-    "table",
-    "tabs",
-    "tag",
-    "textarea",
-    "toast",
-    "toggle",
-    "toggle-group",
-    "timeline",
-    "typography"
-  ]
-)
-
 const shadcnComponentOrder = [
   ["Accordion", "accordion"],
   ["Alert", "alert"],
@@ -370,32 +291,54 @@ const shadcnComponentOrder = [
   ["Tooltip", "tooltip"],
   ["Typography", "typography"]
 ] as const
+const publicComponentNameSet = new Set<string>(publicComponentNames)
 
-export const componentCatalog: ComponentCatalogItem[] = shadcnComponentOrder.map(([name, slug]) => {
+function toTitle(slug: string) {
+  if (slug === "nav-bar") return "NavBar"
+  if (slug === "tab-bar") return "TabBar"
+  return slug
+    .split("-")
+    .map((part) => `${part[0]?.toUpperCase() ?? ""}${part.slice(1)}`)
+    .join(" ")
+}
+
+function toExportName(slug: string) {
+  if (slug === "radio-group") return "RadioGroup"
+  if (slug === "input-otp") return "InputOTP"
+  if (slug === "nav-bar") return "NavBar"
+  if (slug === "tab-bar") return "TabBar"
+  return toTitle(slug).replaceAll(" ", "")
+}
+
+function createRegistryComponentItem(slug: string, shadcnName?: string): ComponentCatalogItem {
   const available = availableBySlug[slug]
   if (available) {
     return {
       ...available,
-      name: available.name ?? name,
+      name: available.name ?? shadcnName ?? toTitle(slug),
       slug,
       status: "available"
     }
   }
 
-  if (migratedComponentSlugs.has(slug)) {
-    return {
-      command: `pnpm dlx vekui add ${slug} --cwd .`,
-      dependency: "primitives, state",
-      description: `${name} 已从旧小程序 demo 迁移为 Taro-safe 源码组件。`,
-      exportName: name.replaceAll(" ", ""),
-      name,
-      registryPath: `/weapp/r/${slug}.json`,
-      source: `packages/ui/src/components/${slug}.tsx`,
-      state: "data-state",
-      status: "available",
-      slug,
-      taroNote: "使用 @tarojs/components、语义 token 和小程序安全 Tailwind utilities。"
-    }
+  return {
+    command: `pnpm dlx vekui add ${slug} --cwd .`,
+    dependency: "primitives, state",
+    description: `${shadcnName ?? toTitle(slug)} 是 VekUI WeApp registry 中可安装的 Taro-safe 源码组件。`,
+    exportName: toExportName(slug),
+    name: shadcnName ?? toTitle(slug),
+    registryPath: `/weapp/r/${slug}.json`,
+    source: `packages/ui/src/components/${slug}.tsx`,
+    state: "data-state",
+    status: "available",
+    slug,
+    taroNote: "使用 @tarojs/components、语义 token 和小程序安全 Tailwind utilities。"
+  }
+}
+
+const shadcnComponentItems: ComponentCatalogItem[] = shadcnComponentOrder.map(([name, slug]) => {
+  if (publicComponentNameSet.has(slug)) {
+    return createRegistryComponentItem(slug, name)
   }
 
   return {
@@ -409,7 +352,20 @@ export const componentCatalog: ComponentCatalogItem[] = shadcnComponentOrder.map
   }
 })
 
+const shadcnComponentSlugs = new Set<string>(shadcnComponentOrder.map(([, slug]) => slug))
+const registryOnlyComponentItems = publicComponentNames
+  .filter((slug) => !shadcnComponentSlugs.has(slug))
+  .map((slug) => createRegistryComponentItem(slug))
+
+export const componentCatalog: ComponentCatalogItem[] = [
+  ...shadcnComponentItems,
+  ...registryOnlyComponentItems
+]
+
 export const componentStats = {
+  planned: componentCatalog.filter((component) => component.status === "planned").length,
+  registryItems: registryItems.length,
+  registryUiComponents: publicComponentNames.length,
   available: componentCatalog.filter((component) => component.status === "available").length,
   total: componentCatalog.length
 }

@@ -74,6 +74,7 @@ export const demoComponents: DemoComponent[] = [
   { category: "form", slug: "rate", title: "Rate 评分", route: "pages/form/rate/index" },
   { category: "form", slug: "input-number", title: "Input-Number 数字输入框", route: "pages/form/input-number/index" },
   { category: "form", slug: "textarea", title: "Textarea 多行文本框", route: "pages/form/textarea/index" },
+  { category: "form", slug: "date-picker", title: "Date-Picker 日期选择", route: "pages/form/date-picker/index" },
   { category: "form", slug: "picker", title: "Picker 选择器", route: "pages/form/picker/index" },
   { category: "form", slug: "picker-view", title: "Picker-View 滚动选择器", route: "pages/form/picker-view/index" },
   { category: "form", slug: "slider", title: "Slider 滑动条", route: "pages/form/slider/index" },

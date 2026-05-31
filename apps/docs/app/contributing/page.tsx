@@ -40,6 +40,7 @@ export default function ContributingPage() {
               <code>{`pnpm typecheck
 pnpm test
 pnpm check:ui
+pnpm registry:build
 pnpm build:miniprogram
 pnpm build:docs`}</code>
             </pre>

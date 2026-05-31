@@ -40,6 +40,7 @@ const registryComponentNames = [
   "countdown",
   "curtain",
   "data-list",
+  "date-picker",
   "dialog",
   "divider",
   "drawer",

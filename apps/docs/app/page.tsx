@@ -1,7 +1,9 @@
+import { componentStats } from "./components/catalog"
+
 const installCommands = `pnpm dlx vekui init --cwd . --yes
 pnpm dlx vekui add button input --cwd .`
 
-const qualityGates = ["typecheck", "test", "check:ui", "build:miniprogram", "build:docs"]
+const qualityGates = ["typecheck", "test", "check:ui", "registry:build", "build:miniprogram", "build:docs"]
 
 const foundations = [
   {
@@ -45,10 +47,53 @@ const workflow = [
 ]
 
 const roadmap = [
-  "把 12 个 v0 组件的文档补成 API、状态、源码路径、Taro 注意事项四段式。",
+  `让 ${componentStats.registryUiComponents} 个 UI 组件和 ${componentStats.registryItems} 个 registry items 的文档口径持续同源。`,
   "把 CLI 的 dry-run、覆盖确认、registryDependencies 解析做成可预期体验。",
   "把 playground 变成真实组件验收台，而不是截图式 demo。",
   "把 GitHub Pages 上的 registry、文档和 AI 入口保持同步发布。"
+]
+
+const pageLinks = [
+  {
+    label: "Quick Start",
+    title: "从空 Taro 项目接入 VekUI",
+    href: "/weapp/quick-start/"
+  },
+  {
+    label: "Components",
+    title: "浏览可安装组件和 roadmap",
+    href: "/weapp/components/"
+  },
+  {
+    label: "CLI",
+    title: "init / add / list / doctor",
+    href: "/weapp/cli/"
+  },
+  {
+    label: "Registry",
+    title: "/r/index.json 与组件条目",
+    href: "/weapp/registry/"
+  },
+  {
+    label: "Theme",
+    title: "语义 token 与 Tailwind 入口",
+    href: "/weapp/theme/"
+  },
+  {
+    label: "AI Coding",
+    title: "Agent 规则和实现边界",
+    href: "/weapp/ai-coding/"
+  },
+  {
+    label: "Contributing",
+    title: "组件贡献闭环",
+    href: "/weapp/contributing/"
+  },
+  {
+    label: "Changelog",
+    title: "发布记录和 v0 基线",
+    href: "/weapp/changelog/"
+  }
 ]
 
 export default function HomePage() {
@@ -96,7 +141,11 @@ export default function HomePage() {
         <div className="vekui-shell vekui-hero-proof">
           <div>
             <span>v0 scope</span>
-            <strong>12 个基础组件</strong>
+            <strong>{componentStats.registryUiComponents} 个 UI 组件</strong>
+          </div>
+          <div>
+            <span>registry</span>
+            <strong>{componentStats.registryItems} 个 items</strong>
           </div>
           <div>
             <span>distribution</span>
@@ -189,19 +238,17 @@ export default function HomePage() {
       </section>
 
       <section className="vekui-section vekui-section--links">
+        <div className="vekui-shell vekui-doc-heading">
+          <p className="vekui-kicker">Docs map</p>
+          <h2>所有 GitHub Pages 页面都指向同一条源码分发链路。</h2>
+        </div>
         <div className="vekui-shell vekui-link-grid">
-          <a href="/weapp/quick-start/">
-            <span>Quick Start</span>
-            <strong>从空 Taro 项目接入 VekUI</strong>
-          </a>
-          <a href="/weapp/cli/">
-            <span>CLI</span>
-            <strong>init / add / list / doctor</strong>
-          </a>
-          <a href="/weapp/registry/">
-            <span>Registry</span>
-            <strong>/r/index.json 与组件条目</strong>
-          </a>
+          {pageLinks.map((link) => (
+            <a href={link.href} key={link.href}>
+              <span>{link.label}</span>
+              <strong>{link.title}</strong>
+            </a>
+          ))}
         </div>
       </section>
     </main>

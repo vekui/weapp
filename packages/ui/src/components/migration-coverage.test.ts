@@ -25,6 +25,7 @@ const migratedComponentFiles = [
   "countdown",
   "curtain",
   "data-list",
+  "date-picker",
   "dialog",
   "divider",
   "drawer",
@@ -144,6 +145,7 @@ describe("legacy mini-program migration coverage", () => {
       { route: "pages/form/field/index", slug: "field" },
       { route: "pages/form/input-group/index", slug: "input-group" },
       { route: "pages/form/input-otp/index", slug: "input-otp" },
+      { route: "pages/form/date-picker/index", slug: "date-picker" },
       { route: "pages/layout/collapsible/index", slug: "collapsible" },
       { route: "pages/view/image/index", slug: "image" },
       { route: "pages/basic/button-group/index", slug: "button-group" }
@@ -160,7 +162,7 @@ describe("legacy mini-program migration coverage", () => {
   it("publishes migrated components through the registry contract", () => {
     const manifest = readRepoFile("packages/registry/src/manifest.ts")
 
-    for (const name of ["button", "icon", "action-sheet", "calendar", "grid", "form", "toast"]) {
+    for (const name of ["button", "icon", "action-sheet", "calendar", "date-picker", "grid", "form", "toast"]) {
       expect(manifest).toContain(`"${name}"`)
     }
     expect(manifest).toContain('name: "primitives"')

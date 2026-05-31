@@ -24,6 +24,7 @@ import {
   Collapsible,
   Countdown,
   Curtain,
+  DatePicker,
   CurtainTitle,
   Divider,
   Dialog,
@@ -543,6 +544,7 @@ function FormDemo({ slug }: { slug: string }) {
   const [radio, setRadio] = React.useState("a")
   const [rate, setRate] = React.useState(3)
   const [numberValue, setNumberValue] = React.useState(2)
+  const [dateValue, setDateValue] = React.useState("2026-05-31")
   const [sliderValue, setSliderValue] = React.useState(40)
   const [rangeValue, setRangeValue] = React.useState<[number, number]>([20, 70])
   const [query, setQuery] = React.useState("VekUI")
@@ -668,6 +670,20 @@ function FormDemo({ slug }: { slug: string }) {
       <DemoPanel title="示例">
         <Textarea placeholder="请输入多行文本" />
       </DemoPanel>
+    )
+  }
+
+  if (slug === "date-picker") {
+    return (
+      <>
+        <DemoPanel title="基础用法">
+          <DatePicker value={dateValue} onValueChange={setDateValue} min="2026-01-01" max="2026-12-31" />
+        </DemoPanel>
+        <DemoPanel title="状态">
+          <DatePicker placeholder="请选择日期" />
+          <DatePicker invalid placeholder="错误状态" />
+        </DemoPanel>
+      </>
     )
   }
 
