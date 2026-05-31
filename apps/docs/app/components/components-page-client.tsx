@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, Search } from "lucide-react"
 import { useMemo, useState } from "react"
 import {
   componentCatalog,
@@ -23,6 +23,7 @@ type ActiveTarget =
 
 type ComponentSources = Record<string, string>
 type InstallMode = "command" | "manual"
+type StatusFilter = "all" | ComponentCatalogItem["status"]
 type SourceTokenKind =
   | "comment"
   | "function"
@@ -417,14 +418,25 @@ export function ToastDemo() {
 
 function ComponentGrid({
   active,
+  components,
   onSelect
 }: {
   active: ActiveTarget
+  components: ComponentCatalogItem[]
   onSelect: (target: ActiveTarget) => void
 }) {
+  if (components.length === 0) {
+    return (
+      <div className="vekui-components-empty-state">
+        <span>No results</span>
+        <p>没有匹配的组件。试试清空搜索，或切回全部状态。</p>
+      </div>
+    )
+  }
+
   return (
     <div className="vekui-components-index" role="list">
-      {componentCatalog.map((component) => {
+      {components.map((component) => {
         const selected = isComponentActive(active, component)
         return (
           <button
@@ -448,10 +460,12 @@ function ComponentGrid({
 
 function SectionPanel({
   active,
+  components,
   onSelect,
   section
 }: {
   active: ActiveTarget
+  components: ComponentCatalogItem[]
   onSelect: (target: ActiveTarget) => void
   section: SectionItem
 }) {
@@ -462,7 +476,7 @@ function SectionPanel({
         description="Here you can find all the components available in VekUI and the shadcn-aligned roadmap we are working through."
         title="Components"
       >
-        <ComponentGrid active={active} onSelect={onSelect} />
+        <ComponentGrid active={active} components={components} onSelect={onSelect} />
         <p className="vekui-components-footnote">
           当前 registry 已发布 {componentStats.registryUiComponents} 个 UI 组件，合计 {componentStats.registryItems} 个 registry items；另有 {componentStats.planned} 个 shadcn-aligned 路线图入口保留。
         </p>
@@ -788,6 +802,8 @@ function ComponentPanel({
 export function ComponentsPageClient({ componentSources }: { componentSources: ComponentSources }) {
   const [active, setActive] = useState<ActiveTarget>({ type: "section", id: "components" })
   const [copyLabel, setCopyLabel] = useState("Copy Page")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all")
 
   const activeSection = useMemo(() => {
     if (active.type !== "section") {
@@ -802,6 +818,21 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
     }
     return componentCatalog.find((component) => component.slug === active.slug)
   }, [active])
+
+  const filteredComponents = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase()
+
+    return componentCatalog.filter((component) => {
+      const statusMatches = statusFilter === "all" || component.status === statusFilter
+      const queryMatches =
+        normalizedQuery.length === 0 ||
+        component.name.toLowerCase().includes(normalizedQuery) ||
+        component.slug.toLowerCase().includes(normalizedQuery) ||
+        component.description.toLowerCase().includes(normalizedQuery)
+
+      return statusMatches && queryMatches
+    })
+  }, [searchQuery, statusFilter])
 
   async function copyPage() {
     try {
@@ -842,7 +873,7 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
 
           <div className="vekui-components-nav-group" role="tablist" aria-label="Components">
             <p>Components</p>
-            {componentCatalog.map((component) => {
+            {filteredComponents.map((component) => {
               const selected = isComponentActive(active, component)
               return (
                 <button
@@ -860,12 +891,20 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
                 </button>
               )
             })}
+            {filteredComponents.length === 0 ? (
+              <span className="vekui-components-nav-empty">No matching components</span>
+            ) : null}
           </div>
         </aside>
 
         <article className="vekui-components-content">
           <div className="vekui-components-toolbar">
-            <p className="vekui-kicker">Docs / Components</p>
+            <div>
+              <p className="vekui-kicker">Docs / Components</p>
+              <strong>
+                {componentStats.registryUiComponents} published / {componentStats.planned} planned
+              </strong>
+            </div>
             <div className="vekui-components-actions" aria-label="页面操作">
               <button onClick={copyPage} type="button">
                 {copyLabel}
@@ -873,6 +912,37 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
               <a aria-label="下一篇 Registry" href="/weapp/registry/">
                 →
               </a>
+            </div>
+          </div>
+
+          <div className="vekui-components-controls">
+            <label className="vekui-components-search">
+              <Search aria-hidden="true" size={17} strokeWidth={1.8} />
+              <span className="vekui-sr-only">Search components</span>
+              <input
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search components"
+                type="search"
+                value={searchQuery}
+              />
+            </label>
+            <div className="vekui-components-status-tabs" role="tablist" aria-label="Component status">
+              {[
+                ["all", "All"],
+                ["available", "Published"],
+                ["planned", "Planned"]
+              ].map(([value, label]) => (
+                <button
+                  aria-selected={statusFilter === value}
+                  data-state={statusFilter === value ? "active" : "inactive"}
+                  key={value}
+                  onClick={() => setStatusFilter(value as StatusFilter)}
+                  role="tab"
+                  type="button"
+                >
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -900,6 +970,7 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
           ) : (
             <SectionPanel
               active={active}
+              components={filteredComponents}
               onSelect={setActive}
               section={activeSection ?? sectionItems.find((section) => section.id === "components")!}
             />
