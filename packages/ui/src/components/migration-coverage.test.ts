@@ -133,6 +133,30 @@ describe("legacy mini-program migration coverage", () => {
     }
   })
 
+  it("keeps manual verification demos registered in the mini-program playground", () => {
+    const catalog = readRepoFile("apps/miniprogram/src/demo/catalog.ts")
+
+    for (const component of [
+      { route: "pages/action/alert/index", slug: "alert" },
+      { route: "pages/action/dialog/index", slug: "dialog" },
+      { route: "pages/action/fab/index", slug: "fab" },
+      { route: "pages/action/loading/index", slug: "loading" },
+      { route: "pages/form/field/index", slug: "field" },
+      { route: "pages/form/input-group/index", slug: "input-group" },
+      { route: "pages/form/input-otp/index", slug: "input-otp" },
+      { route: "pages/layout/collapsible/index", slug: "collapsible" },
+      { route: "pages/view/image/index", slug: "image" },
+      { route: "pages/basic/button-group/index", slug: "button-group" }
+    ]) {
+      expect(catalog).toContain(`slug: "${component.slug}"`)
+      expect(catalog).toContain(`route: "${component.route}"`)
+      expect(
+        existsSync(path.join(repoRoot, "apps/miniprogram/src", `${component.route}.tsx`)),
+        component.route
+      ).toBe(true)
+    }
+  })
+
   it("publishes migrated components through the registry contract", () => {
     const manifest = readRepoFile("packages/registry/src/manifest.ts")
 

@@ -12,11 +12,13 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 在 README、开发者指南、文档站和 LLM 入口中补充 changelog 入口。
 - 为 Rate 增加 `defaultValue` 非受控用法，并保留 `value`/`onValueChange` 受控模式。
 - 新增 Kbd 组件，并将 `kbd` 从文档 roadmap 发布到 registry。
+- 为小程序 playground 补齐 Alert、Dialog、Fab、Loading、Button Group、Field、Input Group、Input OTP、Collapsible 和 Image demo 页面。
 
 ### Changed
 
 - 打磨组件文档页的按钮、安装步骤和源码代码块视觉层级，使字重、边框和交互状态更接近 shadcn 风格。
 - 将通用控制按钮变体明确命名为 `controlButtonVariants`，避免和 Button 组件专属 `buttonVariants` 混淆。
+- 更新测试计划中的小程序手动验证路径，使其匹配当前分类页和 demo catalog 导航结构。
 
 ### Fixed
 
