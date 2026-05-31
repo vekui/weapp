@@ -54,6 +54,7 @@ import {
   Message,
   Modal,
   NavBar,
+  NativeSelect,
   NoticeBar,
   Pagination,
   Picker,
@@ -547,6 +548,7 @@ function FormDemo({ slug }: { slug: string }) {
   const [numberValue, setNumberValue] = React.useState(2)
   const [dateValue, setDateValue] = React.useState("2026-05-31")
   const [selectValue, setSelectValue] = React.useState("compact")
+  const [nativeSelectValue, setNativeSelectValue] = React.useState("wechat")
   const [sliderValue, setSliderValue] = React.useState(40)
   const [rangeValue, setRangeValue] = React.useState<[number, number]>([20, 70])
   const [query, setQuery] = React.useState("VekUI")
@@ -726,6 +728,27 @@ function FormDemo({ slug }: { slug: string }) {
           <Select options={options} placeholder="请选择密度" />
           <Select invalid options={options} placeholder="错误状态" />
           <Select disabled options={options} placeholder="禁用状态" />
+        </DemoPanel>
+      </>
+    )
+  }
+
+  if (slug === "native-select") {
+    const options = [
+      { label: "微信小程序", value: "wechat" },
+      { label: "支付宝小程序", value: "alipay" },
+      { label: "H5", value: "h5" }
+    ]
+
+    return (
+      <>
+        <DemoPanel title="基础用法">
+          <NativeSelect options={options} value={nativeSelectValue} onValueChange={setNativeSelectValue} />
+        </DemoPanel>
+        <DemoPanel title="状态">
+          <NativeSelect options={options} placeholder="请选择平台" />
+          <NativeSelect invalid options={options} placeholder="错误状态" />
+          <NativeSelect disabled options={options} placeholder="禁用状态" />
         </DemoPanel>
       </>
     )
