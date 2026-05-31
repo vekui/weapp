@@ -80,6 +80,7 @@ const registryComponentNames = [
   "safe-area",
   "scroll-area",
   "search-bar",
+  "select",
   "separator",
   "segmented-control",
   "sheet",
