@@ -1656,6 +1656,7 @@
 @media (prefers-reduced-motion: reduce) {
   .vekui-button,
   .vekui-link-grid a,
+  .vekui-link-list a,
   .vekui-components-panel,
   .vekui-components-nav-item,
   .vekui-components-index__item,
@@ -2067,7 +2068,7 @@
 
 .vekui-section,
 .vekui-doc-section {
-  padding: 76px 0;
+  padding: 64px 0;
 }
 
 .vekui-section__split,
@@ -2077,8 +2078,9 @@
 .vekui-output-grid,
 .vekui-next-grid,
 .vekui-requirements {
-  gap: 64px;
-  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.64fr);
+  align-items: start;
+  gap: 48px;
+  grid-template-columns: minmax(0, 0.86fr) minmax(320px, 0.72fr);
 }
 
 .vekui-section__split h2,
@@ -2088,8 +2090,88 @@
 .vekui-docs-map__intro h2,
 .vekui-doc-page h1,
 .vekui-doc-page h2 {
-  font-size: clamp(32px, 3.4vw, 48px);
-  line-height: 1.08;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.1;
+}
+
+.vekui-section--ink h2,
+.vekui-section--ink .vekui-kicker,
+.vekui-doc-section--ink h2,
+.vekui-doc-section--ink .vekui-kicker {
+  color: var(--vk-code-text);
+}
+
+.vekui-section--ink p:not(.vekui-kicker),
+.vekui-doc-section--ink p:not(.vekui-kicker) {
+  color: #b8c6d9;
+}
+
+.vekui-quality-grid,
+.vekui-roadmap {
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+.vekui-quality-grid > div:first-child,
+.vekui-roadmap > div:first-child {
+  max-width: 760px;
+}
+
+.vekui-quality-grid h2,
+.vekui-roadmap h2 {
+  font-size: clamp(28px, 2.6vw, 38px);
+  max-width: 760px;
+}
+
+.vekui-gate-list {
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vekui-gate-list code {
+  align-items: center;
+  display: flex;
+  min-height: 56px;
+  padding: 0 16px;
+}
+
+.vekui-roadmap ul {
+  border-top: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vekui-roadmap li {
+  background: var(--vk-surface);
+  border-bottom: 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  min-height: 96px;
+  padding: 16px 18px;
+}
+
+.vekui-requirements ul,
+.vekui-file-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vekui-requirements li,
+.vekui-file-list code {
+  min-height: 52px;
+}
+
+.vekui-step-list {
+  margin-top: 34px;
+}
+
+.vekui-step-list li {
+  gap: 24px;
+  padding: 26px 0;
+}
+
+.vekui-step-list h3 {
+  font-size: 22px;
 }
 
 .vekui-foundation-grid article {
@@ -2386,6 +2468,8 @@
   }
 
   .vekui-hero-proof,
+  .vekui-gate-list,
+  .vekui-roadmap ul,
   .vekui-link-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2459,6 +2543,10 @@
   }
 
   .vekui-hero-proof,
+  .vekui-gate-list,
+  .vekui-roadmap ul,
+  .vekui-requirements ul,
+  .vekui-file-list,
   .vekui-link-list,
   .vekui-components-index {
     grid-template-columns: 1fr;
