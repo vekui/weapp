@@ -77,6 +77,7 @@ export const demoComponents: DemoComponent[] = [
   { category: "form", slug: "date-picker", title: "Date-Picker 日期选择", route: "pages/form/date-picker/index" },
   { category: "form", slug: "picker", title: "Picker 选择器", route: "pages/form/picker/index" },
   { category: "form", slug: "picker-view", title: "Picker-View 滚动选择器", route: "pages/form/picker-view/index" },
+  { category: "form", slug: "select", title: "Select 选择框", route: "pages/form/select/index" },
   { category: "form", slug: "slider", title: "Slider 滑动条", route: "pages/form/slider/index" },
   { category: "form", slug: "search-bar", title: "Search-Bar 搜索栏", route: "pages/form/search-bar/index" },
   { category: "form", slug: "image-picker", title: "Image-Picker 图片选择器", route: "pages/form/image-picker/index" },

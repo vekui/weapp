@@ -63,6 +63,7 @@ import {
   Range,
   Rate,
   SearchBar,
+  Select,
   SegmentedControl,
   Slider,
   Steps,
@@ -545,6 +546,7 @@ function FormDemo({ slug }: { slug: string }) {
   const [rate, setRate] = React.useState(3)
   const [numberValue, setNumberValue] = React.useState(2)
   const [dateValue, setDateValue] = React.useState("2026-05-31")
+  const [selectValue, setSelectValue] = React.useState("compact")
   const [sliderValue, setSliderValue] = React.useState(40)
   const [rangeValue, setRangeValue] = React.useState<[number, number]>([20, 70])
   const [query, setQuery] = React.useState("VekUI")
@@ -705,6 +707,27 @@ function FormDemo({ slug }: { slug: string }) {
           </PickerView.Column>
         </PickerView.Root>
       </DemoPanel>
+    )
+  }
+
+  if (slug === "select") {
+    const options = [
+      { label: "紧凑", value: "compact" },
+      { label: "舒适", value: "comfortable" },
+      { label: "宽松", value: "spacious" }
+    ]
+
+    return (
+      <>
+        <DemoPanel title="基础用法">
+          <Select options={options} value={selectValue} onValueChange={setSelectValue} />
+        </DemoPanel>
+        <DemoPanel title="状态">
+          <Select options={options} placeholder="请选择密度" />
+          <Select invalid options={options} placeholder="错误状态" />
+          <Select disabled options={options} placeholder="禁用状态" />
+        </DemoPanel>
+      </>
     )
   }
 
