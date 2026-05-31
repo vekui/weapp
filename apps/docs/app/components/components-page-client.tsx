@@ -464,7 +464,7 @@ function SectionPanel({
       >
         <ComponentGrid active={active} onSelect={onSelect} />
         <p className="vekui-components-footnote">
-          当前 v0 已发布 {componentStats.available} 个基础组件；其余组件先按 shadcn 顺序作为路线图入口保留。
+          当前 registry 已发布 {componentStats.registryUiComponents} 个 UI 组件，合计 {componentStats.registryItems} 个 registry items；另有 {componentStats.planned} 个 shadcn-aligned 路线图入口保留。
         </p>
       </PanelShell>
     )
@@ -593,15 +593,15 @@ pnpm dlx vekui add button input --cwd .`}</CommandBlock>
         <ol className="vekui-components-timeline">
           <li>
             <span>v0</span>
-            <p>12 个基础组件、CLI、registry builder、Taro playground 和文档站已串通。</p>
+            <p>{componentStats.registryUiComponents} 个 UI 组件、{componentStats.registryItems} 个 registry items、CLI、Taro playground 和文档站已串通。</p>
           </li>
           <li>
             <span>next</span>
-            <p>优先补 Label、Separator、Skeleton、Progress、Sheet、Popover 等低运行时风险组件。</p>
+            <p>优先让 docs、registry、playground 和测试持续同源，下一步进入 Date Picker 等 planned 组件。</p>
           </li>
           <li>
             <span>later</span>
-            <p>再进入复杂组合组件，如 Calendar、Command、Data Table、Date Picker 和 Navigation Menu。</p>
+            <p>再进入复杂组合组件，如 Command、Data Table、Navigation Menu 和 Select。</p>
           </li>
         </ol>
       </PanelShell>
