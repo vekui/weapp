@@ -13,6 +13,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 为 Rate 增加 `defaultValue` 非受控用法，并保留 `value`/`onValueChange` 受控模式。
 - 新增 Kbd 组件，并将 `kbd` 从文档 roadmap 发布到 registry。
 - 为小程序 playground 补齐 Alert、Dialog、Fab、Loading、Button Group、Field、Input Group、Input OTP、Collapsible 和 Image demo 页面。
+- 为 Image、Fab 和 Input OTP 增加独立组件契约测试，覆盖状态属性、token class 和小程序兼容规则。
 
 ### Changed
 
