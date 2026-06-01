@@ -23,12 +23,14 @@ import {
   Carousel,
   Checkbox,
   Collapsible,
+  ContextMenu,
   Countdown,
   Curtain,
   DatePicker,
   CurtainTitle,
   Divider,
   Dialog,
+  DropdownMenu,
   Drawer,
   Empty,
   Fab,
@@ -482,6 +484,38 @@ function ActionDemo({ slug }: { slug: string }) {
             </Box>
           </Dialog.Content>
         </Dialog.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "dropdown-menu") {
+    return (
+      <DemoPanel title="示例">
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger className="rounded-md border border-border bg-background px-4">
+            <Text className="text-sm text-foreground">打开下拉菜单</Text>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Item value="copy">复制</DropdownMenu.Item>
+            <DropdownMenu.Item destructive value="delete">删除</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "context-menu") {
+    return (
+      <DemoPanel title="示例">
+        <ContextMenu.Root>
+          <ContextMenu.Trigger className="rounded-md border border-border bg-background px-4">
+            <Text className="text-sm text-foreground">点击打开上下文菜单</Text>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content>
+            <ContextMenu.Item value="refresh">刷新</ContextMenu.Item>
+            <ContextMenu.Item disabled value="disabled">不可用</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
       </DemoPanel>
     )
   }
