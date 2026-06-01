@@ -7,6 +7,7 @@ const componentPage = await readFile(
   path.join(docsRoot, "app/components/components-page-client.tsx"),
   "utf8"
 )
+const homePage = await readFile(path.join(docsRoot, "app/page.tsx"), "utf8")
 const siteCss = await readFile(path.join(docsRoot, "app/site.css"), "utf8")
 
 function assertIncludes(source, expected, message) {
@@ -39,6 +40,36 @@ assertIncludes(
   siteCss,
   ".vekui-components-command {\n  background: var(--vk-code-surface);",
   "Command code blocks should use the lighter code surface."
+)
+assertIncludes(
+  homePage,
+  "installCommandLines",
+  "Home install panel should render each command with metadata instead of an unstyled plain string."
+)
+assertIncludes(
+  homePage,
+  'className={`vekui-code-token vekui-code-token--${token.kind}`}',
+  "Home command panels should highlight command names with semantic token classes."
+)
+assertIncludes(
+  homePage,
+  '{ kind: "command", text: "pnpm" }',
+  "Home command panels should classify pnpm as a command token."
+)
+assertIncludes(
+  homePage,
+  'className="vekui-code-line__description"',
+  "Home command panels should include short descriptions for each command."
+)
+assertIncludes(
+  siteCss,
+  ".vekui-code-token--command",
+  "Home command token classes should be styled."
+)
+assertIncludes(
+  siteCss,
+  ".vekui-gate-item__description",
+  "Quality gate command descriptions should be styled."
 )
 
 console.log("Code block rendering checks passed.")

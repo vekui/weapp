@@ -244,8 +244,8 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.vekui-install-panel span,
-.vekui-install-panel__footer span {
+.vekui-install-panel__header > span,
+.vekui-install-panel__footer > span {
   color: #8ea2ba;
   font-size: 12px;
   font-weight: 600;
@@ -288,6 +288,66 @@
   color: var(--vk-code-text);
   font-size: 15px;
   line-height: 1.9;
+}
+
+.vekui-code-block {
+  background:
+    linear-gradient(90deg, rgba(48, 217, 144, 0.07), transparent 42%),
+    var(--vk-code);
+}
+
+.vekui-code-line {
+  display: grid;
+  gap: 6px;
+}
+
+.vekui-code-line + .vekui-code-line {
+  margin-top: 18px;
+}
+
+.vekui-code-line__command {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.vekui-code-line__description,
+.vekui-gate-item__description {
+  color: #93a8c2;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.vekui-code-token {
+  color: #dce8f6;
+}
+
+.vekui-code-token--command {
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.vekui-code-token--package {
+  color: #c4b5fd;
+  font-weight: 650;
+}
+
+.vekui-code-token--action {
+  color: #86efac;
+}
+
+.vekui-code-token--target {
+  color: #fcd34d;
+}
+
+.vekui-code-token--flag {
+  color: #fca5a5;
+}
+
+.vekui-code-token--plain {
+  color: #dce8f6;
 }
 
 .vekui-hero-proof {
@@ -458,6 +518,10 @@
   gap: 10px;
 }
 
+.vekui-gate-item {
+  min-width: 0;
+}
+
 .vekui-gate-list code {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -466,6 +530,10 @@
   display: block;
   font-size: 15px;
   padding: 16px 18px;
+}
+
+.vekui-gate-item__description {
+  margin-top: 8px;
 }
 
 .vekui-roadmap ul {
@@ -2580,12 +2648,17 @@
   gap: 12px 36px;
 }
 
-.vekui-gate-list code {
+.vekui-gate-item {
   background: transparent;
   border: 0;
   border-radius: 0;
   min-height: auto;
   padding: 0;
+}
+
+.vekui-gate-list code {
+  border-radius: var(--vk-radius-content);
+  min-height: auto;
 }
 
 .vekui-roadmap ul {
@@ -3233,4 +3306,39 @@ header .nextra-hamburger {
 
 .dark .vekui-actions .vekui-button--primary {
   color: #07111f;
+}
+
+/* Command affordance correction: keep real page actions button-like while lists stay text-first. */
+.vekui-components-actions {
+  gap: 8px;
+}
+
+.vekui-components-actions button,
+.vekui-components-actions a {
+  align-items: center;
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border-strong);
+  border-radius: var(--vk-radius-control);
+  color: var(--vk-ink);
+  display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.vekui-components-actions button {
+  padding: 0 14px;
+}
+
+.vekui-components-actions a {
+  min-width: 44px;
+  padding: 0;
+}
+
+.vekui-components-actions button:hover,
+.vekui-components-actions a:hover {
+  background: var(--vk-surface-muted);
+  border-color: var(--vk-border-strong);
+  color: var(--vk-ink);
+  text-decoration: none;
 }
