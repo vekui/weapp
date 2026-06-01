@@ -220,10 +220,39 @@ function CommandBlock({ children }: { children: string }) {
   )
 }
 
+function HighlightedTsxBlock({ code, filename, variant = "source" }: { code: string; filename: string; variant?: "source" | "usage" }) {
+  const lines = code.split("\n")
+
+  return (
+    <pre aria-label={`${filename} code`} className="vekui-source-card__body" data-variant={variant}>
+      <code>
+        {lines.map((line, index) => (
+          <span className="vekui-source-line" key={`${index}-${line}`}>
+            <span aria-hidden="true">{index + 1}</span>
+            <span>
+              {tokenizeTsxLine(line).map((token, tokenIndex) =>
+                token.kind ? (
+                  <span
+                    className={`vekui-source-token vekui-source-token--${token.kind}`}
+                    key={`${tokenIndex}-${token.text}`}
+                  >
+                    {token.text}
+                  </span>
+                ) : (
+                  <span key={`${tokenIndex}-${token.text}`}>{token.text}</span>
+                )
+              )}
+            </span>
+          </span>
+        ))}
+      </code>
+    </pre>
+  )
+}
+
 function SourceCodeBlock({ code, filename }: { code: string; filename: string }) {
   const [copyLabel, setCopyLabel] = useState("Copy")
   const [collapsed, setCollapsed] = useState(false)
-  const lines = code.split("\n")
 
   function copyCode() {
     setCopyLabel("Copied")
@@ -273,29 +302,7 @@ function SourceCodeBlock({ code, filename }: { code: string; filename: string })
           </button>
         </div>
       </div>
-      <pre className="vekui-source-card__body">
-        <code>
-          {lines.map((line, index) => (
-            <span className="vekui-source-line" key={`${index}-${line}`}>
-              <span aria-hidden="true">{index + 1}</span>
-              <span>
-                {tokenizeTsxLine(line).map((token, tokenIndex) =>
-                  token.kind ? (
-                    <span
-                      className={`vekui-source-token vekui-source-token--${token.kind}`}
-                      key={`${tokenIndex}-${token.text}`}
-                    >
-                      {token.text}
-                    </span>
-                  ) : (
-                    <span key={`${tokenIndex}-${token.text}`}>{token.text}</span>
-                  )
-                )}
-              </span>
-            </span>
-          ))}
-        </code>
-      </pre>
+      <HighlightedTsxBlock code={code} filename={filename} />
     </div>
   )
 }
@@ -766,7 +773,7 @@ function ComponentPanel({
       {available ? (
         <section className="vekui-component-detail-section" aria-labelledby={`${component.slug}-usage`}>
           <h2 id={`${component.slug}-usage`}>Usage</h2>
-          <CommandBlock>{usageSnippet(component)}</CommandBlock>
+          <HighlightedTsxBlock code={usageSnippet(component)} filename={`${component.slug}.usage.tsx`} variant="usage" />
         </section>
       ) : null}
 

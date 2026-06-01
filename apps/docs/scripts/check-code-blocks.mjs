@@ -16,6 +16,17 @@ function assertIncludes(source, expected, message) {
   }
 }
 
+function assertRuleIncludes(source, selector, expected, message) {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  const blocks = [...source.matchAll(new RegExp(`${escapedSelector}\\s*\\{([\\s\\S]*?)\\n\\}`, "g"))].map(
+    (match) => match[1]
+  )
+
+  if (!blocks.some((block) => block.includes(expected))) {
+    throw new Error(message)
+  }
+}
+
 assertIncludes(
   componentPage,
   "tokenizeTsxLine",
@@ -27,6 +38,21 @@ assertIncludes(
   "Component source blocks should render semantic syntax token classes."
 )
 assertIncludes(
+  componentPage,
+  'function HighlightedTsxBlock({ code, filename, variant = "source" }',
+  "Component docs should share one highlighted TSX block for source and usage snippets."
+)
+assertIncludes(
+  componentPage,
+  '<HighlightedTsxBlock code={usageSnippet(component)} filename={`${component.slug}.usage.tsx`} variant="usage" />',
+  "Component usage snippets should render through syntax-highlighted TSX blocks."
+)
+assertIncludes(
+  siteCss,
+  '.vekui-source-card__body[data-variant="usage"]',
+  "Usage code blocks should have a dedicated visual treatment when rendered outside source cards."
+)
+assertIncludes(
   siteCss,
   "--vk-code-surface",
   "Code blocks should use a dedicated lighter code surface token."
@@ -35,6 +61,24 @@ assertIncludes(
   siteCss,
   ".vekui-source-token--keyword",
   "Code block syntax token classes should be styled."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-sidebar",
+  "overflow-y: auto;",
+  "Components sidebar should own scrolling instead of clipping an inner floating section."
+)
+assertRuleIncludes(
+  siteCss,
+  '.vekui-components-nav-group[aria-label="Components"]',
+  "overflow: visible;",
+  "Components nav group should not create a nested scroll area that masks list items."
+)
+assertRuleIncludes(
+  siteCss,
+  '.vekui-components-nav-group[aria-label="Components"] p',
+  "position: static;",
+  "Components nav heading should not float over the component list."
 )
 assertIncludes(
   siteCss,
