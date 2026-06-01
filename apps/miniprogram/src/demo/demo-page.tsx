@@ -23,6 +23,8 @@ import {
   Carousel,
   Checkbox,
   Collapsible,
+  Combobox,
+  Command,
   ContextMenu,
   Countdown,
   Curtain,
@@ -522,6 +524,21 @@ function ActionDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "command") {
+    return (
+      <DemoPanel title="示例">
+        <Command.Root>
+          <Command.Input placeholder="搜索操作" />
+          <Command.List>
+            <Command.Item selected value="copy">复制</Command.Item>
+            <Command.Item value="paste">粘贴</Command.Item>
+            <Command.Item disabled value="disabled">不可用</Command.Item>
+          </Command.List>
+        </Command.Root>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "fab") {
     return (
       <DemoPanel title="示例">
@@ -685,6 +702,21 @@ function FormDemo({ slug }: { slug: string }) {
           </Field.Root>
         </DemoPanel>
       </>
+    )
+  }
+
+  if (slug === "combobox") {
+    return (
+      <DemoPanel title="示例">
+        <Combobox
+          options={[
+            { label: "紧凑", value: "compact" },
+            { label: "舒适", value: "comfortable" },
+            { label: "宽松", value: "spacious" }
+          ]}
+          placeholder="选择密度"
+        />
+      </DemoPanel>
     )
   }
 
