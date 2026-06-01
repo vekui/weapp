@@ -20,7 +20,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           docsRepositoryBase="https://github.com/vekui/weapp/tree/main/apps/docs"
           editLink="编辑此页"
           feedback={{ content: "反馈问题" }}
-          footer={<Footer>MIT 2026 VekUI · Built for Taro React WeChat mini programs</Footer>}
+          footer={
+            <Footer>
+              <div className="vekui-site-footer">
+                <span>MIT 2026 VekUI · Built for Taro React WeChat mini programs</span>
+                <div className="vekui-site-footer__qr">
+                  <span>关注公众号</span>
+                  <img src="/weapp/wechat-official-account-qr.jpg" alt="VekUI 微信公众号二维码" loading="lazy" />
+                </div>
+              </div>
+            </Footer>
+          }
           navbar={
             <Navbar
               logo={

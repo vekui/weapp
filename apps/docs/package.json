@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build --webpack",
     "dev": "next dev",
-    "test": "node scripts/check-catalog.mjs && node scripts/check-code-blocks.mjs",
+    "test": "node scripts/check-catalog.mjs && node scripts/check-code-blocks.mjs && node scripts/check-site-footer.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
