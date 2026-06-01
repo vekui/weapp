@@ -67,6 +67,7 @@ export const demoComponents: DemoComponent[] = [
   { category: "action", slug: "loading", title: "Loading 加载提示", route: "pages/action/loading/index" },
   { category: "action", slug: "modal", title: "Modal 模态框", route: "pages/action/modal/index" },
   { category: "action", slug: "progress", title: "Progress 进度条", route: "pages/action/progress/index" },
+  { category: "action", slug: "sonner", title: "Sonner 通知队列", route: "pages/action/sonner/index" },
   { category: "action", slug: "toast", title: "Toast 轻提示", route: "pages/action/toast/index" },
   { category: "action", slug: "tooltip", title: "Tooltip 文字提示", route: "pages/action/tooltip/index" },
   { category: "action", slug: "swipe-action", title: "Swipe-Action 滑动操作", route: "pages/action/swipe-action/index" },
@@ -109,6 +110,7 @@ export const demoComponents: DemoComponent[] = [
   { category: "navigation", slug: "segmented-control", title: "Segmented-Control 分段器", route: "pages/navigation/segmented-control/index" },
   { category: "navigation", slug: "pagination", title: "Pagination 分页器", route: "pages/navigation/pagination/index" },
   { category: "navigation", slug: "drawer", title: "Drawer 抽屉", route: "pages/navigation/drawer/index" },
+  { category: "navigation", slug: "sidebar", title: "Sidebar 侧边栏", route: "pages/navigation/sidebar/index" },
   { category: "navigation", slug: "indexes", title: "Indexes 索引选择器", route: "pages/navigation/indexes/index" },
   { category: "advanced", slug: "calendar", title: "Calendar 日历", route: "pages/advanced/calendar/index" }
 ]

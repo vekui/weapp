@@ -78,7 +78,9 @@ import {
   SearchBar,
   Select,
   SegmentedControl,
+  Sidebar,
   Slider,
+  Sonner,
   Steps,
   SwipeAction,
   Switch,
@@ -643,6 +645,20 @@ function ActionDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "sonner") {
+    return (
+      <DemoPanel title="示例">
+        <Sonner.Toaster>
+          <Sonner.Toast id="sync" tone="success" title="同步完成" description="组件源码已写入项目。" />
+          <Sonner.Toast id="review" tone="warning">
+            <Sonner.Title>等待确认</Sonner.Title>
+            <Sonner.Description>还有一项操作需要处理。</Sonner.Description>
+          </Sonner.Toast>
+        </Sonner.Toaster>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "toast") {
     return (
       <DemoPanel title="示例">
@@ -1081,6 +1097,7 @@ function NavigationDemo({ slug }: { slug: string }) {
   const [tab, setTab] = React.useState("home")
   const [segment, setSegment] = React.useState("a")
   const [drawerOpen, setDrawerOpen] = React.useState(false)
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
 
   if (slug === "navbar") {
     return (
@@ -1188,6 +1205,28 @@ function NavigationDemo({ slug }: { slug: string }) {
             <Drawer.Close className="mt-3 rounded-md bg-secondary px-3">关闭</Drawer.Close>
           </Drawer.Content>
         </Drawer.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "sidebar") {
+    return (
+      <DemoPanel title="示例">
+        <Button onClick={() => setSidebarOpen(true)}>打开侧边栏</Button>
+        <Sidebar.Root open={sidebarOpen} onOpenChange={setSidebarOpen}>
+          <Sidebar.Content>
+            <Sidebar.Header>
+              <Sidebar.Title>VekUI</Sidebar.Title>
+              <Sidebar.Description>源码组件导航</Sidebar.Description>
+            </Sidebar.Header>
+            <Sidebar.Item active>组件目录</Sidebar.Item>
+            <Sidebar.Item>主题配置</Sidebar.Item>
+            <Sidebar.Item disabled>发布设置</Sidebar.Item>
+            <Sidebar.Footer>
+              <Sidebar.Close className="rounded-md bg-secondary px-3">关闭</Sidebar.Close>
+            </Sidebar.Footer>
+          </Sidebar.Content>
+        </Sidebar.Root>
       </DemoPanel>
     )
   }

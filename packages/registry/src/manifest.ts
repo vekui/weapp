@@ -97,8 +97,10 @@ const registryComponentNames = [
   "separator",
   "segmented-control",
   "sheet",
+  "sidebar",
   "skeleton",
   "slider",
+  "sonner",
   "spinner",
   "steps",
   "swipe-action",
@@ -143,6 +145,8 @@ const titleOverrides: Record<string, string> = {
   "safe-area": "Safe Area",
   "scroll-area": "Scroll Area",
   "segmented-control": "Segmented Control",
+  sidebar: "Sidebar",
+  sonner: "Sonner",
   "swipe-action": "Swipe Action",
   "tab-bar": "TabBar",
   "toggle-group": "Toggle Group"
@@ -177,6 +181,8 @@ const dependencyOverrides: Record<string, string[]> = {
   rate: ["icon", "primitives", "state"],
   resizable: ["primitives"],
   sheet: ["layer", "state", "primitives"],
+  sidebar: ["layer", "state", "primitives"],
+  sonner: ["primitives"],
   "swipe-action": ["button", "primitives", "state"],
   "tab-bar": ["icon", "primitives", "state"],
   toast: ["primitives"]
