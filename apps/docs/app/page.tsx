@@ -1,9 +1,87 @@
 import { componentStats } from "./components/catalog"
 
-const installCommands = `pnpm dlx vekui init --cwd . --yes
-pnpm dlx vekui add button input --cwd .`
+type CommandToken = {
+  kind: "command" | "package" | "action" | "target" | "flag" | "plain"
+  text: string
+}
 
-const qualityGates = ["typecheck", "test", "check:ui", "registry:build", "build:miniprogram", "build:docs"]
+type CommandLine = {
+  description: string
+  tokens: CommandToken[]
+}
+
+const installCommandLines: CommandLine[] = [
+  {
+    description: "初始化 vekui.json、token CSS 和默认目录别名。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "dlx" },
+      { kind: "package", text: "vekui" },
+      { kind: "action", text: "init" },
+      { kind: "flag", text: "--cwd" },
+      { kind: "target", text: "." },
+      { kind: "flag", text: "--yes" }
+    ]
+  },
+  {
+    description: "从 registry 把 button 和 input 源码复制进项目。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "dlx" },
+      { kind: "package", text: "vekui" },
+      { kind: "action", text: "add" },
+      { kind: "target", text: "button" },
+      { kind: "target", text: "input" },
+      { kind: "flag", text: "--cwd" },
+      { kind: "target", text: "." }
+    ]
+  }
+]
+
+const qualityGates: CommandLine[] = [
+  {
+    description: "检查 TypeScript 项目类型边界。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "typecheck" }
+    ]
+  },
+  {
+    description: "运行 workspace 内所有自动化测试。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "test" }
+    ]
+  },
+  {
+    description: "扫描 UI 边界、组件契约和 Tailwind 安全规则。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "check:ui" }
+    ]
+  },
+  {
+    description: "生成 shadcn-compatible registry JSON。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "registry:build" }
+    ]
+  },
+  {
+    description: "用 Taro Vite compiler 构建微信小程序。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "build:miniprogram" }
+    ]
+  },
+  {
+    description: "构建文档站并验证 public registry 输出。",
+    tokens: [
+      { kind: "command", text: "pnpm" },
+      { kind: "action", text: "build:docs" }
+    ]
+  }
+]
 
 const foundations = [
   {
@@ -45,6 +123,44 @@ const workflow = [
     command: "pnpm build:miniprogram"
   }
 ]
+
+function commandText(command: CommandLine) {
+  return command.tokens.map((token) => token.text).join(" ")
+}
+
+function CommandCode({ command }: { command: CommandLine }) {
+  return (
+    <>
+      {command.tokens.map((token, index) => (
+        <span className={`vekui-code-token vekui-code-token--${token.kind}`} key={`${token.text}-${index}`}>
+          {token.text}
+          {index < command.tokens.length - 1 ? " " : ""}
+        </span>
+      ))}
+    </>
+  )
+}
+
+function commandLineFromText(command: string, description: string): CommandLine {
+  return {
+    description,
+    tokens: command.split(" ").map((part) => {
+      if (part === "pnpm") {
+        return { kind: "command", text: part }
+      }
+      if (part === "vekui") {
+        return { kind: "package", text: part }
+      }
+      if (part.startsWith("--")) {
+        return { kind: "flag", text: part }
+      }
+      if (part === "." || part === "button" || part === "input") {
+        return { kind: "target", text: part }
+      }
+      return { kind: "action", text: part }
+    })
+  }
+}
 
 const roadmap = [
   `让 ${componentStats.registryUiComponents} 个 UI 组件和 ${componentStats.registryItems} 个 registry items 的文档口径持续同源。`,
@@ -136,8 +252,17 @@ export default function HomePage() {
               <span>install</span>
               <strong>vekui</strong>
             </div>
-            <pre>
-              <code>{installCommands}</code>
+            <pre className="vekui-code-block">
+              <code>
+                {installCommandLines.map((command) => (
+                  <span className="vekui-code-line" key={commandText(command)}>
+                    <span className="vekui-code-line__command" aria-label={commandText(command)}>
+                      <CommandCode command={command} />
+                    </span>
+                    <span className="vekui-code-line__description">{command.description}</span>
+                  </span>
+                ))}
+              </code>
             </pre>
             <div className="vekui-install-panel__footer">
               <span>output</span>
@@ -209,7 +334,9 @@ export default function HomePage() {
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <strong>{step.title}</strong>
-                  <code>{step.command}</code>
+                  <code aria-label={step.command}>
+                    <CommandCode command={commandLineFromText(step.command, step.title)} />
+                  </code>
                 </div>
               </li>
             ))}
@@ -225,7 +352,12 @@ export default function HomePage() {
           </div>
           <div className="vekui-gate-list" aria-label="验证命令">
             {qualityGates.map((gate) => (
-              <code key={gate}>pnpm {gate}</code>
+              <div className="vekui-gate-item" key={commandText(gate)}>
+                <code aria-label={commandText(gate)}>
+                  <CommandCode command={gate} />
+                </code>
+                <p className="vekui-gate-item__description">{gate.description}</p>
+              </div>
             ))}
           </div>
         </div>
