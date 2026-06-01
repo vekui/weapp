@@ -23,6 +23,8 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 ### Changed
 
 - 打磨组件文档页的按钮、安装步骤和源码代码块视觉层级，使字重、边框和交互状态更接近 shadcn 风格。
+- 更新 CI 和 GitHub Pages workflow 到 Node 24 兼容的 action 版本，并让 Pages 发布复用 `pnpm build:docs`。
+- 小程序 playground 的 Taro 构建脚本改为 `--no-check`，避免在已独立执行 `pnpm typecheck` 后重复类型检查。
 - 将通用控制按钮变体明确命名为 `controlButtonVariants`，避免和 Button 组件专属 `buttonVariants` 混淆。
 - 更新测试计划中的小程序手动验证路径，使其匹配当前分类页和 demo catalog 导航结构。
 
