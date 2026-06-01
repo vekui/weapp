@@ -98,6 +98,8 @@ export const demoComponents: DemoComponent[] = [
   { category: "navigation", slug: "navbar", title: "NavBar 导航栏", route: "pages/navigation/navbar/index" },
   { category: "navigation", slug: "tabbar", title: "TabBar 标签栏", route: "pages/navigation/tabbar/index" },
   { category: "navigation", slug: "tabs", title: "Tabs 标签页", route: "pages/navigation/tabs/index" },
+  { category: "navigation", slug: "menubar", title: "Menubar 菜单栏", route: "pages/navigation/menubar/index" },
+  { category: "navigation", slug: "navigation-menu", title: "Navigation-Menu 导航菜单", route: "pages/navigation/navigation-menu/index" },
   { category: "navigation", slug: "segmented-control", title: "Segmented-Control 分段器", route: "pages/navigation/segmented-control/index" },
   { category: "navigation", slug: "pagination", title: "Pagination 分页器", route: "pages/navigation/pagination/index" },
   { category: "navigation", slug: "drawer", title: "Drawer 抽屉", route: "pages/navigation/drawer/index" },

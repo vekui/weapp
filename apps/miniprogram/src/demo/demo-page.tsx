@@ -55,9 +55,11 @@ import {
   ListItem,
   LoadMore,
   Loading,
+  Menubar,
   Message,
   Modal,
   NavBar,
+  NavigationMenu,
   NativeSelect,
   NoticeBar,
   Pagination,
@@ -1021,6 +1023,47 @@ function NavigationDemo({ slug }: { slug: string }) {
           <Tabs.Content value="a">标签一内容</Tabs.Content>
           <Tabs.Content value="b">标签二内容</Tabs.Content>
         </Tabs.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "menubar") {
+    return (
+      <DemoPanel title="示例">
+        <Menubar.Root defaultValue="file">
+          <Menubar.Menu value="file">
+            <Menubar.Trigger>文件</Menubar.Trigger>
+            <Menubar.Content>
+              <Menubar.Item value="new">新建</Menubar.Item>
+              <Menubar.Item value="open">打开</Menubar.Item>
+            </Menubar.Content>
+          </Menubar.Menu>
+          <Menubar.Menu value="edit">
+            <Menubar.Trigger>编辑</Menubar.Trigger>
+            <Menubar.Content>
+              <Menubar.Item value="copy">复制</Menubar.Item>
+            </Menubar.Content>
+          </Menubar.Menu>
+        </Menubar.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "navigation-menu") {
+    return (
+      <DemoPanel title="示例">
+        <NavigationMenu.Root defaultValue="docs">
+          <NavigationMenu.List>
+            <NavigationMenu.Item value="docs">
+              <NavigationMenu.Trigger>文档</NavigationMenu.Trigger>
+              <NavigationMenu.Content>快速开始、主题和 registry。</NavigationMenu.Content>
+            </NavigationMenu.Item>
+            <NavigationMenu.Item value="components">
+              <NavigationMenu.Trigger>组件</NavigationMenu.Trigger>
+              <NavigationMenu.Content>浏览可安装的小程序组件。</NavigationMenu.Content>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
       </DemoPanel>
     )
   }
