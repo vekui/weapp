@@ -40,6 +40,7 @@ import {
   Form,
   Grid,
   GridItem,
+  HoverCard,
   Icon,
   Image,
   ImagePicker,
@@ -80,7 +81,8 @@ import {
   Timeline,
   Toast,
   ToastDescription,
-  ToastTitle
+  ToastTitle,
+  Tooltip
 } from "@vekui/weapp"
 
 import { getDemoComponent } from "./catalog"
@@ -497,6 +499,24 @@ function ActionDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "hover-card") {
+    return (
+      <DemoPanel title="示例">
+        <HoverCard.Root>
+          <HoverCard.Trigger className="rounded-md border border-border bg-background px-4">
+            <Text className="text-sm text-foreground">查看项目资料</Text>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <HoverCard.Title>VekUI WeApp</HoverCard.Title>
+            <HoverCard.Description>
+              面向 Taro React 微信小程序的源码分发 UI 基础。
+            </HoverCard.Description>
+          </HoverCard.Content>
+        </HoverCard.Root>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "loading") {
     return (
       <DemoPanel title="示例">
@@ -543,6 +563,21 @@ function ActionDemo({ slug }: { slug: string }) {
           <ToastTitle>操作成功</ToastTitle>
           <ToastDescription>轻提示会显示在页面顶部。</ToastDescription>
         </Toast>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "tooltip") {
+    return (
+      <DemoPanel title="示例">
+        <Tooltip.Root>
+          <Tooltip.Trigger className="rounded-md border border-border bg-background px-4">
+            <Text className="text-sm text-foreground">点击查看提示</Text>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <Text className="text-sm text-foreground">提示内容会在小程序组件树内渲染。</Text>
+          </Tooltip.Content>
+        </Tooltip.Root>
       </DemoPanel>
     )
   }
