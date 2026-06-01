@@ -6,6 +6,7 @@ import {
   ActionSheet,
   ActivityIndicator,
   Alert,
+  AlertDialog,
   Article,
   Avatar,
   AvatarFallback,
@@ -393,6 +394,7 @@ function ViewDemo({ slug }: { slug: string }) {
 
 function ActionDemo({ slug }: { slug: string }) {
   const [actionOpen, setActionOpen] = React.useState(false)
+  const [alertDialogOpen, setAlertDialogOpen] = React.useState(false)
   const [modalOpen, setModalOpen] = React.useState(false)
   const [toastOpen, setToastOpen] = React.useState(false)
 
@@ -438,6 +440,28 @@ function ActionDemo({ slug }: { slug: string }) {
           </Alert.Root>
         </DemoPanel>
       </>
+    )
+  }
+
+  if (slug === "alert-dialog") {
+    return (
+      <DemoPanel title="示例">
+        <Button onClick={() => setAlertDialogOpen(true)}>打开确认对话框</Button>
+        <AlertDialog.Root open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
+          <AlertDialog.Content>
+            <AlertDialog.Header>
+              <AlertDialog.Title>确认删除项目？</AlertDialog.Title>
+              <AlertDialog.Description>
+                删除后无法恢复，请确认是否继续。
+              </AlertDialog.Description>
+            </AlertDialog.Header>
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel>取消</AlertDialog.Cancel>
+              <AlertDialog.Action variant="destructive">删除</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
+      </DemoPanel>
     )
   }
 

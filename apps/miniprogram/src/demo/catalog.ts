@@ -55,6 +55,7 @@ export const demoComponents: DemoComponent[] = [
   { category: "action", slug: "action-sheet", title: "Action-Sheet 动作面板", route: "pages/action/action-sheet/index" },
   { category: "action", slug: "activity-indicator", title: "Activity-Indicator 活动指示器", route: "pages/action/activity-indicator/index" },
   { category: "action", slug: "alert", title: "Alert 警告提示", route: "pages/action/alert/index" },
+  { category: "action", slug: "alert-dialog", title: "Alert-Dialog 确认对话框", route: "pages/action/alert-dialog/index" },
   { category: "action", slug: "dialog", title: "Dialog 对话框", route: "pages/action/dialog/index" },
   { category: "action", slug: "fab", title: "Fab 浮动按钮", route: "pages/action/fab/index" },
   { category: "action", slug: "loading", title: "Loading 加载提示", route: "pages/action/loading/index" },

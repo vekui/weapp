@@ -26,6 +26,7 @@ const registryComponentNames = [
   "activity-indicator",
   "article",
   "alert",
+  "alert-dialog",
   "aspect-ratio",
   "avatar",
   "badge",
@@ -106,6 +107,7 @@ const registryComponentNames = [
 const titleOverrides: Record<string, string> = {
   "action-sheet": "Action Sheet",
   "activity-indicator": "Activity Indicator",
+  "alert-dialog": "Alert Dialog",
   "aspect-ratio": "Aspect Ratio",
   "button-group": "Button Group",
   "data-list": "Data List",
@@ -131,6 +133,7 @@ const titleOverrides: Record<string, string> = {
 const dependencyOverrides: Record<string, string[]> = {
   "action-sheet": ["layer", "state"],
   "activity-indicator": ["spinner", "primitives", "state"],
+  "alert-dialog": ["button", "layer", "state", "primitives"],
   button: ["utils"],
   checkbox: ["icon", "primitives", "state"],
   curtain: ["layer", "state", "primitives"],

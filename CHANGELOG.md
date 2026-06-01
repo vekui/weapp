@@ -11,6 +11,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 新增项目级 changelog，用于集中跟踪后续版本更新。
 - 在 README、开发者指南、文档站和 LLM 入口中补充 changelog 入口。
 - 为 Rate 增加 `defaultValue` 非受控用法，并保留 `value`/`onValueChange` 受控模式。
+- 新增 Alert Dialog 组件，并将 `alert-dialog` 从文档 roadmap 发布到 registry 和小程序 playground。
 - 新增 Kbd 组件，并将 `kbd` 从文档 roadmap 发布到 registry。
 - 新增 Date Picker 组件，并将 `date-picker` 从文档 roadmap 发布到 registry 和小程序 playground。
 - 新增 Select 组件，并将 `select` 从文档 roadmap 发布到 registry 和小程序 playground。
