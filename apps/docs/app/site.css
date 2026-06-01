@@ -3425,20 +3425,22 @@ header .nextra-hamburger {
 .vekui-site-footer__qr {
   align-items: center;
   color: var(--vk-muted);
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   font-size: 13px;
-  gap: 10px;
+  gap: 8px;
   line-height: 1.4;
+  text-align: center;
 }
 
 .vekui-site-footer__qr img {
   background: var(--vk-surface);
   border: 1px solid var(--vk-border);
-  border-radius: 8px;
+  border-radius: 10px;
   display: block;
-  height: 88px;
-  padding: 6px;
-  width: 88px;
+  height: 128px;
+  padding: 8px;
+  width: 128px;
 }
 
 @media (max-width: 640px) {

@@ -25,8 +25,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <div className="vekui-site-footer">
                 <span>MIT 2026 VekUI · Built for Taro React WeChat mini programs</span>
                 <div className="vekui-site-footer__qr">
-                  <span>关注公众号</span>
                   <img src="/weapp/wechat-official-account-qr.jpg" alt="VekUI 微信公众号二维码" loading="lazy" />
+                  <span>关注公众号</span>
                 </div>
               </div>
             </Footer>
