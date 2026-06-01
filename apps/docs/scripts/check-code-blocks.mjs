@@ -68,8 +68,23 @@ assertIncludes(
 )
 assertIncludes(
   siteCss,
+  "column-gap: 0.45ch;",
+  "Command token groups should keep visible spacing between command parts."
+)
+assertIncludes(
+  siteCss,
+  ".vekui-code-token + .vekui-code-token",
+  "Command tokens should keep direct visual spacing even when syntax-highlighted."
+)
+assertIncludes(
+  siteCss,
   ".vekui-gate-item__description",
   "Quality gate command descriptions should be styled."
+)
+assertIncludes(
+  siteCss,
+  "grid-template-columns: repeat(2, minmax(280px, 1fr));",
+  "Quality gate commands should avoid squeezed three-column layouts."
 )
 
 console.log("Code block rendering checks passed.")
