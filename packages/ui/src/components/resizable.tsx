@@ -43,13 +43,15 @@ function ResizablePanel({
   style,
   ...props
 }: ResizablePanelProps) {
+  const panelStyle = typeof style === "object" && style !== null ? style : undefined
+
   return (
     <Box
       className={cn("min-w-0 bg-background p-3 text-foreground", className)}
       data-max-size={maxSize}
       data-min-size={minSize}
       data-size={defaultSize}
-      style={{ flexBasis: `${defaultSize}%`, ...style }}
+      style={{ flexBasis: `${defaultSize}%`, ...panelStyle }}
       {...props}
     />
   )
