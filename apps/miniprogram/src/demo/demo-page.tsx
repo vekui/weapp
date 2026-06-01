@@ -21,6 +21,7 @@ import {
   CardHeader,
   CardTitle,
   Carousel,
+  Chart,
   Checkbox,
   Collapsible,
   Combobox,
@@ -30,8 +31,10 @@ import {
   Curtain,
   DatePicker,
   CurtainTitle,
+  DataTable,
   Divider,
   Dialog,
+  Direction,
   DropdownMenu,
   Drawer,
   Empty,
@@ -71,6 +74,7 @@ import {
   RadioGroup,
   Range,
   Rate,
+  Resizable,
   SearchBar,
   Select,
   SegmentedControl,
@@ -359,6 +363,37 @@ function ViewDemo({ slug }: { slug: string }) {
       <DemoPanel title="示例">
         <Image className="h-[220rpx]" src="/assets/brand/vekui-logo-horizontal-transparent.png" mode="aspectFit" />
         <Image fallbackClassName="h-[220rpx]" src="" />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "chart") {
+    return (
+      <DemoPanel title="示例">
+        <Chart
+          data={[
+            { label: "一", value: 32 },
+            { label: "二", value: 64 },
+            { label: "三", value: 48 }
+          ]}
+        />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "data-table") {
+    return (
+      <DemoPanel title="示例">
+        <DataTable
+          columns={[
+            { key: "name", title: "名称" },
+            { key: "status", title: "状态" }
+          ]}
+          rows={[
+            { id: "design", name: "设计稿", status: "已同步", selected: true },
+            { id: "registry", name: "Registry", status: "已发布" }
+          ]}
+        />
       </DemoPanel>
     )
   }
@@ -982,6 +1017,29 @@ function LayoutDemo({ slug }: { slug: string }) {
           <Text className="mt-2 block text-sm text-muted-foreground">内容从底部进入。</Text>
           <Button className="mt-3" variant="secondary" onClick={() => setFloatOpen(false)}>关闭</Button>
         </FloatLayout>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "direction") {
+    return (
+      <DemoPanel title="示例">
+        <Direction.Root dir="rtl" className="gap-2">
+          <Badge>第一项</Badge>
+          <Badge variant="secondary">第二项</Badge>
+        </Direction.Root>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "resizable") {
+    return (
+      <DemoPanel title="示例">
+        <Resizable.PanelGroup>
+          <Resizable.Panel defaultSize={40}>左侧面板</Resizable.Panel>
+          <Resizable.Handle />
+          <Resizable.Panel defaultSize={60}>右侧面板</Resizable.Panel>
+        </Resizable.PanelGroup>
       </DemoPanel>
     )
   }
