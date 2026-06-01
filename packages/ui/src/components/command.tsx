@@ -73,7 +73,13 @@ function CommandItem({
       }}
       {...props}
     >
-      {typeof children === "string" ? <Text className="text-sm text-foreground">{children}</Text> : children}
+      {typeof children === "string" ? (
+        <Text className={cn("text-sm", disabled ? "text-muted-foreground" : "text-foreground")}>
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
     </Pressable>
   )
 }

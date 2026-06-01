@@ -101,7 +101,9 @@ export function Combobox({
                 setOpen(false)
               }}
             >
-              <Text className="text-sm text-foreground">{option.label}</Text>
+              <Text className={cn("text-sm", option.disabled ? "text-muted-foreground" : "text-foreground")}>
+                {option.label}
+              </Text>
             </Pressable>
           ))}
         </Box>

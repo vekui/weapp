@@ -15,7 +15,8 @@ function collectClassNames(root: ReactTestInstance): string[] {
 
 const options = [
   { label: "Compact", value: "compact" },
-  { label: "Comfortable", value: "comfortable" }
+  { label: "Comfortable", value: "comfortable" },
+  { label: "Disabled", value: "disabled", disabled: true }
 ]
 
 describe("Combobox", () => {
@@ -59,5 +60,21 @@ describe("Combobox", () => {
       ])
     )
     expect(source).toContain("border-border")
+  })
+
+  it("keeps disabled options muted and non-selectable", () => {
+    const onValueChange = vi.fn()
+    const tree = create(
+      <Combobox options={options} placeholder="Choose" defaultOpen onValueChange={onValueChange} />
+    )
+
+    const optionNodes = findAllByHostType(tree.root, "View").filter((node) => node.props["data-value"])
+    const disabledText = findAllByHostType(tree.root, "Text").find((node) => node.props.children === "Disabled")
+
+    expect(optionNodes[2]?.props["data-disabled"]).toBe("")
+    expect(String(disabledText?.props.className)).toContain("text-muted-foreground")
+    expect(optionNodes[2]?.props.onClick).toBeUndefined()
+
+    expect(onValueChange).not.toHaveBeenCalled()
   })
 })

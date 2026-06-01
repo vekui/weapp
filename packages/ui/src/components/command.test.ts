@@ -51,9 +51,11 @@ describe("Command", () => {
 
     const classNames = collectClassNames(tree.root)
     const items = findAllByHostType(tree.root, "View").filter((node) => node.props["data-value"])
+    const disabledText = findAllByHostType(tree.root, "Text").find((node) => node.props.children === "Disabled")
 
     expect(items[0]?.props["data-state"]).toBe("selected")
     expect(items[1]?.props["data-disabled"]).toBe("")
+    expect(String(disabledText?.props.className)).toContain("text-muted-foreground")
     expect(classNames).toEqual(
       expect.arrayContaining([
         expect.stringContaining("bg-background"),

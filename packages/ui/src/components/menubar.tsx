@@ -118,13 +118,23 @@ export type MenubarItemProps = PressableProps & {
 function MenubarItem({ children, className, disabled, value, ...props }: MenubarItemProps) {
   return (
     <Pressable
-      className={cn("flex min-h-[88rpx] flex-row items-center px-3 text-foreground", className)}
+      className={cn(
+        "flex min-h-[88rpx] flex-row items-center px-3",
+        disabled ? "text-muted-foreground" : "text-foreground",
+        className
+      )}
       data-disabled={disabled ? "" : undefined}
       data-value={value}
       disabled={disabled}
       {...props}
     >
-      {typeof children === "string" ? <Text className="text-sm text-foreground">{children}</Text> : children}
+      {typeof children === "string" ? (
+        <Text className={cn("text-sm", disabled ? "text-muted-foreground" : "text-foreground")}>
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
     </Pressable>
   )
 }

@@ -124,7 +124,12 @@ function ContextMenuItem({
       {...props}
     >
       {typeof children === "string" ? (
-        <Text className={cn("text-sm", destructive ? "text-destructive" : "text-foreground")}>
+        <Text
+          className={cn(
+            "text-sm",
+            disabled ? "text-muted-foreground" : destructive ? "text-destructive" : "text-foreground"
+          )}
+        >
           {children}
         </Text>
       ) : (
