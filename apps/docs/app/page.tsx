@@ -165,8 +165,8 @@ function commandLineFromText(command: string, description: string): CommandLine 
 const roadmap = [
   `让 ${componentStats.registryUiComponents} 个 UI 组件和 ${componentStats.registryItems} 个 registry items 的文档口径持续同源。`,
   "把 CLI 的 dry-run、覆盖确认、registryDependencies 解析做成可预期体验。",
-  "把 playground 变成真实组件验收台，而不是截图式 demo。",
-  "把 GitHub Pages 上的 registry、文档和 AI 入口保持同步发布。"
+  "把 action、navigation、form、view 和 layout playground 保持为真实组件验收台。",
+  "把 GitHub Pages 上的 registry、文档、Changelog 和 AI 入口保持同步发布。"
 ]
 
 const pageLinks = [
@@ -178,8 +178,8 @@ const pageLinks = [
   },
   {
     label: "Components",
-    title: "浏览可安装组件和 roadmap",
-    body: `查看 ${componentStats.registryUiComponents} 个已发布组件和 planned 条目。`,
+    title: "浏览可安装组件",
+    body: `查看 ${componentStats.registryUiComponents} 个已发布组件，roadmap planned 已清零。`,
     href: "/weapp/components/"
   },
   {
@@ -367,7 +367,7 @@ export default function HomePage() {
         <div className="vekui-shell vekui-roadmap">
           <div>
             <p className="vekui-kicker">Development plan</p>
-            <h2>下一阶段只做会提高开发者信任感的事情。</h2>
+            <h2>Roadmap 已清零，下一阶段只做会提高开发者信任感的事情。</h2>
           </div>
           <ul>
             {roadmap.map((item) => (

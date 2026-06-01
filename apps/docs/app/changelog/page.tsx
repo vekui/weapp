@@ -1,3 +1,5 @@
+import { componentStats } from "../components/catalog"
+
 const releaseRules = [
   "影响 CLI、registry、packages/ui、apps/miniprogram、文档站或开发规则的改动，都先写入 Unreleased。",
   "发布时把 Unreleased 下沉到对应版本号，并记录发布日期。",
@@ -19,6 +21,11 @@ const baselineGroups = [
     label: "Docs",
     title: "文档站和 Agent 规则成为项目入口。",
     body: "快速开始、组件目录、主题、registry、AI Coding 和测试计划共同描述后续迭代边界。"
+  },
+  {
+    label: "Roadmap",
+    title: "shadcn-aligned roadmap 已清零。",
+    body: `当前组件目录展示 ${componentStats.registryUiComponents} 个 UI 组件、${componentStats.registryItems} 个 registry items，planned 计数为 ${componentStats.planned}。`
   }
 ]
 

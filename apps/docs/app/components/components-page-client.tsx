@@ -42,6 +42,8 @@ type SourceToken = {
 }
 
 const pageUrl = "https://vekui.github.io/weapp/components/"
+const roadmapStatusText =
+  componentStats.planned === 0 ? "roadmap complete" : `${componentStats.planned} planned`
 const sourceKeywords = new Set([
   "as",
   "async",
@@ -419,17 +421,19 @@ export function ToastDemo() {
 function ComponentGrid({
   active,
   components,
+  emptyDescription = "没有匹配的组件。试试清空搜索，或切回全部状态。",
   onSelect
 }: {
   active: ActiveTarget
   components: ComponentCatalogItem[]
+  emptyDescription?: string
   onSelect: (target: ActiveTarget) => void
 }) {
   if (components.length === 0) {
     return (
       <div className="vekui-components-empty-state">
         <span>No results</span>
-        <p>没有匹配的组件。试试清空搜索，或切回全部状态。</p>
+        <p>{emptyDescription}</p>
       </div>
     )
   }
@@ -461,11 +465,13 @@ function ComponentGrid({
 function SectionPanel({
   active,
   components,
+  emptyDescription,
   onSelect,
   section
 }: {
   active: ActiveTarget
   components: ComponentCatalogItem[]
+  emptyDescription?: string
   onSelect: (target: ActiveTarget) => void
   section: SectionItem
 }) {
@@ -473,12 +479,12 @@ function SectionPanel({
     return (
       <PanelShell
         activeKey="section-components"
-        description="Here you can find all the components available in VekUI and the shadcn-aligned roadmap we are working through."
+        description="Here you can find every registry-published VekUI component; the shadcn-aligned v0 roadmap is complete for this batch."
         title="Components"
       >
-        <ComponentGrid active={active} components={components} onSelect={onSelect} />
+        <ComponentGrid active={active} components={components} emptyDescription={emptyDescription} onSelect={onSelect} />
         <p className="vekui-components-footnote">
-          当前 registry 已发布 {componentStats.registryUiComponents} 个 UI 组件，合计 {componentStats.registryItems} 个 registry items；另有 {componentStats.planned} 个 shadcn-aligned 路线图入口保留。
+          当前 registry 已发布 {componentStats.registryUiComponents} 个 UI 组件，合计 {componentStats.registryItems} 个 registry items；shadcn-aligned roadmap planned 为 {componentStats.planned}。
         </p>
       </PanelShell>
     )
@@ -601,7 +607,7 @@ pnpm dlx vekui add button input --cwd .`}</CommandBlock>
     return (
       <PanelShell
         activeKey="section-changelog"
-        description="The current docs surface is intentionally honest: v0 ships a foundation batch and shows the broader shadcn parity backlog."
+        description="The current docs surface is intentionally honest: v0 now ships the completed shadcn-aligned roadmap batch and keeps future maintenance visible."
         title="Changelog"
       >
         <ol className="vekui-components-timeline">
@@ -611,11 +617,11 @@ pnpm dlx vekui add button input --cwd .`}</CommandBlock>
           </li>
           <li>
             <span>next</span>
-            <p>优先让 docs、registry、playground 和测试持续同源，下一步进入 Date Picker 等 planned 组件。</p>
+            <p>优先让 docs、registry、playground 和测试持续同源，继续打磨 CLI、registry 依赖解析和真实项目体验。</p>
           </li>
           <li>
             <span>later</span>
-            <p>再进入复杂组合组件，如 Command、Data Table、Navigation Menu 和 Select。</p>
+            <p>围绕小程序真实反馈优化复杂交互组件，而不是维护未发布的组件 backlog。</p>
           </li>
         </ol>
       </PanelShell>
@@ -768,9 +774,9 @@ function ComponentPanel({
         <h2 id={`${component.slug}-api`}>API Reference</h2>
         <InfoGrid
           items={[
-            { label: "status", value: available ? "Available in v0 registry" : "Roadmap item" },
-            { label: "dependency", value: component.dependency ?? "to be designed" },
-            { label: "state", value: component.state ?? "to be specified" },
+            { label: "status", value: available ? "Available in v0 registry" : "Future expansion item" },
+            { label: "dependency", value: component.dependency ?? "not published yet" },
+            { label: "state", value: component.state ?? "not published yet" },
             {
               label: "registry",
               value: component.registryPath ? <a href={component.registryPath}>{component.registryPath}</a> : "not published yet"
@@ -789,9 +795,9 @@ function ComponentPanel({
           <span>source</span>
           <code>{component.source}</code>
         </div>
-      ) : (
+    ) : (
         <div className="vekui-components-empty-state">
-          <span>roadmap</span>
+          <span>future</span>
           <p>{component.roadmap}</p>
         </div>
       )}
@@ -804,6 +810,10 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
   const [copyLabel, setCopyLabel] = useState("Copy Page")
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all")
+  const emptyComponentsDescription =
+    statusFilter === "planned" && componentStats.planned === 0
+      ? "当前 shadcn-aligned roadmap 已清零，没有待发布组件。"
+      : undefined
 
   const activeSection = useMemo(() => {
     if (active.type !== "section") {
@@ -902,7 +912,7 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
             <div>
               <p className="vekui-kicker">Docs / Components</p>
               <strong>
-                {componentStats.registryUiComponents} published / {componentStats.planned} planned
+                {componentStats.registryUiComponents} published / {roadmapStatusText}
               </strong>
             </div>
             <div className="vekui-components-actions" aria-label="页面操作">
@@ -971,6 +981,7 @@ export function ComponentsPageClient({ componentSources }: { componentSources: C
             <SectionPanel
               active={active}
               components={filteredComponents}
+              emptyDescription={emptyComponentsDescription}
               onSelect={setActive}
               section={activeSection ?? sectionItems.find((section) => section.id === "components")!}
             />

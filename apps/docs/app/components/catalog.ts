@@ -44,7 +44,7 @@ export const sectionItems: SectionItem[] = [
   {
     id: "components",
     title: "Components",
-    description: "按 shadcn 官网顺序整理的组件索引，区分 v0 可用和路线图规划。"
+    description: "按 shadcn 官网顺序整理的组件索引，当前 v0 roadmap 条目已全部发布。"
   },
   {
     id: "installation",
@@ -89,7 +89,7 @@ export const sectionItems: SectionItem[] = [
   {
     id: "changelog",
     title: "Changelog",
-    description: "当前 v0 状态和接下来补齐的组件方向。"
+    description: "当前 v0 状态、roadmap 清零和后续维护方向。"
   }
 ]
 
@@ -345,7 +345,7 @@ const shadcnComponentItems: ComponentCatalogItem[] = shadcnComponentOrder.map(([
     description: `${name} 已纳入 VekUI WeApp 路线图，落地前会先确认 Taro primitive、状态属性、token class 和 WXSS 安全规则。`,
     exportName: name.replaceAll(" ", ""),
     name,
-    roadmap: "Planned for a later registry batch after the v0 foundation stays stable.",
+    roadmap: "Reserved for future registry expansion after a Taro-safe implementation plan is approved.",
     slug,
     status: "planned",
     taroNote: "需要重新设计为小程序树内交互，不能直接搬运 Radix、DOM API 或浏览器 portal。"

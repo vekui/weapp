@@ -22,6 +22,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 新增 Command 和 Combobox 组件，并发布到 registry 和小程序 playground。
 - 新增 Chart、Data Table、Direction 和 Resizable 组件，并发布到 registry 和小程序 playground。
 - 新增 Sidebar 和 Sonner 组件，并发布到 registry 和小程序 playground。
+- 更新官网首页、组件页和 changelog 页口径，明确 roadmap planned 已清零并同步 action playground 状态。
 - 为小程序 playground 补齐 Alert、Dialog、Fab、Loading、Button Group、Field、Input Group、Input OTP、Collapsible 和 Image demo 页面。
 - 为 Image、Fab 和 Input OTP 增加独立组件契约测试，覆盖状态属性、token class 和小程序兼容规则。
 - 为全部 80 个公开 registry UI 组件补齐独立单元测试覆盖，校验 API、状态属性、语义 token class 和小程序兼容规则。

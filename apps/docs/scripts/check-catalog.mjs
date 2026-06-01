@@ -11,6 +11,7 @@ const componentsPage = await readFile(
   path.join(docsRoot, "app/components/components-page-client.tsx"),
   "utf8"
 )
+const changelogPage = await readFile(path.join(docsRoot, "app/changelog/page.tsx"), "utf8")
 
 function assert(condition, message) {
   if (!condition) {
@@ -60,10 +61,28 @@ assert(
   "Docs catalog must mark shadcn entries available from registry component names."
 )
 
-for (const source of [catalog, homePage, componentsPage]) {
+for (const source of [catalog, homePage, componentsPage, changelogPage]) {
   assert(!source.includes("12 个基础组件"), "Docs must not contain stale 12-component copy.")
   assert(!source.includes("12 个 v0 组件"), "Docs must not contain stale 12-component roadmap copy.")
+  assert(!source.includes("planned 条目"), "Docs must not describe the current roadmap as planned items.")
+  assert(!source.includes("下一步进入 Date Picker"), "Docs must not contain stale Date Picker roadmap copy.")
+  assert(!source.includes("复杂组合组件，如 Command"), "Docs must not contain stale complex component roadmap copy.")
 }
+
+assert(planned.length === 0, "Docs catalog should report zero planned shadcn roadmap items.")
+assert(homePage.includes("roadmap planned 已清零"), "Home page must state that roadmap planned is cleared.")
+assert(
+  componentsPage.includes("roadmap complete"),
+  "Components page toolbar must show completed roadmap status."
+)
+assert(
+  componentsPage.includes("当前 shadcn-aligned roadmap 已清零"),
+  "Components page planned filter must explain that the roadmap is cleared."
+)
+assert(
+  changelogPage.includes("shadcn-aligned roadmap 已清零"),
+  "Changelog page must include the completed roadmap baseline."
+)
 
 assert(
   registryComponentSet.has("date-picker"),
