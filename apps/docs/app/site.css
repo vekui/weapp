@@ -3196,3 +3196,41 @@ header .nextra-hamburger {
 .vekui-components-component-meta code {
   border-radius: var(--vk-radius-pill);
 }
+
+/* Button affordance correction: keep primary actions recognizable without bringing cards back. */
+.vekui-actions {
+  gap: 12px;
+}
+
+.vekui-actions .vekui-button {
+  border: 1px solid var(--vk-border-strong);
+  border-radius: var(--vk-radius-control);
+  min-height: 44px;
+  padding-inline: 18px;
+  text-decoration: none;
+}
+
+.vekui-actions .vekui-button--primary {
+  background: var(--vk-ink);
+  border-color: var(--vk-ink);
+  color: var(--vk-surface);
+}
+
+.vekui-actions .vekui-button:not(.vekui-button--primary) {
+  background: var(--vk-surface);
+  color: var(--vk-ink);
+}
+
+.vekui-actions .vekui-button:hover {
+  background: var(--vk-surface-muted);
+  color: var(--vk-ink);
+}
+
+.vekui-actions .vekui-button--primary:hover {
+  background: color-mix(in srgb, var(--vk-ink) 90%, var(--vk-surface));
+  color: var(--vk-surface);
+}
+
+.dark .vekui-actions .vekui-button--primary {
+  color: #07111f;
+}
