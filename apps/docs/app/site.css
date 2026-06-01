@@ -3413,3 +3413,37 @@ header .nextra-hamburger {
   color: var(--vk-ink);
   text-decoration: none;
 }
+
+.vekui-site-footer {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vekui-site-footer__qr {
+  align-items: center;
+  color: var(--vk-muted);
+  display: inline-flex;
+  font-size: 13px;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.vekui-site-footer__qr img {
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: 8px;
+  display: block;
+  height: 88px;
+  padding: 6px;
+  width: 88px;
+}
+
+@media (max-width: 640px) {
+  .vekui-site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -19,6 +19,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 为 Image、Fab 和 Input OTP 增加独立组件契约测试，覆盖状态属性、token class 和小程序兼容规则。
 - 为全部 80 个公开 registry UI 组件补齐独立单元测试覆盖，校验 API、状态属性、语义 token class 和小程序兼容规则。
 - 组件文档目录改为 registry-driven 统计，明确区分公开 UI 组件数、registry item 总数和 shadcn planned 项。
+- 在 README 和 GitHub Pages 页脚加入公众号二维码入口。
 
 ### Changed
 

@@ -45,3 +45,13 @@ pnpm build:docs
 - v0 的推荐分发方式是源码 registry，不是传统 npm 组件包。
 
 更多内容见 [开发者指南](docs/DEVELOPER_GUIDE.md) 和 [AI Coding 规范](AGENTS.md)。
+
+## 公众号
+
+<p align="center">
+  <strong>关注公众号，获取 VekUI WeApp 和小程序 UI 实践更新</strong>
+</p>
+
+<p align="center">
+  <img src="apps/docs/public/wechat-official-account-qr.jpg" alt="微信公众号二维码" width="180" />
+</p>
