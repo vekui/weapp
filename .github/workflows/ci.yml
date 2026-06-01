@@ -10,19 +10,40 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
         with:
           version: 10.0.0
-      - uses: actions/setup-node@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm check:ui
-      - run: pnpm registry:build
-      - run: pnpm build:miniprogram
-      - run: pnpm build:docs
-      - run: pnpm --filter vekui test
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Check UI rules
+        run: pnpm check:ui
+
+      - name: Build registry
+        run: pnpm registry:build
+
+      - name: Build miniprogram
+        run: pnpm build:miniprogram
+
+      - name: Build docs
+        run: pnpm build:docs
+
+      - name: Test package
+        run: pnpm --filter vekui test
