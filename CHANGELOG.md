@@ -8,6 +8,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 
 ### Added
 
+- 将 README 刷新为英文优先的开源项目入口，补充 stars、CI、license、docs、registry 和组件数量等项目元信息，并新增 `README.zh-CN.md` 作为中文切换版本。
 - 新增项目级 changelog，用于集中跟踪后续版本更新。
 - 在 README、开发者指南、文档站和 LLM 入口中补充 changelog 入口。
 - 为 Rate 增加 `defaultValue` 非受控用法，并保留 `value`/`onValueChange` 受控模式。
