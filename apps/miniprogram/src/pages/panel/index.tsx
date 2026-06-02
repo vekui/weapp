@@ -2,14 +2,17 @@ import Taro from "@tarojs/taro"
 import { Box, Icon, List, ListItem, Text } from "@vekui/weapp"
 
 import { getCategory, getCategoryComponents } from "../../demo/catalog"
+import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
+import { ThemeSwitcher } from "../../demo/theme-switcher"
 
 export default function PanelPage() {
+  const [themeId, setThemeId] = useDemoTheme()
   const categoryId = String(Taro.getCurrentInstance().router?.params?.id ?? "basic")
   const category = getCategory(categoryId) ?? getCategory("basic")!
   const components = getCategoryComponents(category.id)
 
   return (
-    <Box className="theme-learning min-h-screen bg-background">
+    <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background`}>
       <Box className="bg-muted px-6 pb-8 pt-8">
         <Box className="flex flex-row items-center gap-4">
           <Box className="flex h-[88rpx] w-[88rpx] shrink-0 items-center justify-center rounded-lg border border-border bg-card shadow-sm">
@@ -21,6 +24,9 @@ export default function PanelPage() {
               {category.description} · {components.length} 个组件
             </Text>
           </Box>
+        </Box>
+        <Box className="mt-5">
+          <ThemeSwitcher value={themeId} onValueChange={setThemeId} />
         </Box>
       </Box>
 

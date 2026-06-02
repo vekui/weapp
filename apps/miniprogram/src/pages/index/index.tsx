@@ -1,15 +1,20 @@
 import Taro from "@tarojs/taro"
 import { Box, Icon, Image, Pressable, Text } from "@vekui/weapp"
 
-import { demoCategories, getCategoryComponents } from "../../demo/catalog"
+import { demoCategories, demoComponents, getCategoryComponents } from "../../demo/catalog"
+import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
+import { ThemeSwitcher } from "../../demo/theme-switcher"
 
 const vekuiLogo = "/assets/brand/vekui-logo-horizontal-transparent.png"
 
 export default function IndexPage() {
+  const [themeId, setThemeId] = useDemoTheme()
+  const totalDemoComponents = demoComponents.length
+
   return (
-    <Box className="theme-learning min-h-screen bg-background pb-8">
+    <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background pb-8`}>
       <Box
-        className="flex flex-col items-center px-6 pb-[88rpx] pt-[44rpx]"
+        className="flex flex-col items-center px-6 pb-[72rpx] pt-[44rpx]"
         data-slot="brand-hero"
       >
         <Image
@@ -19,6 +24,17 @@ export default function IndexPage() {
           rounded={false}
           src={vekuiLogo}
         />
+        <Box className="mt-4 flex flex-row items-center gap-2">
+          <Text className="rounded-full bg-secondary px-3 text-xs leading-[36rpx] text-muted-foreground">
+            组件覆盖
+          </Text>
+          <Text className="rounded-full bg-primary px-3 text-xs leading-[36rpx] text-primary-foreground">
+            {totalDemoComponents} demos
+          </Text>
+        </Box>
+        <Box className="mt-5 w-full">
+          <ThemeSwitcher value={themeId} onValueChange={setThemeId} />
+        </Box>
       </Box>
 
       <Box className="-mt-[36rpx] flex flex-col gap-4 px-5">

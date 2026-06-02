@@ -1,8 +1,11 @@
 import { Footer, Layout, Navbar } from "nextra-theme-docs"
 import { getPageMap } from "nextra/page-map"
-import type * as React from "react"
 import "nextra-theme-docs/style.css"
 import "./site.css"
+
+type RootLayoutProps = {
+  children: Parameters<typeof Layout>[0]["children"]
+}
 
 export const metadata = {
   title: "VekUI WeApp",
@@ -12,7 +15,7 @@ export const metadata = {
   }
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body>
