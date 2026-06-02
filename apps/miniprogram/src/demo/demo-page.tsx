@@ -121,6 +121,8 @@ import {
 } from "@vekui/weapp"
 
 import { getDemoComponent } from "./catalog"
+import { getDemoThemeClassName, useDemoTheme } from "./theme"
+import { ThemeSwitcher } from "./theme-switcher"
 
 type DemoPanelProps = React.PropsWithChildren<{
   title: string
@@ -145,11 +147,16 @@ function DemoPanel({ children, title }: DemoPanelProps) {
 }
 
 function DemoPageShell({ children, title }: React.PropsWithChildren<{ title: string }>) {
+  const [themeId, setThemeId] = useDemoTheme()
+
   return (
-    <Box className="theme-learning min-h-screen bg-background pb-8">
+    <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background pb-8`}>
       <Box className="bg-muted px-6 pb-8 pt-10">
         <Text className="block text-xl font-semibold leading-[56rpx] text-foreground">{title}</Text>
         <Box className="mt-4 h-[4rpx] w-[96rpx] rounded-full bg-primary" />
+        <Box className="mt-5">
+          <ThemeSwitcher value={themeId} onValueChange={setThemeId} />
+        </Box>
       </Box>
       {children}
     </Box>
