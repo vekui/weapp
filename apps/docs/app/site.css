@@ -3469,10 +3469,13 @@ header .nextra-hamburger {
 
 .vekui-site-footer {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   gap: 18px;
   justify-content: space-between;
-  width: 100%;
+  margin: 0 auto;
+  max-width: 1160px;
+  width: calc(100% - 48px);
 }
 
 .vekui-site-footer__qr {
@@ -3500,5 +3503,6 @@ header .nextra-hamburger {
   .vekui-site-footer {
     align-items: flex-start;
     flex-direction: column;
+    width: min(calc(100% - 32px), 1160px);
   }
 }
