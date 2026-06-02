@@ -27,6 +27,17 @@ function assertRuleIncludes(source, selector, expected, message) {
   }
 }
 
+function assertRuleExcludes(source, selector, forbidden, message) {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  const blocks = [...source.matchAll(new RegExp(`${escapedSelector}\\s*\\{([\\s\\S]*?)\\n\\}`, "g"))].map(
+    (match) => match[1]
+  )
+
+  if (blocks.some((block) => block.includes(forbidden))) {
+    throw new Error(message)
+  }
+}
+
 assertIncludes(
   componentPage,
   "tokenizeTsxLine",
@@ -180,6 +191,36 @@ assertRuleIncludes(
   '.vekui-components-status-tabs button[data-state="active"]::after',
   "opacity: 1;",
   "Active status tabs should reveal the independent indicator."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-nav-item",
+  "position: relative;",
+  "Components nav items should anchor an independent active indicator."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-nav-item::before",
+  "background: var(--vk-ink);",
+  "Components nav active indicators should render as a straight pseudo-element instead of a curved item border."
+)
+assertRuleIncludes(
+  siteCss,
+  '.vekui-components-nav-item[data-state="active"]::before',
+  "opacity: 1;",
+  "Active components nav items should reveal the independent indicator."
+)
+assertRuleExcludes(
+  siteCss,
+  '.vekui-components-nav-item[data-state="active"]',
+  "border-left:",
+  "Active components nav items should not draw the indicator with a curved border-left."
+)
+assertRuleExcludes(
+  siteCss,
+  '.vekui-components-nav-item[data-state="active"]',
+  "box-shadow: inset",
+  "Active components nav items should not draw the indicator with a curved inset shadow."
 )
 
 console.log("Code block rendering checks passed.")
