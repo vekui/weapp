@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/brand/vekui-logo.png" alt="VekUI logo" width="520" />
+  <img src="apps/miniprogram/src/assets/brand/vekui-logo-horizontal-transparent.png" alt="VekUI logo" width="420" />
 </p>
 
 <p align="center">
