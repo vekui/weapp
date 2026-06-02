@@ -1431,6 +1431,7 @@
 
 .vekui-source-card__body[data-variant="usage"] {
   border: 1px solid var(--vk-code-border);
+  border-radius: var(--vk-radius-content);
   margin-top: 18px;
 }
 
@@ -3227,11 +3228,11 @@ header .nextra-hamburger {
   }
 }
 
-/* Visual consistency audit: one minimal radius system, no mixed elevation. */
+/* Visual consistency audit: one rounded radius system, no mixed elevation. */
 .vekui-home,
 .vekui-doc-page {
-  --vk-radius-control: 6px;
-  --vk-radius-content: 0;
+  --vk-radius-control: 8px;
+  --vk-radius-content: 8px;
   --vk-radius-pill: 999px;
 }
 
@@ -3280,10 +3281,19 @@ header .nextra-hamburger {
   padding-left: 8px;
 }
 
-.vekui-components-nav-item small,
+.vekui-components-nav-item small {
+  border-radius: var(--vk-radius-pill);
+}
+
 .vekui-components-component-meta span,
 .vekui-components-component-meta code {
-  border-radius: var(--vk-radius-pill);
+  align-items: center;
+  background: var(--vk-surface-muted);
+  border: 1px solid var(--vk-border);
+  border-radius: var(--vk-radius-control);
+  display: inline-flex;
+  min-height: 32px;
+  padding: 0 10px;
 }
 
 /* Button affordance correction: keep primary actions recognizable without bringing cards back. */

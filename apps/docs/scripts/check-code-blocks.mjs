@@ -130,5 +130,32 @@ assertIncludes(
   "grid-template-columns: repeat(2, minmax(280px, 1fr));",
   "Quality gate commands should avoid squeezed three-column layouts."
 )
+assertIncludes(
+  siteCss,
+  "--vk-radius-control: 8px;",
+  "Docs controls should use a shared non-zero rounded radius."
+)
+assertIncludes(
+  siteCss,
+  "--vk-radius-content: 8px;",
+  "Docs content surfaces should not use 0px corners."
+)
+assertRuleIncludes(
+  siteCss,
+  '.vekui-source-card__body[data-variant="usage"]',
+  "border-radius: var(--vk-radius-content);",
+  "Usage code blocks should share the rounded content radius."
+)
+assertIncludes(
+  siteCss,
+  ".vekui-components-component-meta span,\n.vekui-components-component-meta code {\n  align-items: center;",
+  "Component meta chips should use the shared control radius treatment instead of pill or underline styling."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-component-meta span,\n.vekui-components-component-meta code",
+  "border-radius: var(--vk-radius-control);",
+  "Component meta chips should use the shared control radius."
+)
 
 console.log("Code block rendering checks passed.")
