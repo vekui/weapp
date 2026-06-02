@@ -16,8 +16,9 @@ pnpm --filter vekui test
 
 - Open `apps/miniprogram` in WeChat Developer Tools.
 - Verify `pages/index/index` renders the component catalog.
+- Verify category badge counts match `getCategoryComponents(category.id).length`.
 - Verify category cards open `pages/panel/index?id=<category>`.
 - Verify panel list items open their registered demo pages from `apps/miniprogram/src/demo/catalog.ts`.
-- Verify Button, Card, Badge, Alert, Loading, Field, Input, Textarea, Checkbox, RadioGroup, Switch, Tabs, Dialog, and Toast render under the default theme.
+- Verify the miniprogram demo catalog covers all `publicComponentNames` from `packages/registry/src/manifest.ts`; the extra Color page is a token showcase, not a registry component.
 - Verify overlay demos open and close without console errors.
 - Verify generated registry files under `apps/docs/public/r`.

@@ -8,10 +8,14 @@ import {
   Alert,
   AlertDialog,
   Article,
+  AspectRatio,
   Avatar,
   AvatarFallback,
   Badge,
   Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbSeparator,
   Button,
   ButtonGroup,
   Calendar,
@@ -31,6 +35,7 @@ import {
   Curtain,
   DatePicker,
   CurtainTitle,
+  DataList,
   DataTable,
   Divider,
   Dialog,
@@ -56,6 +61,14 @@ import {
   InputGroup,
   InputNumber,
   InputOTP,
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+  Kbd,
+  Label,
   List,
   ListItem,
   LoadMore,
@@ -71,16 +84,23 @@ import {
   Picker,
   PickerView,
   Progress,
+  Popover,
   RadioGroup,
   Range,
   Rate,
   Resizable,
+  SafeArea,
+  ScrollArea,
   SearchBar,
   Select,
+  Separator,
   SegmentedControl,
+  Sheet,
   Sidebar,
+  Skeleton,
   Slider,
   Sonner,
+  Spinner,
   Steps,
   SwipeAction,
   Switch,
@@ -94,7 +114,10 @@ import {
   Toast,
   ToastDescription,
   ToastTitle,
-  Tooltip
+  Tooltip,
+  Toggle,
+  ToggleGroup,
+  Table
 } from "@vekui/weapp"
 
 import { getDemoComponent } from "./catalog"
@@ -263,8 +286,54 @@ function ButtonGroupDemo() {
   )
 }
 
+function KbdDemo() {
+  return (
+    <DemoPanel title="示例">
+      <Box className="flex flex-row flex-wrap items-center gap-2">
+        <Kbd>Ctrl</Kbd>
+        <Text className="text-sm text-muted-foreground">+</Text>
+        <Kbd>K</Kbd>
+        <Kbd disabled>Esc</Kbd>
+      </Box>
+    </DemoPanel>
+  )
+}
+
+function SeparatorDemo() {
+  return (
+    <DemoPanel title="示例">
+      <Box className="rounded-md border border-border bg-card p-4">
+        <Text className="text-sm text-foreground">上方内容</Text>
+        <Separator className="my-3" />
+        <Box className="flex h-[96rpx] flex-row items-center gap-3">
+          <Text className="text-sm text-foreground">左侧</Text>
+          <Separator orientation="vertical" />
+          <Text className="text-sm text-foreground">右侧</Text>
+        </Box>
+      </Box>
+    </DemoPanel>
+  )
+}
+
 function ViewDemo({ slug }: { slug: string }) {
   const [curtainOpen, setCurtainOpen] = React.useState(false)
+
+  if (slug === "aspect-ratio") {
+    return (
+      <DemoPanel title="示例">
+        <AspectRatio ratio={16 / 9}>
+          <Box className="flex h-full items-center justify-center bg-primary">
+            <Text className="text-base font-semibold text-primary-foreground">16:9</Text>
+          </Box>
+        </AspectRatio>
+        <AspectRatio ratio={1}>
+          <Box className="flex h-full items-center justify-center bg-muted">
+            <Text className="text-base font-semibold text-foreground">1:1</Text>
+          </Box>
+        </AspectRatio>
+      </DemoPanel>
+    )
+  }
 
   if (slug === "avatar") {
     return (
@@ -383,6 +452,21 @@ function ViewDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "data-list") {
+    return (
+      <DemoPanel title="示例">
+        <DataList.Root>
+          <DataList.Item label="组件" value="DataList" />
+          <DataList.Item label="状态" value="已发布" state="muted" />
+          <DataList.Item>
+            <DataList.Label>维护者</DataList.Label>
+            <DataList.Value>VekUI</DataList.Value>
+          </DataList.Item>
+        </DataList.Root>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "data-table") {
     return (
       <DemoPanel title="示例">
@@ -396,6 +480,15 @@ function ViewDemo({ slug }: { slug: string }) {
             { id: "registry", name: "Registry", status: "已发布" }
           ]}
         />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "empty") {
+    return (
+      <DemoPanel title="示例">
+        <Empty title="暂无组件" description="当前分类还没有可展示内容。" />
+        <Empty className="rounded-md border border-border bg-card" description="使用默认标题。" />
       </DemoPanel>
     )
   }
@@ -426,6 +519,52 @@ function ViewDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "skeleton") {
+    return (
+      <DemoPanel title="示例">
+        <Box className="flex flex-col gap-3 rounded-md border border-border bg-card p-4">
+          <Skeleton className="h-[40rpx] w-[240rpx]" />
+          <Skeleton className="h-[32rpx] w-full" />
+          <Skeleton className="h-[32rpx] w-[70%]" />
+        </Box>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "spinner") {
+    return (
+      <DemoPanel title="示例">
+        <Box className="flex min-h-[120rpx] flex-row items-center gap-3 rounded-md border border-border bg-card p-4">
+          <Spinner />
+          <Text className="text-sm text-muted-foreground">正在加载组件数据</Text>
+        </Box>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "table") {
+    return (
+      <DemoPanel title="示例">
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.Cell>名称</Table.Cell>
+              <Table.Cell>状态</Table.Cell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Row selected>
+            <Table.Cell>Button</Table.Cell>
+            <Table.Cell>稳定</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Sheet</Table.Cell>
+            <Table.Cell>新增</Table.Cell>
+          </Table.Row>
+        </Table.Root>
+      </DemoPanel>
+    )
+  }
+
   return (
     <DemoPanel title="示例">
       <Steps.Root current={1}>
@@ -441,6 +580,7 @@ function ActionDemo({ slug }: { slug: string }) {
   const [actionOpen, setActionOpen] = React.useState(false)
   const [alertDialogOpen, setAlertDialogOpen] = React.useState(false)
   const [modalOpen, setModalOpen] = React.useState(false)
+  const [sheetOpen, setSheetOpen] = React.useState(false)
   const [toastOpen, setToastOpen] = React.useState(false)
 
   if (slug === "action-sheet") {
@@ -636,11 +776,45 @@ function ActionDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "popover") {
+    return (
+      <DemoPanel title="示例">
+        <Popover.Root>
+          <Popover.Trigger className="rounded-md border border-border bg-background px-4">
+            <Text className="text-sm text-foreground">点击打开弹出层</Text>
+          </Popover.Trigger>
+          <Popover.Content>
+            <Text className="text-sm leading-[40rpx] text-foreground">
+              Popover 使用点击触发，内容在当前小程序组件树内展示。
+            </Text>
+          </Popover.Content>
+        </Popover.Root>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "progress") {
     return (
       <DemoPanel title="示例">
         <Progress value={32} />
         <Progress value={72} />
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "sheet") {
+    return (
+      <DemoPanel title="示例">
+        <Button onClick={() => setSheetOpen(true)}>打开 Sheet</Button>
+        <Sheet.Root open={sheetOpen} onOpenChange={setSheetOpen}>
+          <Sheet.Content side="bottom">
+            <Sheet.Title>Sheet 标题</Sheet.Title>
+            <Sheet.Description>从底部展开的操作面板，使用小程序树内 Layer。</Sheet.Description>
+            <Sheet.Close className="mt-4 rounded-md bg-secondary px-3">
+              <Text className="text-sm text-secondary-foreground">关闭</Text>
+            </Sheet.Close>
+          </Sheet.Content>
+        </Sheet.Root>
       </DemoPanel>
     )
   }
@@ -706,6 +880,8 @@ function ActionDemo({ slug }: { slug: string }) {
 function FormDemo({ slug }: { slug: string }) {
   const [checked, setChecked] = React.useState(true)
   const [switchOn, setSwitchOn] = React.useState(true)
+  const [togglePressed, setTogglePressed] = React.useState(true)
+  const [toggleGroupValue, setToggleGroupValue] = React.useState("bold")
   const [radio, setRadio] = React.useState("a")
   const [rate, setRate] = React.useState(3)
   const [numberValue, setNumberValue] = React.useState(2)
@@ -753,6 +929,21 @@ function FormDemo({ slug }: { slug: string }) {
           </Field.Root>
         </DemoPanel>
       </>
+    )
+  }
+
+  if (slug === "label") {
+    return (
+      <DemoPanel title="示例">
+        <Box className="flex flex-col gap-2">
+          <Label required>项目名称</Label>
+          <Input placeholder="请输入项目名称" />
+        </Box>
+        <Box className="flex flex-col gap-2">
+          <Label disabled>禁用字段</Label>
+          <Input disabled placeholder="不可编辑" />
+        </Box>
+      </DemoPanel>
     )
   }
 
@@ -964,6 +1155,31 @@ function FormDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "toggle") {
+    return (
+      <DemoPanel title="示例">
+        <Box className="flex flex-row items-center gap-3">
+          <Toggle pressed={togglePressed} onPressedChange={setTogglePressed}>
+            加粗
+          </Toggle>
+          <Toggle disabled>禁用</Toggle>
+        </Box>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "toggle-group") {
+    return (
+      <DemoPanel title="示例">
+        <ToggleGroup.Root value={toggleGroupValue} onValueChange={setToggleGroupValue}>
+          <ToggleGroup.Item value="bold">B</ToggleGroup.Item>
+          <ToggleGroup.Item value="italic">I</ToggleGroup.Item>
+          <ToggleGroup.Item value="underline">U</ToggleGroup.Item>
+        </ToggleGroup.Root>
+      </DemoPanel>
+    )
+  }
+
   return (
     <DemoPanel title="示例">
       <Range value={rangeValue} onValueChange={setRangeValue} />
@@ -993,6 +1209,33 @@ function LayoutDemo({ slug }: { slug: string }) {
           <GridItem selected>二</GridItem>
           <GridItem>三</GridItem>
         </Grid>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "item") {
+    return (
+      <DemoPanel title="示例">
+        <ItemGroup>
+          <Item selected>
+            <ItemMedia>
+              <Icon name="check" size="sm" tone="primary" />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>已选条目</ItemTitle>
+              <ItemDescription>可承载标题、说明和媒体区域。</ItemDescription>
+            </ItemContent>
+          </Item>
+          <Item disabled>
+            <ItemMedia>
+              <Icon name="x" size="sm" tone="muted" />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>禁用条目</ItemTitle>
+              <ItemDescription>禁用状态会反映到 data-disabled。</ItemDescription>
+            </ItemContent>
+          </Item>
+        </ItemGroup>
       </DemoPanel>
     )
   }
@@ -1060,6 +1303,35 @@ function LayoutDemo({ slug }: { slug: string }) {
     )
   }
 
+  if (slug === "safe-area") {
+    return (
+      <DemoPanel title="示例">
+        <Box className="overflow-hidden rounded-md border border-border bg-card">
+          <SafeArea edge="top" className="bg-muted p-3">
+            <Text className="text-sm text-foreground">顶部安全区</Text>
+          </SafeArea>
+          <SafeArea edge="bottom" className="bg-background p-3">
+            <Text className="text-sm text-muted-foreground">底部安全区</Text>
+          </SafeArea>
+        </Box>
+      </DemoPanel>
+    )
+  }
+
+  if (slug === "scroll-area") {
+    return (
+      <DemoPanel title="示例">
+        <ScrollArea className="h-[260rpx] border border-border">
+          {["组件", "样式", "Registry", "小程序", "文档", "测试"].map((item) => (
+            <Box key={item} className="border-b border-border px-3 py-3 last:border-b-0">
+              <Text className="text-sm text-foreground">{item}</Text>
+            </Box>
+          ))}
+        </ScrollArea>
+      </DemoPanel>
+    )
+  }
+
   if (slug === "collapsible") {
     return (
       <DemoPanel title="示例">
@@ -1098,6 +1370,20 @@ function NavigationDemo({ slug }: { slug: string }) {
   const [segment, setSegment] = React.useState("a")
   const [drawerOpen, setDrawerOpen] = React.useState(false)
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
+
+  if (slug === "breadcrumb") {
+    return (
+      <DemoPanel title="示例">
+        <Breadcrumb>
+          <BreadcrumbItem>首页</BreadcrumbItem>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <BreadcrumbItem>组件</BreadcrumbItem>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <BreadcrumbItem current>Breadcrumb</BreadcrumbItem>
+        </Breadcrumb>
+      </DemoPanel>
+    )
+  }
 
   if (slug === "navbar") {
     return (
@@ -1248,6 +1534,8 @@ function BasicDemo({ slug }: { slug: string }) {
   if (slug === "icon") return <IconDemo />
   if (slug === "typo") return <TypographyDemo />
   if (slug === "button-group") return <ButtonGroupDemo />
+  if (slug === "kbd") return <KbdDemo />
+  if (slug === "separator") return <SeparatorDemo />
   return <ButtonDemo />
 }
 
