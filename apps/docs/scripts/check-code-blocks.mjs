@@ -157,5 +157,29 @@ assertRuleIncludes(
   "border-radius: var(--vk-radius-control);",
   "Component meta chips should use the shared control radius."
 )
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-status-tabs button",
+  "position: relative;",
+  "Status tab buttons should anchor an independent active indicator."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-status-tabs button",
+  "border-radius: var(--vk-radius-content);",
+  "Status tab buttons should keep the shared non-zero radius while using an independent indicator."
+)
+assertRuleIncludes(
+  siteCss,
+  ".vekui-components-status-tabs button::after",
+  "background: var(--vk-ink);",
+  "Status tab active indicators should render as a straight pseudo-element instead of a curved button border."
+)
+assertRuleIncludes(
+  siteCss,
+  '.vekui-components-status-tabs button[data-state="active"]::after',
+  "opacity: 1;",
+  "Active status tabs should reveal the independent indicator."
+)
 
 console.log("Code block rendering checks passed.")

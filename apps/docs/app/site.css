@@ -2826,15 +2826,32 @@
 
 .vekui-components-status-tabs button {
   border-bottom: 1px solid transparent;
+  border-radius: var(--vk-radius-content);
   color: var(--vk-muted);
   min-height: 44px;
+  position: relative;
+}
+
+.vekui-components-status-tabs button::after {
+  background: var(--vk-ink);
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
 }
 
 .vekui-components-status-tabs button[data-state="active"] {
   background: transparent;
-  border-bottom-color: var(--vk-ink);
+  border-bottom-color: transparent;
   box-shadow: none;
   color: var(--vk-ink);
+}
+
+.vekui-components-status-tabs button[data-state="active"]::after {
+  opacity: 1;
 }
 
 .vekui-components-mobile-switcher {
@@ -3262,7 +3279,6 @@ header .nextra-hamburger {
 .vekui-button,
 .vekui-components-actions button,
 .vekui-components-actions a,
-.vekui-components-status-tabs button,
 .vekui-components-mobile-switcher button,
 .vekui-components-nav-item,
 .vekui-components-index__item {
