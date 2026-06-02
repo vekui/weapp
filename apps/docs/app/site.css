@@ -1429,6 +1429,11 @@
   line-height: 1.85;
 }
 
+.vekui-source-card__body[data-variant="usage"] {
+  border: 1px solid var(--vk-code-border);
+  margin-top: 18px;
+}
+
 .vekui-source-card[data-collapsed="true"] .vekui-source-card__body {
   max-height: 220px;
 }
@@ -2713,7 +2718,8 @@
   border: 0;
   border-radius: 0;
   max-height: calc(100svh - 100px);
-  padding: 0;
+  overflow-y: auto;
+  padding: 0 4px 0 0;
 }
 
 .vekui-components-nav-group + .vekui-components-nav-group {
@@ -2724,6 +2730,16 @@
 
 .vekui-components-nav-group[aria-label="Components"] p {
   background: var(--vk-surface);
+}
+
+.vekui-components-nav-group[aria-label="Components"] {
+  overflow: visible;
+  padding-right: 0;
+}
+
+.vekui-components-nav-group[aria-label="Components"] p {
+  position: static;
+  z-index: auto;
 }
 
 .vekui-components-nav-item {
