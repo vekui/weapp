@@ -59,7 +59,7 @@ function LayerContent({ className, side = "center", ...props }: LayerContentProp
   return (
     <Box
       className={cn(
-        "relative z-[910] max-w-full bg-background text-foreground",
+        "relative z-[910] max-w-full bg-popover text-popover-foreground",
         side === "center" && "w-full rounded-lg border border-border",
         side === "bottom" &&
           "w-full rounded-t-lg border-t border-border pb-[env(safe-area-inset-bottom)]",

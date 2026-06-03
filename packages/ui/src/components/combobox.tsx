@@ -65,7 +65,7 @@ export function Combobox({
         className={cn(
           "flex min-h-[88rpx] flex-row items-center justify-between rounded-md border border-input bg-background px-3",
           invalid && "border-destructive",
-          disabled && "opacity-50"
+          disabled && "bg-muted text-muted-foreground"
         )}
         data-disabled={disabled ? "true" : undefined}
         data-invalid={invalid ? "true" : undefined}
@@ -90,7 +90,7 @@ export function Combobox({
                 "flex min-h-[88rpx] flex-row items-center px-3",
                 option.disabled && "text-muted-foreground"
               )}
-              data-disabled={option.disabled ? "" : undefined}
+              data-disabled={option.disabled ? "true" : undefined}
               data-state={option.value === currentValue ? "selected" : "default"}
               data-value={option.value}
               disabled={option.disabled}

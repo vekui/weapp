@@ -86,7 +86,7 @@ function NavigationMenuTrigger({ className, disabled, onClick, ...props }: Navig
         state === "open" ? "bg-background text-foreground" : "text-muted-foreground",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       disabled={disabled}
       onClick={(event) => {

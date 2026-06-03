@@ -29,7 +29,7 @@ export function Item({ className, selected, disabled, ...props }: ItemProps) {
         state === "selected" && "border-primary bg-secondary",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       disabled={disabled}
       {...props}

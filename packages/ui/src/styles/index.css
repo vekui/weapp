@@ -5,6 +5,8 @@
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-secondary: hsl(var(--secondary));
@@ -18,8 +20,22 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4rpx);
   --radius-md: var(--radius);
-  --radius-lg: var(--radius);
+  --radius-lg: calc(var(--radius) + 4rpx);
+  --radius-xl: calc(var(--radius) + 8rpx);
+  --spacing-vekui-1: 8rpx;
+  --spacing-vekui-2: 16rpx;
+  --spacing-vekui-3: 24rpx;
+  --spacing-vekui-4: 32rpx;
+  --control-sm: 72rpx;
+  --control-md: 88rpx;
+  --control-lg: 104rpx;
+  --duration-fast: 120ms;
+  --duration-default: 180ms;
+  --duration-slow: 240ms;
+  --opacity-disabled: 0.5;
+  --opacity-pressed: 0.88;
 }
 
 :root,
@@ -29,6 +45,8 @@
   --foreground: 222 47% 11%;
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
   --primary: 221 83% 53%;
   --primary-foreground: 0 0% 100%;
   --secondary: 210 40% 96%;
@@ -42,28 +60,158 @@
   --border: 214 32% 91%;
   --input: 214 32% 91%;
   --ring: 221 83% 53%;
+  /* WXSS needs the Tailwind color aliases scoped directly for live theme switching. */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(222 47% 11%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222 47% 11%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222 47% 11%);
+  --color-primary: hsl(221 83% 53%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(210 40% 96%);
+  --color-secondary-foreground: hsl(222 47% 11%);
+  --color-muted: hsl(210 40% 96%);
+  --color-muted-foreground: hsl(215 16% 47%);
+  --color-accent: hsl(174 62% 47%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(214 32% 91%);
+  --color-input: hsl(214 32% 91%);
+  --color-ring: hsl(221 83% 53%);
   --radius: 16rpx;
 }
 
 .theme-learning {
   --background: 204 33% 97%;
   --foreground: 218 39% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 218 39% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 218 39% 11%;
   --primary: 214 84% 56%;
   --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 94%;
+  --secondary-foreground: 218 39% 11%;
+  --muted: 210 40% 94%;
+  --muted-foreground: 215 20% 42%;
   --accent: 158 64% 45%;
   --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 86%;
+  --input: 214 32% 86%;
+  --ring: 214 84% 56%;
+  --color-background: hsl(204 33% 97%);
+  --color-foreground: hsl(218 39% 11%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(218 39% 11%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(218 39% 11%);
+  --color-primary: hsl(214 84% 56%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(210 40% 94%);
+  --color-secondary-foreground: hsl(218 39% 11%);
+  --color-muted: hsl(210 40% 94%);
+  --color-muted-foreground: hsl(215 20% 42%);
+  --color-accent: hsl(158 64% 45%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(214 32% 86%);
+  --color-input: hsl(214 32% 86%);
+  --color-ring: hsl(214 84% 56%);
+  --radius: 16rpx;
 }
 
 .theme-warm {
   --background: 36 60% 97%;
   --foreground: 24 36% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 24 36% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 36% 14%;
   --primary: 18 88% 56%;
   --primary-foreground: 0 0% 100%;
+  --secondary: 34 48% 90%;
+  --secondary-foreground: 24 36% 14%;
+  --muted: 34 48% 90%;
+  --muted-foreground: 24 18% 40%;
   --accent: 190 72% 42%;
   --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 32 40% 82%;
+  --input: 32 40% 82%;
+  --ring: 18 88% 56%;
+  --color-background: hsl(36 60% 97%);
+  --color-foreground: hsl(24 36% 14%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(24 36% 14%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(24 36% 14%);
+  --color-primary: hsl(18 88% 56%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(34 48% 90%);
+  --color-secondary-foreground: hsl(24 36% 14%);
+  --color-muted: hsl(34 48% 90%);
+  --color-muted-foreground: hsl(24 18% 40%);
+  --color-accent: hsl(190 72% 42%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(32 40% 82%);
+  --color-input: hsl(32 40% 82%);
+  --color-ring: hsl(18 88% 56%);
+  --radius: 16rpx;
 }
 
 /* WeChat native button injects a pseudo border that conflicts with token borders. */
+.ui-button {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .ui-button::after {
   border: 0;
+}
+
+.ui-button[data-loading="true"] {
+  opacity: 0.86;
+}
+
+.ui-button[data-disabled="true"] {
+  opacity: var(--opacity-disabled);
+}
+
+.ui-button[data-disabled="true"].bg-background,
+.ui-button[data-loading="true"].bg-background,
+.ui-button[data-disabled="true"].bg-transparent,
+.ui-button[data-loading="true"].bg-transparent {
+  background-color: var(--color-background) !important;
+  color: var(--color-foreground) !important;
+}
+
+.ui-button[data-disabled="true"].bg-primary,
+.ui-button[data-loading="true"].bg-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-foreground) !important;
+}
+
+.ui-button[data-disabled="true"].bg-secondary,
+.ui-button[data-loading="true"].bg-secondary {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-secondary-foreground) !important;
+}
+
+.ui-button[data-disabled="true"].bg-destructive,
+.ui-button[data-loading="true"].bg-destructive {
+  background-color: var(--color-destructive) !important;
+  color: var(--color-destructive-foreground) !important;
+}
+
+.ui-button[data-disabled="true"].text-primary,
+.ui-button[data-loading="true"].text-primary {
+  color: var(--color-primary) !important;
 }

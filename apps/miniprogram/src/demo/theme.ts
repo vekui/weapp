@@ -1,30 +1,10 @@
 import * as React from "react"
 import Taro from "@tarojs/taro"
+import { setIconToneColor } from "@vekui/weapp"
+
+import { demoThemes, type DemoThemeId } from "./theme-options"
 
 const demoThemeStorageKey = "vekui-demo-theme"
-
-export const demoThemes = [
-  {
-    id: "default",
-    label: "Default",
-    description: "Clean registry baseline",
-    className: "theme-default"
-  },
-  {
-    id: "learning",
-    label: "Learning",
-    description: "Cool study surface",
-    className: "theme-learning"
-  },
-  {
-    id: "warm",
-    label: "Warm",
-    description: "Warm product surface",
-    className: "theme-warm"
-  }
-] as const
-
-export type DemoThemeId = (typeof demoThemes)[number]["id"]
 
 export const defaultDemoThemeId: DemoThemeId = "learning"
 
@@ -64,6 +44,11 @@ export function getDemoThemeClassName(themeId: DemoThemeId) {
 
 export function useDemoTheme() {
   const [themeId, setThemeId] = React.useState<DemoThemeId>(readStoredThemeId)
+  const activeTheme = getDemoTheme(themeId)
+
+  for (const [tone, color] of Object.entries(activeTheme.iconColors)) {
+    setIconToneColor(tone as keyof typeof activeTheme.iconColors, color)
+  }
 
   Taro.useDidShow(() => {
     setThemeId(readStoredThemeId())
@@ -74,5 +59,5 @@ export function useDemoTheme() {
     writeStoredThemeId(nextThemeId)
   }, [])
 
-  return [themeId, updateThemeId] as const
+  return [themeId, updateThemeId, activeTheme] as const
 }

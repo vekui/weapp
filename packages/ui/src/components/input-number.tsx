@@ -31,6 +31,8 @@ export function InputNumber({
   ...props
 }: InputNumberProps) {
   const currentValue = clampInputNumber(value, { min, max })
+  const atMin = min !== undefined && currentValue <= min
+  const atMax = max !== undefined && currentValue >= max
   const changeBy = (delta: number) => onValueChange?.(clampInputNumber(currentValue + delta, { min, max }))
   const handleInput: NonNullable<InputBaseProps["onInput"]> = (event) => {
     const nextValue = Number(event.detail.value)
@@ -43,7 +45,11 @@ export function InputNumber({
       data-value={currentValue}
       {...props}
     >
-      <Pressable className="flex min-h-[80rpx] min-w-[80rpx] items-center justify-center bg-secondary" onClick={() => changeBy(-step)}>
+      <Pressable
+        className="flex min-h-[80rpx] min-w-[80rpx] items-center justify-center bg-secondary"
+        disabled={atMin}
+        onClick={() => changeBy(-step)}
+      >
         <Icon name="minus" size="sm" />
       </Pressable>
       <InputBase
@@ -52,7 +58,11 @@ export function InputNumber({
         type="number"
         value={String(currentValue)}
       />
-      <Pressable className="flex min-h-[80rpx] min-w-[80rpx] items-center justify-center bg-secondary" onClick={() => changeBy(step)}>
+      <Pressable
+        className="flex min-h-[80rpx] min-w-[80rpx] items-center justify-center bg-secondary"
+        disabled={atMax}
+        onClick={() => changeBy(step)}
+      >
         <Icon name="plus" size="sm" />
       </Pressable>
     </Box>

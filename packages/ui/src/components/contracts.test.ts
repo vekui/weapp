@@ -54,7 +54,8 @@ describe("component contracts", () => {
   it("keeps button loading state disabled and token based", () => {
     const props = getProps(Button({ loading: true, children: "Save" }))
 
-    expect(props.disabled).toBe(true)
+    expect(props.disabled).not.toBe(true)
+    expect(props["aria-disabled"]).toBe("true")
     expect(props["data-loading"]).toBe("true")
     expect(String(props.className)).toContain("bg-primary")
     expect(String(props.className)).toContain("text-primary-foreground")

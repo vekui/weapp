@@ -77,7 +77,7 @@ function AccordionItem({ className, value, disabled, ...props }: AccordionItemPr
     <AccordionItemProvider value={{ value, disabled }}>
       <Box
         className={cn("border-b border-border last:border-b-0", className)}
-        data-disabled={disabled ? "" : undefined}
+        data-disabled={disabled ? "true" : undefined}
         data-state={state}
         {...props}
       />

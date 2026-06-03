@@ -54,7 +54,8 @@ describe("Command", () => {
     const disabledText = findAllByHostType(tree.root, "Text").find((node) => node.props.children === "Disabled")
 
     expect(items[0]?.props["data-state"]).toBe("selected")
-    expect(items[1]?.props["data-disabled"]).toBe("")
+    expect(items[1]?.props["data-disabled"]).toBe("true")
+    expect(items[1]?.props["aria-disabled"]).toBe("true")
     expect(String(disabledText?.props.className)).toContain("text-muted-foreground")
     expect(classNames).toEqual(
       expect.arrayContaining([

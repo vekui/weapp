@@ -48,7 +48,8 @@ export function NativeSelect({
 
   return (
     <TaroPicker
-      className={cn(disabled && "opacity-50", className)}
+      className={cn(disabled && "opacity-70", className)}
+      aria-disabled={disabled ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
       data-state={state}
@@ -65,8 +66,8 @@ export function NativeSelect({
       {...props}
     >
       {children ?? (
-        <NativeSelectTrigger invalid={invalid} state={state}>
-          <Text className={cn("text-sm", currentValue ? "text-foreground" : "text-muted-foreground")}>
+        <NativeSelectTrigger disabled={disabled} invalid={invalid} state={state}>
+          <Text className={cn("text-sm", currentValue && !disabled ? "text-foreground" : "text-muted-foreground")}>
             {getNativeSelectLabel(options, currentValue, placeholder)}
           </Text>
         </NativeSelectTrigger>
@@ -76,18 +77,22 @@ export function NativeSelect({
 }
 
 export type NativeSelectTriggerProps = BoxProps & {
+  disabled?: boolean
   invalid?: boolean
   state?: "selected" | "placeholder"
 }
 
-export function NativeSelectTrigger({ className, invalid, state = "placeholder", ...props }: NativeSelectTriggerProps) {
+export function NativeSelectTrigger({ className, disabled, invalid, state = "placeholder", ...props }: NativeSelectTriggerProps) {
   return (
     <Box
       className={cn(
         "flex min-h-[88rpx] flex-row items-center justify-between rounded-md border border-input bg-background px-3",
+        disabled && "bg-muted text-muted-foreground",
         invalid && "border-destructive",
         className
       )}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       {...props}
     />

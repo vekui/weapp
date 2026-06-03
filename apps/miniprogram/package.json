@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:weapp": "taro build --type weapp --no-check",
+    "build:weapp": "taro build --type weapp --no-check && node ../../scripts/normalize-miniprogram-wxss-imports.mjs dist",
     "dev:weapp": "taro build --type weapp --no-check --watch",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

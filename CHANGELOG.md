@@ -31,9 +31,12 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 组件文档目录改为 registry-driven 统计，明确区分公开 UI 组件数、registry item 总数和 shadcn planned 项。
 - 在 README 和 GitHub Pages 页脚加入公众号二维码入口。
 - 为小程序 playground 增加主题切换，便于在不同 token 主题下验证 demo 页面。
+- 新增 `vekui-weapp-DESIGN.md` 作为项目级视觉治理入口，明确参考 shadcn/ui 的紧凑语义 token 模型和小程序触摸/弹层动作区规则。
 
 ### Changed
 
+- 将 token 基线补齐到 shadcn-style 的 `popover` surface，并增加非颜色的 radius、spacing、control size、motion 和 opacity 节奏 token。
+- 优化 Alert Dialog 的移动端动作区，取消与确认按钮改为等宽两列并使用 outline/primary 层级。
 - 打磨组件文档页的按钮、安装步骤和源码代码块视觉层级，使字重、边框和交互状态更接近 shadcn 风格。
 - 更新 CI 和 GitHub Pages workflow 到 Node 24 兼容的 action 版本，并让 Pages 发布复用 `pnpm build:docs`。
 - 小程序 playground 的 Taro 构建脚本改为 `--no-check`，避免在已独立执行 `pnpm typecheck` 后重复类型检查。

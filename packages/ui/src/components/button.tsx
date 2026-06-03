@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button as TaroButton } from "@tarojs/components"
+import { Button as TaroButton, View as TaroView } from "@tarojs/components"
 import type { VariantProps } from "class-variance-authority"
 
 import { cn } from "../lib/cn"
@@ -21,10 +21,16 @@ export function Button({
   full,
   loading,
   disabled,
+  formType,
+  onClick,
+  openType,
   shape = "default",
   children,
   ...props
 }: ButtonProps) {
+  const unavailable = Boolean(disabled || loading)
+  const disabledOnPlainSurface = disabled && ["outline", "ghost", "link"].includes(String(variant ?? "default"))
+
   return (
     <TaroButton
       className={cn(
@@ -32,15 +38,30 @@ export function Button({
         full && "w-full",
         shape === "rounded" && "rounded-full",
         shape === "circle" && "rounded-full px-0",
+        loading && "opacity-90",
+        disabled && "opacity-70",
+        disabledOnPlainSurface && "text-muted-foreground",
         className
       )}
+      aria-disabled={unavailable ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
       data-loading={loading ? "true" : undefined}
-      disabled={disabled || loading}
+      formType={unavailable ? undefined : formType}
       hoverClass="none"
-      loading={loading}
+      onClick={(event) => {
+        if (unavailable) return
+
+        onClick?.(event)
+      }}
+      openType={unavailable ? undefined : openType}
       {...props}
     >
+      {loading ? (
+        <TaroView
+          className="size-[32rpx] shrink-0 animate-spin rounded-full border-[4rpx] border-current border-t-transparent"
+          data-slot="button-spinner"
+        />
+      ) : null}
       {children}
     </TaroButton>
   )

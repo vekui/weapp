@@ -10,9 +10,11 @@ export function Textarea({ className, disabled, invalid, ...props }: TextareaPro
     <TextareaBase
       className={cn(
         "box-border min-h-[176rpx] w-full rounded-md border border-input bg-background px-3 py-2 text-base leading-[40rpx] text-foreground",
+        disabled && "bg-muted text-muted-foreground opacity-70",
         invalid && "border-destructive",
         className
       )}
+      aria-disabled={disabled ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
       disabled={disabled}

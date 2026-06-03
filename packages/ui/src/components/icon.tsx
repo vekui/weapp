@@ -44,6 +44,22 @@ const iconToneColors: Record<IconTone, string> = {
   "primary-foreground": "hsl(0 0% 100%)",
   destructive: "hsl(0 84% 60%)"
 }
+const runtimeIconToneColors: Partial<Record<IconTone, string>> = {}
+
+export function setIconToneColor(tone: IconTone, color?: string) {
+  if (color) {
+    runtimeIconToneColors[tone] = color
+    return
+  }
+
+  delete runtimeIconToneColors[tone]
+}
+
+export function resetIconToneColors() {
+  for (const tone of Object.keys(runtimeIconToneColors) as IconTone[]) {
+    delete runtimeIconToneColors[tone]
+  }
+}
 
 export const lucideIconPaths: Record<LucideIconName, string> = {
   bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
@@ -70,9 +86,10 @@ export const lucideIconPaths: Record<LucideIconName, string> = {
 export function getLucideIconDataUri(
   name: LucideIconName,
   tone: IconTone = "foreground",
-  filled = false
+  filled = false,
+  colorOverride?: string
 ) {
-  const color = iconToneColors[tone]
+  const color = colorOverride ?? runtimeIconToneColors[tone] ?? iconToneColors[tone]
   const fill = filled ? color : "none"
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="${fill}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${lucideIconPaths[name]}</svg>`
   return `data:image/svg+xml,${encodeURIComponent(svg)}`
@@ -81,6 +98,7 @@ export function getLucideIconDataUri(
 type IconImageProps = React.ComponentProps<typeof TaroImage>
 
 export type IconProps = Omit<IconImageProps, "src"> & {
+  color?: string
   filled?: boolean
   name: LucideIconName
   size?: IconSize
@@ -89,6 +107,7 @@ export type IconProps = Omit<IconImageProps, "src"> & {
 
 export function Icon({
   className,
+  color,
   filled,
   mode = "aspectFit",
   name,
@@ -106,7 +125,7 @@ export function Icon({
       data-icon={name}
       data-size={size}
       mode={mode}
-      src={getLucideIconDataUri(name, tone, filled)}
+      src={getLucideIconDataUri(name, tone, filled, color)}
       {...props}
     />
   )

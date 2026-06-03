@@ -7,7 +7,8 @@ describe("Fab", () => {
   it("exposes placement and disabled state with token classes", () => {
     const element = Fab({ disabled: true, placement: "bottom-left" })
 
-    expect(element.props["data-disabled"]).toBe("")
+    expect(element.props["data-disabled"]).toBe("true")
+    expect(element.props["aria-disabled"]).toBe("true")
     expect(element.props["data-placement"]).toBe("bottom-left")
     expect(element.props.disabled).toBe(true)
     expect(element.props.className).toContain("fixed")

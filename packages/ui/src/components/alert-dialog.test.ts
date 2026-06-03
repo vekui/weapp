@@ -48,9 +48,32 @@ describe("AlertDialog", () => {
         expect.stringContaining("text-foreground"),
         expect.stringContaining("text-muted-foreground"),
         expect.stringContaining("bg-primary"),
-        expect.stringContaining("bg-secondary"),
+        expect.stringContaining("border-border"),
         expect.stringContaining("min-h-[88rpx]")
       ])
     )
+  })
+
+  it("uses a mobile-balanced action area for dialog decisions", () => {
+    const tree = create(
+      React.createElement(AlertDialog, {
+        open: true,
+        title: "Delete project?",
+        description: "This action cannot be undone.",
+        cancelText: "Cancel",
+        actionText: "Delete"
+      })
+    )
+    const classNames = collectClassNames(tree.root)
+
+    expect(classNames).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining("grid grid-cols-2"),
+        expect.stringContaining("gap-3"),
+        expect.stringContaining("min-w-0"),
+        expect.stringContaining("w-full")
+      ])
+    )
+    expect(source).toContain('variant = "outline"')
   })
 })

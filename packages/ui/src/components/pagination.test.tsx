@@ -19,8 +19,11 @@ describe("Pagination", () => {
 
     expect(root?.props["data-state"]).toBe("first")
     expect(buttons).toHaveLength(2)
-    expect(buttons[0]?.props.disabled).toBe(true)
+    expect(buttons[0]?.props.disabled).not.toBe(true)
+    expect(buttons[0]?.props["data-disabled"]).toBe("true")
+    expect(buttons[0]?.props["aria-disabled"]).toBe("true")
     expect(buttons[1]?.props.disabled).not.toBe(true)
+    expect(buttons[1]?.props["data-disabled"]).toBeUndefined()
 
     for (const button of buttons) {
       expect(getClassName(button)).toContain("ui-button")

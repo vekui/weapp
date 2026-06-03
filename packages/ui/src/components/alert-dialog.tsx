@@ -72,7 +72,7 @@ function AlertDialogHeader({ className, ...props }: AlertDialogHeaderProps) {
 export type AlertDialogFooterProps = BoxProps
 
 function AlertDialogFooter({ className, ...props }: AlertDialogFooterProps) {
-  return <Box className={cn("mt-5 flex flex-row justify-end gap-2", className)} {...props} />
+  return <Box className={cn("mt-5 grid grid-cols-2 gap-3", className)} {...props} />
 }
 
 export type AlertDialogTitleProps = TextProps
@@ -93,7 +93,7 @@ function AlertDialogAction({ className, onClick, ...props }: AlertDialogActionPr
   const context = useAlertDialogContext()
   return (
     <Button
-      className={cn("min-h-[88rpx]", className)}
+      className={cn("min-h-[88rpx] min-w-0 w-full", className)}
       onClick={(event) => {
         onClick?.(event)
         context.setOpen(false)
@@ -105,11 +105,11 @@ function AlertDialogAction({ className, onClick, ...props }: AlertDialogActionPr
 
 export type AlertDialogCancelProps = ButtonProps
 
-function AlertDialogCancel({ className, onClick, variant = "secondary", ...props }: AlertDialogCancelProps) {
+function AlertDialogCancel({ className, onClick, variant = "outline", ...props }: AlertDialogCancelProps) {
   const context = useAlertDialogContext()
   return (
     <Button
-      className={cn("min-h-[88rpx]", className)}
+      className={cn("min-h-[88rpx] min-w-0 w-full", className)}
       onClick={(event) => {
         onClick?.(event)
         context.setOpen(false)

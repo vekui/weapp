@@ -10,10 +10,11 @@ export function Kbd({ className, disabled, ...props }: KbdProps) {
     <Text
       className={cn(
         "inline-flex min-h-[40rpx] items-center rounded-md border border-border bg-muted px-1.5 font-mono text-xs font-medium leading-[32rpx] text-muted-foreground",
-        disabled && "opacity-50",
+        disabled && "opacity-70",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       {...props}
     />
   )

@@ -10,4 +10,14 @@ describe("Textarea", () => {
     expect(element.props.className).toContain("box-border")
     expect(element.props.className).toContain("leading-[40rpx]")
   })
+
+  it("keeps disabled textareas readable through muted tokens", () => {
+    const element = Textarea({ disabled: true })
+
+    expect(element.props["aria-disabled"]).toBe("true")
+    expect(element.props["data-disabled"]).toBe("true")
+    expect(element.props.className).toContain("bg-muted")
+    expect(element.props.className).toContain("text-muted-foreground")
+    expect(element.props.className).toContain("opacity-70")
+  })
 })

@@ -122,7 +122,6 @@ import {
 
 import { getDemoComponent } from "./catalog"
 import { getDemoThemeClassName, useDemoTheme } from "./theme"
-import { ThemeSwitcher } from "./theme-switcher"
 
 type DemoPanelProps = React.PropsWithChildren<{
   title: string
@@ -147,70 +146,36 @@ function DemoPanel({ children, title }: DemoPanelProps) {
 }
 
 function DemoPageShell({ children, title }: React.PropsWithChildren<{ title: string }>) {
-  const [themeId, setThemeId] = useDemoTheme()
+  const [themeId] = useDemoTheme()
 
   return (
     <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background pb-8`}>
       <Box className="bg-muted px-6 pb-8 pt-10">
         <Text className="block text-xl font-semibold leading-[56rpx] text-foreground">{title}</Text>
         <Box className="mt-4 h-[4rpx] w-[96rpx] rounded-full bg-primary" />
-        <Box className="mt-5">
-          <ThemeSwitcher value={themeId} onValueChange={setThemeId} />
-        </Box>
       </Box>
       {children}
     </Box>
   )
 }
 
-const colorGroups = [
-  {
-    title: "主色",
-    colors: [
-      { name: "浅蓝色", value: "#78A4FA" },
-      { name: "品牌蓝", value: "#6190E8" },
-      { name: "深蓝色", value: "#346FC2" }
-    ]
-  },
-  {
-    title: "辅助色",
-    colors: [
-      { name: "蓝色 - Info", value: "#78A4FA" },
-      { name: "绿色 - Positive", value: "#13CE66" },
-      { name: "红色 - Negative", value: "#FF4949" },
-      { name: "黄色 - Warning", value: "#FFC82C" }
-    ]
-  },
-  {
-    title: "中性色",
-    colors: [
-      { name: "黑色 0", value: "#333333" },
-      { name: "灰色 2", value: "#999999" },
-      { name: "灰色 4", value: "#E5E5E5" }
-    ]
-  }
-]
-
 function ColorDemo() {
+  const [, , activeTheme] = useDemoTheme()
+
   return (
-    <>
-      {colorGroups.map((group) => (
-        <DemoPanel key={group.title} title={group.title}>
-          <Box className="grid grid-cols-3 gap-4">
-            {group.colors.map((color) => (
-              <Box key={color.value} className="flex flex-col items-center gap-2">
-                <Box
-                  className="h-[112rpx] w-[112rpx] rounded-full border-[16rpx] border-border bg-background"
-                  style={{ borderColor: color.value }}
-                />
-                <Text className="text-center text-xs text-muted-foreground">{color.name}</Text>
-                <Text className="text-center text-xs text-muted-foreground">{color.value}</Text>
-              </Box>
-            ))}
+    <DemoPanel title="当前主题">
+      <Box className="grid grid-cols-3 gap-4">
+        {activeTheme.palette.map((color) => (
+          <Box key={color.name} className="flex flex-col items-center gap-2">
+            <Box
+              className={`h-[112rpx] w-[112rpx] rounded-full border-[16rpx] bg-background ${color.className}`}
+            />
+            <Text className="text-center text-xs text-muted-foreground">{color.name}</Text>
+            <Text className="text-center text-xs text-muted-foreground">{color.value}</Text>
           </Box>
-        </DemoPanel>
-      ))}
-    </>
+        ))}
+      </Box>
+    </DemoPanel>
   )
 }
 
@@ -257,14 +222,24 @@ function ButtonDemo() {
   return (
     <>
       <DemoPanel title="主操作">
-        <Button>主操作按钮</Button>
-        <Button loading>Loading</Button>
-        <Button disabled>不可操作</Button>
+        <Box
+          className="flex flex-row flex-wrap items-center justify-start gap-3"
+          data-slot="button-state-row"
+        >
+          <Button className="min-w-[176rpx]">主操作按钮</Button>
+          <Button className="min-w-[176rpx]" loading>Loading</Button>
+          <Button className="min-w-[176rpx]" disabled>不可操作</Button>
+        </Box>
       </DemoPanel>
       <DemoPanel title="次要操作">
-        <Button variant="outline">次操作按钮</Button>
-        <Button variant="outline" loading>Loading</Button>
-        <Button variant="outline" disabled>不可操作</Button>
+        <Box
+          className="flex flex-row flex-wrap items-center justify-start gap-3"
+          data-slot="button-state-row"
+        >
+          <Button className="min-w-[176rpx]" variant="outline">次操作按钮</Button>
+          <Button className="min-w-[176rpx]" variant="outline" loading>Loading</Button>
+          <Button className="min-w-[176rpx]" variant="outline" disabled>不可操作</Button>
+        </Box>
       </DemoPanel>
       <DemoPanel title="通栏与微信属性">
         <Button full>通栏按钮</Button>
@@ -1062,6 +1037,7 @@ function FormDemo({ slug }: { slug: string }) {
         <DemoPanel title="状态">
           <DatePicker placeholder="请选择日期" />
           <DatePicker invalid placeholder="错误状态" />
+          <DatePicker disabled placeholder="禁用状态" />
         </DemoPanel>
       </>
     )

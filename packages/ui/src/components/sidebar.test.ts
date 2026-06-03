@@ -51,7 +51,7 @@ describe("Sidebar", () => {
       expect.arrayContaining([
         expect.stringContaining("bg-card"),
         expect.stringContaining("border-border"),
-        expect.stringContaining("text-foreground")
+        expect.stringContaining("text-muted-foreground")
       ])
     )
   })

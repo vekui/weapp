@@ -7,7 +7,7 @@ describe("Toggle", () => {
   it("reflects pressed and disabled states", () => {
     expect(getToggleState(true)).toBe("on")
     expect(getToggleState(false)).toBe("off")
-    expect(source).toContain('data-disabled={disabled ? "" : undefined}')
+    expect(source).toContain('data-disabled={disabled ? "true" : undefined}')
     expect(source).toContain("bg-primary")
     expect(Toggle).toBeTypeOf("function")
   })

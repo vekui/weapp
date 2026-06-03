@@ -13,9 +13,15 @@ describe("InputNumber", () => {
 
     const tree = create(<InputNumber value={12} min={0} max={10} />)
     const root = findAllByHostType(tree.root, "View")[0]
+    const controls = findAllByHostType(tree.root, "View").filter((node) =>
+      String(node.props.className ?? "").includes("min-w-[80rpx]")
+    )
 
     expect(root?.props["data-value"]).toBe(10)
     expect(String(root?.props.className)).toContain("border-input")
+    expect(controls[0]?.props["data-disabled"]).toBeUndefined()
+    expect(controls[1]?.props["data-disabled"]).toBe("true")
+    expect(controls[1]?.props.onClick).toBeUndefined()
   })
 
   it("emits stepped and typed value changes", () => {

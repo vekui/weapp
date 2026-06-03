@@ -13,7 +13,8 @@ export function Fab({ className, placement = "bottom-right", disabled, ...props 
         placement === "bottom-right" ? "right-4" : "left-4",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-placement={placement}
       disabled={disabled}
       {...props}

@@ -60,7 +60,7 @@ export function ActionSheet({
                 action.destructive && "bg-destructive"
               )}
               data-destructive={action.destructive ? "" : undefined}
-              data-disabled={action.disabled ? "" : undefined}
+              data-disabled={action.disabled ? "true" : undefined}
               disabled={action.disabled}
               key={action.value}
               onClick={() => {

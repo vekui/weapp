@@ -1,7 +1,7 @@
 const tokenGroups = [
   {
     name: "Surface",
-    tokens: ["background", "foreground", "card", "popover", "border"]
+    tokens: ["background", "foreground", "card", "card-foreground", "popover", "popover-foreground", "border"]
   },
   {
     name: "Action",
@@ -23,7 +23,8 @@ export default function ThemePage() {
             <h1>主题只暴露语义 token，不鼓励业务直接绑颜色。</h1>
             <p>
               VekUI 使用 Tailwind v4 的 @theme 和 CSS 变量声明语义 token。
-              组件只消费 token class，避免把颜色散落到组件实现里。
+              组件只消费 token class，避免把颜色散落到组件实现里。根目录
+              vekui-weapp-DESIGN.md 记录了当前 token 治理规则。
             </p>
           </div>
           <aside className="vekui-doc-command" aria-label="主题入口">
@@ -67,6 +68,8 @@ export default function ThemePage() {
 @theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
   --color-primary: hsl(var(--primary));
 }`}</code>
             </pre>

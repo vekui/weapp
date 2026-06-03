@@ -19,7 +19,8 @@ describe("Layer primitive", () => {
   it("owns overlay z-index classes inside primitives only", () => {
     expect(source).toContain("z-[900]")
     expect(source).toContain("z-[910]")
-    expect(source).toContain("bg-background")
+    expect(source).toContain("bg-popover")
+    expect(source).toContain("text-popover-foreground")
     expect(Layer.Root).toBeTypeOf("function")
     expect(Layer.Backdrop).toBeTypeOf("function")
     expect(Layer.Content).toBeTypeOf("function")

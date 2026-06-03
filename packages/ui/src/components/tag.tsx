@@ -33,7 +33,7 @@ export function Tag({ className, variant, selected, disabled, ...props }: TagPro
   return (
     <Pressable
       className={cn(tagVariants({ variant, selected }), className)}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={selected ? "selected" : "unselected"}
       disabled={disabled}
       {...props}

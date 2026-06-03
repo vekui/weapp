@@ -43,7 +43,7 @@ export function ListItem({ className, selected, disabled, ...props }: ListItemPr
         state === "selected" && "bg-secondary",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       disabled={disabled}
       {...props}

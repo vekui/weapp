@@ -104,12 +104,12 @@ function SidebarItem({ active, className, disabled, ...props }: SidebarItemProps
     <Box
       className={cn(
         "rounded-md px-3 py-2 text-foreground",
-        active ? "bg-primary text-primary-foreground" : "bg-background",
-        disabled ? "opacity-50" : "",
+        disabled ? "bg-muted text-muted-foreground" : active ? "bg-primary text-primary-foreground" : "bg-background",
         className
       )}
       data-active={active ? "true" : "false"}
-      data-disabled={disabled ? "true" : "false"}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={active ? "active" : "inactive"}
       {...props}
     />

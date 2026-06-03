@@ -36,7 +36,7 @@ export function Toggle({
         currentPressed && "bg-primary text-primary-foreground",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={getToggleState(currentPressed)}
       disabled={disabled}
       onClick={(event) => {

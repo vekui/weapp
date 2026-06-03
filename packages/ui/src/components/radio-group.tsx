@@ -97,11 +97,17 @@ function RadioGroupCompat({ options, ...props }: RadioGroupProps) {
 
   return (
     <RadioGroupRoot {...props}>
-      {options.map((option) => (
-        <RadioGroupItem disabled={option.disabled || props.disabled} key={option.value} value={option.value}>
-          <Text className="text-base text-foreground">{option.label}</Text>
-        </RadioGroupItem>
-      ))}
+      {options.map((option) => {
+        const optionDisabled = option.disabled || props.disabled
+
+        return (
+          <RadioGroupItem disabled={optionDisabled} key={option.value} value={option.value}>
+            <Text className={cn("text-base", optionDisabled ? "text-muted-foreground" : "text-foreground")}>
+              {option.label}
+            </Text>
+          </RadioGroupItem>
+        )
+      })}
     </RadioGroupRoot>
   )
 }

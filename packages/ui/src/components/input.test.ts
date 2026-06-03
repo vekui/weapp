@@ -10,9 +10,12 @@ describe("Input", () => {
 
     expect(getProps(element)["data-disabled"]).toBe("true")
     expect(getProps(element)["data-invalid"]).toBe("true")
+    expect(getProps(element)["aria-disabled"]).toBe("true")
     expect(getProps(element).disabled).toBe(true)
     expect(getClassName(element)).toContain("border-destructive")
-    expect(getClassName(element)).toContain("bg-background")
+    expect(getClassName(element)).toContain("bg-muted")
+    expect(getClassName(element)).toContain("text-muted-foreground")
+    expect(getClassName(element)).toContain("opacity-70")
     expect(getClassName(Input({}))).toContain("border-input")
   })
 

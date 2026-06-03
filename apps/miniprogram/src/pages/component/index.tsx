@@ -24,6 +24,8 @@ import {
   ToastViewport
 } from "@vekui/weapp"
 
+import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
+
 function Demo({ name }: { name: string }) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [switchOn, setSwitchOn] = useState(true)
@@ -118,9 +120,10 @@ function Demo({ name }: { name: string }) {
 export default function ComponentPage() {
   const router = useRouter()
   const name = String(router.params.name ?? "button")
+  const [themeId] = useDemoTheme()
 
   return (
-    <View className="vekui-theme flex min-h-screen flex-col bg-background p-4 text-foreground">
+    <View className={`${getDemoThemeClassName(themeId)} flex min-h-screen flex-col bg-background p-4 text-foreground`}>
       <View className="mb-4 flex flex-col items-start gap-2">
         <Badge variant="secondary">{name}</Badge>
         <Text className="block text-xl font-semibold text-foreground">Component Demo</Text>

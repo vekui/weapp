@@ -48,7 +48,8 @@ export function Select({
 
   return (
     <TaroPicker
-      className={cn(disabled && "opacity-50", className)}
+      className={cn(disabled && "opacity-70", className)}
+      aria-disabled={disabled ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
       data-invalid={invalid ? "true" : undefined}
       data-state={state}
@@ -65,8 +66,8 @@ export function Select({
       {...props}
     >
       {children ?? (
-        <SelectTrigger invalid={invalid} state={state}>
-          <Text className={cn("text-sm", currentValue ? "text-foreground" : "text-muted-foreground")}>
+        <SelectTrigger disabled={disabled} invalid={invalid} state={state}>
+          <Text className={cn("text-sm", currentValue && !disabled ? "text-foreground" : "text-muted-foreground")}>
             {getSelectLabel(options, currentValue, placeholder)}
           </Text>
         </SelectTrigger>
@@ -76,18 +77,22 @@ export function Select({
 }
 
 export type SelectTriggerProps = BoxProps & {
+  disabled?: boolean
   invalid?: boolean
   state?: "selected" | "placeholder"
 }
 
-export function SelectTrigger({ className, invalid, state = "placeholder", ...props }: SelectTriggerProps) {
+export function SelectTrigger({ className, disabled, invalid, state = "placeholder", ...props }: SelectTriggerProps) {
   return (
     <Box
       className={cn(
         "flex min-h-[88rpx] flex-row items-center justify-between rounded-md border border-input bg-background px-3",
+        disabled && "bg-muted text-muted-foreground",
         invalid && "border-destructive",
         className
       )}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       {...props}
     />

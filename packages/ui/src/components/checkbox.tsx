@@ -58,7 +58,7 @@ export function Checkbox({
           >
             {currentChecked ? <Icon name="check" size="sm" tone="primary-foreground" /> : null}
           </Box>
-          <Text className="text-base text-foreground">{label}</Text>
+          <Text className={cn("text-base", disabled ? "text-muted-foreground" : "text-foreground")}>{label}</Text>
         </>
       ) : currentChecked ? (
         <Icon name="check" size="sm" tone="primary-foreground" />

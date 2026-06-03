@@ -15,10 +15,11 @@ export function Pressable({
 }: PressableProps) {
   return (
     <View
-      className={cn(disabled && "opacity-50", className)}
-      data-disabled={disabled ? "" : undefined}
-      onClick={disabled ? undefined : onClick}
       {...props}
+      className={cn(disabled && "opacity-70", className)}
+      aria-disabled={disabled ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
+      onClick={disabled ? undefined : onClick}
     />
   )
 }

@@ -69,7 +69,8 @@ describe("Menubar", () => {
     )
     const disabledText = findAllByHostType(tree.root, "Text").find((node) => node.props.children === "Disabled")
 
-    expect(disabledItem?.props["data-disabled"]).toBe("")
+    expect(disabledItem?.props["data-disabled"]).toBe("true")
+    expect(disabledItem?.props["aria-disabled"]).toBe("true")
     expect(String(disabledText?.props.className)).toContain("text-muted-foreground")
     expect(classNames).toEqual(
       expect.arrayContaining([

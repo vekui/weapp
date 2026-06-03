@@ -50,10 +50,11 @@ src/
 - 小程序构建使用 Taro Vite compiler。
 - 避免 `translate-*`、`space-x-*`、`space-y-*` 等容易产生不兼容 WXSS 的 utility。
 - 弹层组件不使用浏览器 portal，统一通过小程序树内渲染。
+- 视觉规范以根目录 `vekui-weapp-DESIGN.md` 为准：参考 shadcn/ui 的紧凑语义 token 模型，同时用小程序触摸尺寸、动作区和密度规则补齐移动端体验。
 
 ## AI Coding
 
-如果你用 Codex、Claude Code 或其他 Agent 扩展组件，请先把 `AGENTS.md` 放进上下文。核心原则是：先更新 registry 和文档，再实现组件和测试，最后运行完整验证。
+如果你用 Codex、Claude Code 或其他 Agent 扩展组件，请先把 `AGENTS.md` 和 `vekui-weapp-DESIGN.md` 放进上下文。核心原则是：先更新 registry 和文档，再实现组件和测试，最后运行完整验证。
 
 ## 版本更新
 

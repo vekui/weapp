@@ -62,12 +62,26 @@ describe("Button", () => {
     expect(element.props.className).toContain("rounded-full")
   })
 
-  it("reflects loading through native props and state attributes", () => {
+  it("renders loading with tokenized custom state instead of native loading visuals", () => {
     const element = Button({ loading: true, children: "Loading" })
+    const children = Array.isArray(element.props.children)
+      ? element.props.children
+      : [element.props.children]
 
-    expect(element.props.loading).toBe(true)
-    expect(element.props.disabled).toBe(true)
+    expect(element.props.loading).not.toBe(true)
+    expect(element.props.disabled).not.toBe(true)
     expect(element.props["data-loading"]).toBe("true")
+    expect(element.props["aria-disabled"]).toBe("true")
+    expect(String(children[0]?.props?.className)).toContain("animate-spin")
+  })
+
+  it("keeps disabled visual state tokenized without native disabled styling", () => {
+    const element = Button({ disabled: true, variant: "outline", children: "Disabled" })
+
+    expect(element.props.disabled).not.toBe(true)
+    expect(element.props["data-disabled"]).toBe("true")
+    expect(element.props["aria-disabled"]).toBe("true")
+    expect(element.props.className).toContain("text-muted-foreground")
   })
 
   it("marks the native Taro button with a reset hook class", () => {

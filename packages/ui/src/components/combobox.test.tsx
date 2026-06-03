@@ -71,7 +71,8 @@ describe("Combobox", () => {
     const optionNodes = findAllByHostType(tree.root, "View").filter((node) => node.props["data-value"])
     const disabledText = findAllByHostType(tree.root, "Text").find((node) => node.props.children === "Disabled")
 
-    expect(optionNodes[2]?.props["data-disabled"]).toBe("")
+    expect(optionNodes[2]?.props["data-disabled"]).toBe("true")
+    expect(optionNodes[2]?.props["aria-disabled"]).toBe("true")
     expect(String(disabledText?.props.className)).toContain("text-muted-foreground")
     expect(optionNodes[2]?.props.onClick).toBeUndefined()
 

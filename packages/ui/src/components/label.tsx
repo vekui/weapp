@@ -14,7 +14,7 @@ export function Label({ className, required, disabled, ...props }: LabelProps) {
         disabled && "text-muted-foreground",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-required={required ? "" : undefined}
       {...props}
     />

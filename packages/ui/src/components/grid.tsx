@@ -33,7 +33,7 @@ export function GridItem({ className, selected, disabled, ...props }: GridItemPr
         selected && "border-primary bg-secondary",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={selected ? "selected" : "default"}
       disabled={disabled}
       {...props}

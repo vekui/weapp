@@ -123,7 +123,7 @@ function MenubarItem({ children, className, disabled, value, ...props }: Menubar
         disabled ? "text-muted-foreground" : "text-foreground",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-value={value}
       disabled={disabled}
       {...props}

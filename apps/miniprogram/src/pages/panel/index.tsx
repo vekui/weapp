@@ -3,10 +3,9 @@ import { Box, Icon, List, ListItem, Text } from "@vekui/weapp"
 
 import { getCategory, getCategoryComponents } from "../../demo/catalog"
 import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
-import { ThemeSwitcher } from "../../demo/theme-switcher"
 
 export default function PanelPage() {
-  const [themeId, setThemeId] = useDemoTheme()
+  const [themeId, , activeTheme] = useDemoTheme()
   const categoryId = String(Taro.getCurrentInstance().router?.params?.id ?? "basic")
   const category = getCategory(categoryId) ?? getCategory("basic")!
   const components = getCategoryComponents(category.id)
@@ -16,7 +15,7 @@ export default function PanelPage() {
       <Box className="bg-muted px-6 pb-8 pt-8">
         <Box className="flex flex-row items-center gap-4">
           <Box className="flex h-[88rpx] w-[88rpx] shrink-0 items-center justify-center rounded-lg border border-border bg-card shadow-sm">
-            <Icon name={category.icon} tone="primary" />
+            <Icon color={activeTheme.primaryColor} name={category.icon} tone="primary" />
           </Box>
           <Box className="min-w-0 flex-1">
             <Text className="block text-xl font-semibold leading-[56rpx] text-primary">{category.title}</Text>
@@ -24,9 +23,6 @@ export default function PanelPage() {
               {category.description} · {components.length} 个组件
             </Text>
           </Box>
-        </Box>
-        <Box className="mt-5">
-          <ThemeSwitcher value={themeId} onValueChange={setThemeId} />
         </Box>
       </Box>
 

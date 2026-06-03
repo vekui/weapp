@@ -112,7 +112,7 @@ function ContextMenuItem({
         className
       )}
       data-destructive={destructive ? "" : undefined}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-value={value}
       disabled={disabled}
       onClick={(event) => {

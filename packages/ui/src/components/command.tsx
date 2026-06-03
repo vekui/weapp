@@ -62,7 +62,7 @@ function CommandItem({
         disabled && "text-muted-foreground",
         className
       )}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       data-state={state}
       data-value={value}
       disabled={disabled}

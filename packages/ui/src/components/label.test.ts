@@ -7,7 +7,7 @@ describe("Label", () => {
     const element = Label({ required: true, disabled: true, children: "Name" })
 
     expect(element.props["data-required"]).toBe("")
-    expect(element.props["data-disabled"]).toBe("")
+    expect(element.props["data-disabled"]).toBe("true")
     expect(element.props.className).toContain("text-muted-foreground")
   })
 

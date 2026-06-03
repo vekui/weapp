@@ -86,7 +86,7 @@ export function Calendar({
               className={cn(
                 "flex min-h-[72rpx] items-center justify-center rounded-md text-sm text-foreground",
                 state === "selected" && "bg-primary text-primary-foreground",
-                state === "muted" && "text-muted-foreground opacity-50"
+                state === "muted" && "text-muted-foreground opacity-70"
               )}
               data-date={day.date}
               data-state={state}

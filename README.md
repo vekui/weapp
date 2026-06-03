@@ -227,6 +227,7 @@ docs/
   DEVELOPER_GUIDE.md
   TEST_PLAN.md
   UI_RULES.md
+vekui-weapp-DESIGN.md
 ```
 
 Important boundaries:
@@ -272,6 +273,8 @@ Allowed patterns:
 
 - Use `@tarojs/components` primitives.
 - Use semantic token utilities and mini-program-safe Tailwind utilities.
+- Follow the compact shadcn-style token model in
+  [`vekui-weapp-DESIGN.md`](vekui-weapp-DESIGN.md).
 - Reflect state through `data-state`, `data-disabled`, `data-invalid`, or
   `data-loading` where relevant.
 - Prefer touch targets of at least `88rpx`.
@@ -325,6 +328,7 @@ Read the project context before making larger changes:
 - [`docs/DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md)
 - [`docs/UI_RULES.md`](docs/UI_RULES.md)
 - [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md)
+- [`vekui-weapp-DESIGN.md`](vekui-weapp-DESIGN.md)
 - [`AGENTS.md`](AGENTS.md)
 
 ## Documentation
