@@ -2,6 +2,8 @@ import Taro from "@tarojs/taro"
 import { Box, Icon, Image, Pressable, Text } from "@vekui/weapp"
 
 import { demoCategories, demoComponents, getCategoryComponents } from "../../demo/catalog"
+import { demoRelease } from "../../demo/release"
+import { enableDemoPageShare, useDemoPageShare } from "../../demo/share"
 import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
 import { ThemeSwitcher } from "../../demo/theme-switcher"
 
@@ -10,6 +12,7 @@ const vekuiLogo = "/assets/brand/vekui-logo-horizontal-transparent.png"
 export default function IndexPage() {
   const [themeId, setThemeId, activeTheme] = useDemoTheme()
   const totalDemoComponents = demoComponents.length
+  useDemoPageShare()
 
   return (
     <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background pb-8`}>
@@ -42,12 +45,15 @@ export default function IndexPage() {
                 </Text>
               </Box>
             </Box>
-            <Box className="shrink-0 rounded-md bg-secondary px-3 py-2">
+            <Box
+              className="shrink-0 rounded-md bg-secondary px-3 py-2"
+              data-slot="demo-cache-version"
+            >
               <Text className="block text-left text-xs font-medium leading-[28rpx] text-muted-foreground">
-                当前主题
+                缓存版本
               </Text>
               <Text className="mt-1 block text-left text-sm font-semibold leading-[34rpx] text-foreground">
-                {activeTheme.label}
+                {demoRelease.version}
               </Text>
             </Box>
           </Box>
@@ -100,3 +106,5 @@ export default function IndexPage() {
     </Box>
   )
 }
+
+enableDemoPageShare(IndexPage)

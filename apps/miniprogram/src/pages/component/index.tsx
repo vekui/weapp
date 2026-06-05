@@ -24,6 +24,7 @@ import {
   ToastViewport
 } from "@vekui/weapp"
 
+import { enableDemoPageShare, useDemoPageShare } from "../../demo/share"
 import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
 
 function Demo({ name }: { name: string }) {
@@ -121,6 +122,11 @@ export default function ComponentPage() {
   const router = useRouter()
   const name = String(router.params.name ?? "button")
   const [themeId] = useDemoTheme()
+  useDemoPageShare({
+    path: `/pages/component/index?name=${name}`,
+    query: `name=${name}`,
+    title: `${name} demo`
+  })
 
   return (
     <View className={`${getDemoThemeClassName(themeId)} flex min-h-screen flex-col bg-background p-4 text-foreground`}>
@@ -132,3 +138,5 @@ export default function ComponentPage() {
     </View>
   )
 }
+
+enableDemoPageShare(ComponentPage)

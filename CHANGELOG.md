@@ -32,6 +32,7 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 在 README 和 GitHub Pages 页脚加入公众号二维码入口。
 - 为小程序 playground 增加主题切换，便于在不同 token 主题下验证 demo 页面。
 - 新增 `vekui-weapp-DESIGN.md` 作为项目级视觉治理入口，明确参考 shadcn/ui 的紧凑语义 token 模型和小程序触摸/弹层动作区规则。
+- 新增 `pnpm upload:miniprogram`，自动构建并通过微信开发者工具 CLI 上传 demo 小程序。
 
 ### Changed
 
@@ -48,6 +49,8 @@ VekUI WeApp 的重要版本变更会记录在这里，方便跟进 registry、CL
 - 修复 Switch 和 Checkbox 在传入外部 `onClick` 时丢失内部 checked 状态更新的问题。
 - 修复 Curtain registry item 漏装 Layer primitive，以及 primitives barrel 引用未随 item 分发的 Layer 文件的问题。
 - 增强 `vekui doctor`，现在会报告组件、工具函数和样式目录中的断裂本地 import。
+- 将小程序 playground 首页右侧信息块改为缓存版本号，避免和主题切换器选中态重复，并便于区分微信工具/体验版缓存。
+- 修复小程序 playground 页面未注册微信转发和朋友圈分享生命周期的问题，确保首页、分类页和组件 demo 页可分享。
 
 ## [0.0.0] - 2026-05-29
 

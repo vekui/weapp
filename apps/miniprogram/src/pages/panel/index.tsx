@@ -2,6 +2,7 @@ import Taro from "@tarojs/taro"
 import { Box, Icon, List, ListItem, Text } from "@vekui/weapp"
 
 import { getCategory, getCategoryComponents } from "../../demo/catalog"
+import { enableDemoPageShare, useDemoPageShare } from "../../demo/share"
 import { getDemoThemeClassName, useDemoTheme } from "../../demo/theme"
 
 export default function PanelPage() {
@@ -9,6 +10,11 @@ export default function PanelPage() {
   const categoryId = String(Taro.getCurrentInstance().router?.params?.id ?? "basic")
   const category = getCategory(categoryId) ?? getCategory("basic")!
   const components = getCategoryComponents(category.id)
+  useDemoPageShare({
+    path: `/pages/panel/index?id=${category.id}`,
+    query: `id=${category.id}`,
+    title: category.title
+  })
 
   return (
     <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background`}>
@@ -43,3 +49,5 @@ export default function PanelPage() {
     </Box>
   )
 }
+
+enableDemoPageShare(PanelPage)

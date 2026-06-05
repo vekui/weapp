@@ -1,6 +1,6 @@
 {
   "name": "@vekui/miniprogram",
-  "version": "0.0.0",
+  "version": "1.0.5",
   "private": true,
   "type": "module",
   "scripts": {

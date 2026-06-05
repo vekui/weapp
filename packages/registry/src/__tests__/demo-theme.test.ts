@@ -14,6 +14,10 @@ const indexPageSource = readFileSync(
   path.join(repoRoot, "apps/miniprogram/src/pages/index/index.tsx"),
   "utf8"
 )
+const releaseSource = readFileSync(path.join(repoRoot, "apps/miniprogram/src/demo/release.ts"), "utf8")
+const miniprogramPackage = JSON.parse(
+  readFileSync(path.join(repoRoot, "apps/miniprogram/package.json"), "utf8")
+) as { version: string }
 const panelPageSource = readFileSync(
   path.join(repoRoot, "apps/miniprogram/src/pages/panel/index.tsx"),
   "utf8"
@@ -26,6 +30,7 @@ const demoPageShellSource = readFileSync(
   path.join(repoRoot, "apps/miniprogram/src/demo/demo-page.tsx"),
   "utf8"
 )
+const demoShareSource = readFileSync(path.join(repoRoot, "apps/miniprogram/src/demo/share.ts"), "utf8")
 const tokenSource = readFileSync(path.join(repoRoot, "packages/ui/src/styles/index.css"), "utf8")
 
 const requiredCssVariables = [
@@ -92,9 +97,14 @@ describe("miniprogram demo theme switching", () => {
 
   it("keeps theme switching on the entry page only", () => {
     expect(indexPageSource).toContain("<ThemeSwitcher")
-    expect(indexPageSource).toContain("activeTheme.label")
     expect(indexPageSource).toContain("activeTheme.description")
     expect(indexPageSource).toContain("color={activeTheme.primaryColor}")
+    expect(indexPageSource).not.toContain("当前主题")
+    expect(indexPageSource).toContain('data-slot="demo-cache-version"')
+    expect(indexPageSource).toContain("缓存版本")
+    expect(indexPageSource).toContain("demoRelease.version")
+    expect(miniprogramPackage.version).not.toBe("0.0.0")
+    expect(releaseSource).toContain(`version: "${miniprogramPackage.version}"`)
     expect(panelPageSource).toContain("color={activeTheme.primaryColor}")
     expect(indexPageSource).not.toMatch(/import\s*\{[^}]*\bgetDemoTheme\b/)
     expect(panelPageSource).not.toMatch(/import\s*\{[^}]*\bgetDemoTheme\b/)
@@ -122,6 +132,21 @@ describe("miniprogram demo theme switching", () => {
   it("keeps button state demos compact and scan-friendly", () => {
     expect(demoPageShellSource).toContain('data-slot="button-state-row"')
     expect(demoPageShellSource).toContain("flex flex-row flex-wrap items-center justify-start gap-3")
+  })
+
+  it("enables WeChat sharing across generated demo pages", () => {
+    expect(demoShareSource).toContain("useShareAppMessage")
+    expect(demoShareSource).toContain("useShareTimeline")
+    expect(demoShareSource).toContain("enableShareAppMessage")
+    expect(demoShareSource).toContain("enableShareTimeline")
+    expect(demoPageShellSource).toContain("useDemoPageShare")
+    expect(demoPageShellSource).toContain("sharePath")
+    expect(demoPageShellSource).toContain("component.route")
+    expect(demoPageShellSource).toContain("enableDemoPageShare(ComponentDemoPage)")
+    expect(demoPageShellSource).toContain("openType=\"share\"")
+    expect(indexPageSource).toContain("enableDemoPageShare(IndexPage)")
+    expect(panelPageSource).toContain("enableDemoPageShare(PanelPage)")
+    expect(componentPageSource).toContain("enableDemoPageShare(ComponentPage)")
   })
 
   it("keeps every demo theme backed by a complete semantic token set", () => {

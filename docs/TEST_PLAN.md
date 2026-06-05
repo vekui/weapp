@@ -15,6 +15,7 @@ pnpm --filter vekui test
 ## Manual
 
 - Open `apps/miniprogram` in WeChat Developer Tools.
+- For upload workflow checks, run `pnpm upload:miniprogram -- --version <version> --dry-run` before uploading without `--dry-run`.
 - Verify `pages/index/index` renders the component catalog.
 - Verify category badge counts match `getCategoryComponents(category.id).length`.
 - Verify category cards open `pages/panel/index?id=<category>`.

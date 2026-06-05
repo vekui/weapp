@@ -257,6 +257,7 @@ pnpm check:ui
 pnpm registry:build
 pnpm build:miniprogram
 pnpm build:docs
+pnpm upload:miniprogram -- --version 1.0.1
 ```
 
 `check:ui` runs the repository-specific UI guardrails:
@@ -264,6 +265,18 @@ pnpm build:docs
 - `check:ui:boundaries`
 - `check:ui:components`
 - `check:ui:tailwind`
+
+`upload:miniprogram` builds `apps/miniprogram` and uploads the Taro playground
+through the WeChat DevTools CLI:
+
+```bash
+pnpm upload:miniprogram -- --version 1.0.1
+pnpm upload:miniprogram -- --version 1.0.1 --desc "release smoke"
+```
+
+Set `WECHAT_DEVTOOLS_CLI` if WeChat DevTools is installed somewhere other than
+`/Applications/wechatwebdevtools.app/Contents/MacOS/cli`. Use `--dry-run` to
+print the build and upload commands without running them.
 
 ## Mini-Program Compatibility Rules
 

@@ -15,7 +15,8 @@
     "dev:miniprogram": "pnpm --filter @vekui/miniprogram dev:weapp",
     "registry:build": "pnpm --filter @vekui/registry build",
     "test": "pnpm -r --if-present test",
-    "typecheck": "pnpm -r --if-present typecheck"
+    "typecheck": "pnpm -r --if-present typecheck",
+    "upload:miniprogram": "node scripts/upload-miniprogram.mjs"
   },
   "devDependencies": {
     "@types/node": "24.10.2",

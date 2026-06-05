@@ -244,6 +244,7 @@ pnpm check:ui
 pnpm registry:build
 pnpm build:miniprogram
 pnpm build:docs
+pnpm upload:miniprogram -- --version 1.0.1
 ```
 
 `check:ui` 会运行项目特有的 UI 门禁：
@@ -251,6 +252,17 @@ pnpm build:docs
 - `check:ui:boundaries`
 - `check:ui:components`
 - `check:ui:tailwind`
+
+`upload:miniprogram` 会先构建 `apps/miniprogram`，再通过微信开发者工具 CLI
+上传 Taro playground：
+
+```bash
+pnpm upload:miniprogram -- --version 1.0.1
+pnpm upload:miniprogram -- --version 1.0.1 --desc "release smoke"
+```
+
+如果微信开发者工具不在默认位置，可以设置 `WECHAT_DEVTOOLS_CLI` 指向实际 CLI
+路径。需要先检查命令时，可以加 `--dry-run` 只打印构建和上传命令。
 
 ## 小程序兼容规则
 

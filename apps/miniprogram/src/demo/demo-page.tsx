@@ -121,6 +121,7 @@ import {
 } from "@vekui/weapp"
 
 import { getDemoComponent } from "./catalog"
+import { enableDemoPageShare, useDemoPageShare } from "./share"
 import { getDemoThemeClassName, useDemoTheme } from "./theme"
 
 type DemoPanelProps = React.PropsWithChildren<{
@@ -145,8 +146,9 @@ function DemoPanel({ children, title }: DemoPanelProps) {
   )
 }
 
-function DemoPageShell({ children, title }: React.PropsWithChildren<{ title: string }>) {
+function DemoPageShell({ children, sharePath, title }: React.PropsWithChildren<{ sharePath?: string; title: string }>) {
   const [themeId] = useDemoTheme()
+  useDemoPageShare({ path: sharePath, title })
 
   return (
     <Box className={`${getDemoThemeClassName(themeId)} min-h-screen bg-background pb-8`}>
@@ -1548,16 +1550,19 @@ function renderDemo(slug: string) {
 
 export function DemoComponentPage({ slug }: DemoPageProps) {
   const component = getDemoComponent(slug)
+  const sharePath = component ? `/${component.route}` : undefined
 
   return (
-    <DemoPageShell title={component?.title ?? "VekUI"}>
+    <DemoPageShell title={component?.title ?? "VekUI"} sharePath={sharePath}>
       {renderDemo(slug)}
     </DemoPageShell>
   )
 }
 
 export function makeDemoPage(slug: string) {
-  return function ComponentDemoPage() {
+  function ComponentDemoPage() {
     return <DemoComponentPage slug={slug} />
   }
+
+  return enableDemoPageShare(ComponentDemoPage)
 }
